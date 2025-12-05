@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/splash_screen1.dart';
 
 void main(){
   runApp(const MyProject());
@@ -9,6 +10,10 @@ class MyProject extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return MaterialApp(
+      title: 'MyConcert',
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen1(),
+    );
   }
 }
