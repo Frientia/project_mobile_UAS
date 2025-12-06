@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_screen1.dart';
+import 'screens/splash_screen3.dart';
 
-void main(){
+void main() {
   runApp(const MyProject());
 }
 
@@ -13,7 +13,7 @@ class MyProject extends StatelessWidget {
     return MaterialApp(
       title: 'MyConcert',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen1(),
+      home: SplashScreen3(),
     );
   }
 }

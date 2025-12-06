@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SplashScreen1 extends StatelessWidget {
-  const SplashScreen1({super.key});
+class SplashScreen3 extends StatelessWidget {
+  const SplashScreen3({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SplashScreen1 extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage("assets/images/logo.png"),
+                      image: AssetImage("assets/images/example.png"),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -36,11 +36,8 @@ class SplashScreen1 extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Experience the best concerts around you.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[700],
-                  ),
+                  "Beli Ticket Konser Murah, Di MyConcert Aja!",
+                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                 ),
                 SizedBox(height: 30),
                 Row(
@@ -50,7 +47,7 @@ class SplashScreen1 extends StatelessWidget {
                       width: 12,
                       height: 12,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 174, 31, 202),
+                        color: Color(0xFFedede9),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -60,7 +57,7 @@ class SplashScreen1 extends StatelessWidget {
                       height: 12,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xFFedede9),
+                        color: const Color.fromARGB(255, 196, 123, 228),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -69,32 +66,37 @@ class SplashScreen1 extends StatelessWidget {
                       height: 12,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xFFedede9),
+                        color: const Color.fromARGB(255, 113, 50, 202),
                       ),
                     ),
                   ],
                 ),
                 Spacer(),
                 Container(
-                    margin: const EdgeInsets.only(left: 40, right: 40),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 174, 31, 202),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                          255,
+                          113,
+                          50,
+                          202,
                         ),
-                        child: const Text(
-                          'Continue',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
+                      ),
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                   ),
+                ),
                 SizedBox(height: 70),
               ],
             ),
