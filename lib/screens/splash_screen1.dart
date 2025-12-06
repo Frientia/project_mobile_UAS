@@ -30,6 +30,14 @@ class SplashScreen1 extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
+            SizedBox(height: 20),
+            Text(
+              "Experience the best concerts around you.",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey[700],
+              ),
+            ),
           ],
         ),
       ),
