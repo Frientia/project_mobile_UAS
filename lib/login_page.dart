@@ -5,6 +5,17 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Screen'),
+        backgroundColor: Colors.blue,
+      ),
+      body: const Center(
+        child: Text(
+          'Selamat datang di aplikasi!',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
   }
 }

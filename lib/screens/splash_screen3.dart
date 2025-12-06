@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/screens/splash_lottie.dart';
 
 class SplashScreen3 extends StatelessWidget {
   const SplashScreen3({super.key});
@@ -78,7 +79,15 @@ class SplashScreen3 extends StatelessWidget {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Next Pages
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SplashLottie(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(
                           255,
