@@ -21,6 +21,15 @@ class SplashScreen1 extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 40),
+            Text(
+              "Welcome to MyConcert",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
       ),
