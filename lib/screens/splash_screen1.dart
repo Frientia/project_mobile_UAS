@@ -46,7 +46,7 @@ class SplashScreen1 extends StatelessWidget {
                   width: 20,
                   height: 20,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(196, 122, 79, 143),
+                    color: const Color.fromARGB(255, 174, 31, 202),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -70,6 +70,27 @@ class SplashScreen1 extends StatelessWidget {
                 ),
               ],
             ),
+            Container(
+                margin: const EdgeInsets.only(left: 40, right: 40),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 174, 31, 202),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'Continue',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            SizedBox(height: 70),
           ],
         ),
       ),
