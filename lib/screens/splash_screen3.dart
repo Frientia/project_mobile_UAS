@@ -33,7 +33,7 @@ class SplashScreen3 extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
-                ),  
+                ),
                 SizedBox(height: 20),
                 Text(
                   "Beli Ticket Konser Murah, Di MyConcert Aja!",
@@ -47,7 +47,7 @@ class SplashScreen3 extends StatelessWidget {
                       width: 12,
                       height: 12,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 174, 31, 202),
+                        color: Color(0xFFedede9),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -57,7 +57,7 @@ class SplashScreen3 extends StatelessWidget {
                       height: 12,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xFFedede9),
+                        color: const Color.fromARGB(255, 196, 123, 228),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -66,12 +66,38 @@ class SplashScreen3 extends StatelessWidget {
                       height: 12,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xFFedede9),
+                        color: const Color.fromARGB(255, 113, 50, 202),
                       ),
                     ),
                   ],
                 ),
                 Spacer(),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                          255,
+                          113,
+                          50,
+                          202,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 70),
               ],
             ),
           ),
