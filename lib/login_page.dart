@@ -56,6 +56,7 @@ class LoginPage extends StatelessWidget {
 
                 TextField(
                   keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     hintText: 'Masukkan password Anda',
@@ -93,6 +94,26 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Belum punya akun? "),
+                      GestureDetector(
+                        onTap: () {
+                        },
+                        child: Text(
+                          "Daftar",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255,113,50,202,),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
               ],
             ),
           ),
