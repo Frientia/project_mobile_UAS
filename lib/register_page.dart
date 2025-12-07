@@ -120,6 +120,33 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      height: isTablet ? 55 : 45,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(
+                            255,
+                            113,
+                            50,
+                            202,
+                          ),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: Text(
+                          'Daftar',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: isTablet ? 18 : 16,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
