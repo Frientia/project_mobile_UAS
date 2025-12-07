@@ -161,7 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pop(
+                          Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => LoginPage(),
