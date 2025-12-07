@@ -86,7 +86,7 @@ class SplashScreen1 extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => splash_screen2(),
+                            builder: (context) => SplashScreen2(),
                           ),
                         );
                       },

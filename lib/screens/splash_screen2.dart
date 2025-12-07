@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_uas/screens/splash_screen2.dart';
 import 'package:mobile_uas/screens/splash_screen3.dart';
 
-class splash_screen2 extends StatelessWidget {
-  const splash_screen2({super.key});
+class SplashScreen2 extends StatelessWidget {
+  const SplashScreen2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,53 @@ class splash_screen2 extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 40),
+              Text(
+                "Welcome My Concert",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                "YUK LIHAT LANGSUNG PERFOM MUSISI IDOLA MU",
+                style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+              ),
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFedede9),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color.fromARGB(255, 174, 31, 202),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                ],
+              ),
+              Spacer(),
+
             ],
           ),
         ),
