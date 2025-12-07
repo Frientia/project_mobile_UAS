@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_uas/screens/splash_screen2.dart';
 import 'package:mobile_uas/screens/splash_screen3.dart';
 
 class SplashScreen2 extends StatelessWidget {
@@ -72,7 +71,7 @@ class SplashScreen2 extends StatelessWidget {
                 ],
               ),
               Spacer(),
-Container(
+              Container(
                 margin: const EdgeInsets.only(left: 40, right: 40),
                 child: SizedBox(
                   width: double.infinity,
