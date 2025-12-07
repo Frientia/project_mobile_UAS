@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -159,7 +160,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
+                        },
                         child: Text(
                           'Sudah Punya Akun? Login Sekarang',
                           style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -102,6 +103,12 @@ class LoginPage extends StatelessWidget {
                       Text("Belum punya akun? "),
                       GestureDetector(
                         onTap: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegisterPage(),
+                          ),
+                        );
                         },
                         child: Text(
                           "Daftar",
