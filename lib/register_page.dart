@@ -64,6 +64,22 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
+                    // Alamat Email
+                    TextField(
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        hintText: 'Masukkan Email Anda',
+                        hintStyle: const TextStyle(
+                          color: Color.fromARGB(255, 113, 50, 202),
+                        ),
+                        prefixIcon: const Icon(Icons.person_outline),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     // No Handphone
                     TextField(
                       keyboardType: TextInputType.phone,
