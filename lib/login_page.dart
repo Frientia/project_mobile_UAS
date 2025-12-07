@@ -15,14 +15,14 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 60),
-                Icon(Icons.lock_outline, size: 100, color: Colors.purple),
+                Icon(Icons.lock_outline, size: 100, color: const Color.fromARGB(255,113,50,202,)),
                 SizedBox(height: 20),
                 Text(
                   'Login to MyConcert',
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
-                    color: Colors.purple,
+                    color: const Color.fromARGB(255,113,50,202,),
                   ),
                 ),
                 SizedBox(height: 8),
@@ -30,6 +30,52 @@ class LoginPage extends StatelessWidget {
                   'Silahkan Login untuk melanjutkan',
                   style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                 ),
+
+                SizedBox(height: 40),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    hintText: 'Masukkan email Anda',
+                    prefixIcon: Icon(Icons.email_outlined),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(color: const Color.fromARGB(255,113,50,202,), width: 2),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 20),
+
+                TextField(
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    hintText: 'Masukkan password Anda',
+                    prefixIcon: Icon(Icons.password_outlined),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(color: const Color.fromARGB(255,113,50,202,), width: 2),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 20),
+
               ],
             ),
           ),

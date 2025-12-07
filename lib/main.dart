@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/screens/splash_screen3.dart';
 import 'screens/splash_screen1.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyProject extends StatelessWidget {
     return MaterialApp(
       title: 'MyConcert',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen1(),
+      home: SplashScreen3(),
     );
   }
 }
