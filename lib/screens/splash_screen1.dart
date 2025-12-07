@@ -36,7 +36,7 @@ class SplashScreen1 extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Dapatkan Pengalaman terbaik\nuntuk mencari tiket konser favoritmu",
+                  "     Dapatkan Pengalaman terbaik\nuntuk mencari tiket konser favoritmu",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[700],
@@ -50,7 +50,7 @@ class SplashScreen1 extends StatelessWidget {
                       width: 12,
                       height: 12,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 174, 31, 202),
+                        color: const Color.fromARGB(255,113,50,202,),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -60,7 +60,7 @@ class SplashScreen1 extends StatelessWidget {
                       height: 12,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xFFedede9),
+                        color: const Color.fromARGB(255, 196, 123, 228),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -83,7 +83,7 @@ class SplashScreen1 extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 174, 31, 202),
+                          backgroundColor: const Color.fromARGB(255,113,50,202,),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
