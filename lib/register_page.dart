@@ -57,6 +57,19 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    // No Handphone
+                    TextField(
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        labelText: 'No Handphone',
+                        hintText: 'Masukkan nomor HP Anda',
+                        prefixIcon: const Icon(Icons.phone_android_outlined),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
