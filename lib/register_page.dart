@@ -44,6 +44,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       "Silakan isi data untuk membuat akun",
                       style: TextStyle(fontSize: subtitleSize),
                     ),
+                    const SizedBox(height: 20),
+                    // Nama Lengkap
+                    TextField(
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        labelText: 'Nama Lengkap',
+                        hintText: 'Masukkan nama Anda',
+                        prefixIcon: const Icon(Icons.person_outline),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
