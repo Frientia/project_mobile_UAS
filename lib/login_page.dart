@@ -10,9 +10,9 @@ class LoginPage extends StatelessWidget {
         child: Center(
           child: Container(
             padding: const EdgeInsets.all(16.0),
-            child: const Text(
-              'Login',
-              style: TextStyle(fontSize: 24),
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Column(
+              children: [],
             ),
           ),
         ),
