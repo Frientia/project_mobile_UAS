@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_uas/register_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _obscurePassword = true;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,11 +64,21 @@ class LoginPage extends StatelessWidget {
 
                 TextField(
                   keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
+                  obscureText: _obscurePassword,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     hintText: 'Masukkan password Anda',
                     prefixIcon: Icon(Icons.password_outlined),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
@@ -120,7 +137,6 @@ class LoginPage extends StatelessWidget {
                       ),
                     ],
                   ),
-
               ],
             ),
           ),
