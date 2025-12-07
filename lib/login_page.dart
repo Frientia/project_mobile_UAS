@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _obscurePassword = true;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +63,21 @@ class LoginPage extends StatelessWidget {
 
                 TextField(
                   keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
+                  obscureText: _obscurePassword,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     hintText: 'Masukkan password Anda',
                     prefixIcon: Icon(Icons.password_outlined),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
@@ -95,25 +112,24 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Belum punya akun? "),
-                      GestureDetector(
-                        onTap: () {
-                        },
-                        child: Text(
-                          "Daftar",
-                          style: TextStyle(
-                            color: const Color.fromARGB(255,113,50,202,),
-                            fontWeight: FontWeight.bold,
-                          ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Belum punya akun? "),
+                    GestureDetector(
+                      onTap: () {
+                      },
+                      child: Text(
+                        "Daftar",
+                        style: TextStyle(
+                          color: const Color.fromARGB(255,113,50,202,),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  ),
-
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
