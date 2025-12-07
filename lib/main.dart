@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_screen1.dart';
+import 'package:mobile_uas/register_page.dart';
 
 void main() {
   runApp(const MyProject());
@@ -13,7 +13,7 @@ class MyProject extends StatelessWidget {
     return MaterialApp(
       title: 'MyConcert',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen1(),
+      home: RegisterPage(),
     );
   }
 }
