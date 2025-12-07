@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/screens/splash_screen2.dart';
 
 class SplashScreen1 extends StatelessWidget {
   const SplashScreen1({super.key});
@@ -20,7 +21,7 @@ class SplashScreen1 extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage("assets/images/logo.png"),
+                      image: AssetImage("assets/images/myconcert.png"),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -81,7 +82,14 @@ class SplashScreen1 extends StatelessWidget {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SplashScreen2(),
+                          ),
+                        );
+                      },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255,113,50,202,),
                           shape: RoundedRectangleBorder(
