@@ -120,7 +120,22 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 24),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Sudah Punya Akun? Login Sekarang',
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 113, 50, 202),
+                            fontSize: isTablet ? 16 : 14,
+                          ),
+                        ),
+                      ),
+                    ),
+
                     SizedBox(
                       width: double.infinity,
                       height: isTablet ? 55 : 45,
