@@ -9,6 +9,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +89,30 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           onPressed: () => setState(
                             () => _obscurePassword = !_obscurePassword,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Konfirmasi Password
+                    TextField(
+                      obscureText: _obscureConfirmPassword,
+                      decoration: InputDecoration(
+                        labelText: 'Konfirmasi Password',
+                        hintText: 'Ulangi password Anda',
+                        prefixIcon: const Icon(Icons.lock_reset_outlined),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureConfirmPassword
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
+                          ),
+                          onPressed: () => setState(
+                            () => _obscureConfirmPassword =
+                                !_obscureConfirmPassword,
                           ),
                         ),
                         border: OutlineInputBorder(
