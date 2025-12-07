@@ -54,6 +54,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         labelText: 'Nama Lengkap',
                         hintText: 'Masukkan nama Anda',
+                        hintStyle: const TextStyle(
+                          color: Color.fromARGB(255, 113, 50, 202),
+                        ),
                         prefixIcon: const Icon(Icons.person_outline),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -67,6 +70,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         labelText: 'No Handphone',
                         hintText: 'Masukkan nomor HP Anda',
+                        hintStyle: const TextStyle(
+                          color: Color.fromARGB(255, 113, 50, 202),
+                        ),
                         prefixIcon: const Icon(Icons.phone_android_outlined),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -80,6 +86,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         labelText: 'Password',
                         hintText: 'Masukkan password',
+                        hintStyle: const TextStyle(
+                          color: Color.fromARGB(255, 113, 50, 202),
+                        ),
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -90,6 +99,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           onPressed: () => setState(
                             () => _obscurePassword = !_obscurePassword,
                           ),
+                          tooltip: _obscurePassword
+                              ? 'Tampilkan Password'
+                              : 'Sembunyikan Password',
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -103,6 +115,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         labelText: 'Konfirmasi Password',
                         hintText: 'Ulangi password Anda',
+                        hintStyle: const TextStyle(
+                          color: Color.fromARGB(255, 113, 50, 202),
+                        ),
                         prefixIcon: const Icon(Icons.lock_reset_outlined),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -114,6 +129,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             () => _obscureConfirmPassword =
                                 !_obscureConfirmPassword,
                           ),
+                          tooltip: _obscurePassword
+                              ? 'Tampilkan Password'
+                              : 'Sembunyikan Password',
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
