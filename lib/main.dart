@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/firebase_options.dart';
 import 'screens/splash_screen1.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyProject());
 }
 
