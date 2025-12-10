@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:mobile_uas/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -74,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintStyle: const TextStyle(
                           color: Color.fromARGB(255, 113, 50, 202),
                         ),
-                        prefixIcon: const Icon(Icons.person_outline),
+                        prefixIcon: const Icon(Icons.email_outlined),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -159,21 +160,34 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(height: 24),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginPage(),
-                          ),
-                        );
-                        },
-                        child: Text(
-                          'Sudah Punya Akun? Login Sekarang',
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 113, 50, 202),
-                            fontSize: isTablet ? 16 : 14,
-                          ),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Sudah Punya Akun? ',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: isTablet ? 16 : 14,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Login Sekarang',
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 113, 50, 202),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginPage(),
+                                    ),
+                                  );
+                                },
+                            ),
+                          ],
                         ),
                       ),
                     ),
