@@ -89,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 SizedBox(height: 40),
                 TextField(
+                  controller: emailCtrl,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: 'Email',
@@ -111,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20),
 
                 TextField(
+                  controller: passCtrl,
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
