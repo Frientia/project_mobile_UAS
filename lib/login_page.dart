@@ -144,6 +144,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 SizedBox(height: 20),
+                if (_error != null)
+                  Text(_error!, style: const TextStyle(color: Colors.red)),
+                  const SizedBox(height: 16),
 
                 SizedBox(
                   width: double.infinity,
