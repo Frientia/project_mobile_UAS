@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintStyle: const TextStyle(
                           color: Color.fromARGB(255, 113, 50, 202),
                         ),
-                        prefixIcon: const Icon(Icons.person_outline),
+                        prefixIcon: const Icon(Icons.email_outlined),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
