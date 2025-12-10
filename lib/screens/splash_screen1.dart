@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/screens/splash_screen2.dart';
 
 class SplashScreen1 extends StatelessWidget {
   const SplashScreen1({super.key});
@@ -20,7 +21,7 @@ class SplashScreen1 extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage("assets/images/logo.png"),
+                      image: AssetImage("assets/images/myconcert.png"),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -36,7 +37,7 @@ class SplashScreen1 extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Dapatkan Pengalaman terbaik\nuntuk mencari tiket konser favoritmu",
+                  "     Dapatkan Pengalaman terbaik\nuntuk mencari tiket konser favoritmu",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[700],
@@ -50,7 +51,7 @@ class SplashScreen1 extends StatelessWidget {
                       width: 12,
                       height: 12,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 174, 31, 202),
+                        color: const Color.fromARGB(255,113,50,202,),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -60,7 +61,7 @@ class SplashScreen1 extends StatelessWidget {
                       height: 12,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xFFedede9),
+                        color: const Color.fromARGB(255, 196, 123, 228),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -81,9 +82,16 @@ class SplashScreen1 extends StatelessWidget {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SplashScreen2(),
+                          ),
+                        );
+                      },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 174, 31, 202),
+                          backgroundColor: const Color.fromARGB(255,113,50,202,),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
