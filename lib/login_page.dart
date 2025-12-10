@@ -152,14 +152,16 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _isLoading ? null : _logins,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255,113,50,202,),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Text(
+                    child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text(
                       'Login',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
