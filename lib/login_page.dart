@@ -39,17 +39,17 @@ class _LoginPageState extends State<LoginPage> {
           content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.pop(context);
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
               child: const Text('OK'),
             ),
           ],
-        ),
-      );
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const HomePage(),
         ),
       );
     } on FirebaseAuthException catch (e) {
