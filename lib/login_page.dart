@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_uas/register_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mobile_uas/screens/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,7 +11,61 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final emailCtrl = TextEditingController();
+  final passCtrl = TextEditingController();
+  bool _isLoading = false;
+    String? _error;
   bool _obscurePassword = true;
+
+  Future<void> _logins() async {
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailCtrl.text.trim(),
+        password: passCtrl.text,
+      );
+
+      final user = credential.user;
+      if (!mounted) return;
+
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('Login Success'),
+          content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _error = e.message;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -41,6 +97,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 SizedBox(height: 40),
                 TextField(
+                  controller: emailCtrl,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: 'Email',
@@ -63,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20),
 
                 TextField(
+                  controller: passCtrl,
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
@@ -94,19 +152,24 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 SizedBox(height: 20),
+                if (_error != null)
+                  Text(_error!, style: const TextStyle(color: Colors.red)),
+                  const SizedBox(height: 16),
 
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _isLoading ? null : _logins,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255,113,50,202,),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Text(
+                    child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text(
                       'Login',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),

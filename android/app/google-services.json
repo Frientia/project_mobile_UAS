@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "764567465724",
+    "project_id": "myconcert-297e6",
+    "storage_bucket": "myconcert-297e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764567465724:android:0040b7cf5481b85ab33179",
+        "android_client_info": {
+          "package_name": "com.example.mobile_uas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA26m1iqf1YyYGSqiBVzmVhmwyRAnVriIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764567465724:android:8ec1bc2daaa39649b33179",
+        "android_client_info": {
+          "package_name": "com.frientia.myconcert"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA26m1iqf1YyYGSqiBVzmVhmwyRAnVriIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
