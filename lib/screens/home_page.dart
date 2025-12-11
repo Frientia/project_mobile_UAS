@@ -110,6 +110,26 @@ class _HomePageState extends State<HomePage> {
           ),
 
           const SizedBox(height: 20),
+// =============================
+          // TITLE SECTION
+          // =============================
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: const [
+                Expanded(
+                  child: Text(
+                    "Events of The Month",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Icon(Icons.arrow_forward_ios, size: 17),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
 
         ],
       ),
