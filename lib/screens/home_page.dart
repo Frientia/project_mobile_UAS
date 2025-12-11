@@ -10,15 +10,50 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = const [
-    Center(
-      child: Text(
-        "My Text",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 22),
-      ),
+  // =============================
+  // PAGES (Home, Profile, Settings)
+  // =============================
+  final List<Widget> _pages = [
+    // =========================
+    // HOME PAGE + HERO BANNER
+    // =========================
+    ListView(
+      padding: const EdgeInsets.all(0),
+      children: [
+        // ===== HERO BANNER =====
+        Container(
+          margin: const EdgeInsets.all(16),
+          height: 180,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            image: const DecorationImage(
+              image: AssetImage(
+                "assets/images/hindia.png",
+              ), // ganti asset kamu
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 12),
+
+        // ===== SECTION TITLE =====
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            "Events of The Month",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+
+        const SizedBox(height: 20),
+      ],
     ),
-    Center(
+
+    // =========================
+    // PROFILE PAGE
+    // =========================
+    const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +64,11 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     ),
-    Center(
+
+    // =========================
+    // SETTINGS PAGE
+    // =========================
+    const Center(
       child: Text(
         "Ini halaman Settings",
         textAlign: TextAlign.center,
@@ -38,6 +77,7 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
+  // UNTUK PINDAH HALAMAN
   void _navigateToPage(int index) {
     setState(() {
       _selectedIndex = index;
@@ -50,7 +90,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.pink[50],
       appBar: AppBar(
         title: const Text(
-          "Rismanita App",
+          "MyConcert",
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
         backgroundColor: Colors.pinkAccent,
@@ -58,7 +98,7 @@ class _HomePageState extends State<HomePage> {
       ),
 
       // =========================
-      // Drawer (Dibuat lebih clean)
+      // DRAWER
       // =========================
       drawer: Drawer(
         child: SafeArea(
@@ -79,11 +119,11 @@ class _HomePageState extends State<HomePage> {
                   children: const [
                     CircleAvatar(
                       radius: 35,
-                      backgroundImage: AssetImage("assets/loopy lembur.jpg"),
+                      backgroundImage: AssetImage("assets/images/hindia.png"),
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "Rismanita Lestari",
+                      "My Concert",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -143,12 +183,12 @@ class _HomePageState extends State<HomePage> {
       ),
 
       // =========================
-      // Body (Mirip struktur SplashScreen1 → clean & center)
+      // BODY
       // =========================
       body: SafeArea(child: _pages[_selectedIndex]),
 
       // =========================
-      // Bottom Navigation Bar
+      // BOTTOM NAVIGATION
       // =========================
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -165,6 +205,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
 
+      // FAB BUTTON
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.pinkAccent,
         child: const Icon(Icons.add, color: Colors.white),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobile_uas/login_page.dart';
+import 'package:mobile_uas/screens/home_page.dart';
 
 class SplashLottie extends StatefulWidget {
   const SplashLottie({super.key});
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashLottie> {
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
+      MaterialPageRoute(builder: (context) => const HomePage()),
       (Route<dynamic> route) => false,
     );
   }
