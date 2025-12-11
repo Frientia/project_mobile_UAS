@@ -93,6 +93,24 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          const SizedBox(height: 15),
+
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            height: 180,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              image: const DecorationImage(
+                image: AssetImage(
+                  "assets/images/example.png",
+                ), 
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
         ],
       ),
     );
