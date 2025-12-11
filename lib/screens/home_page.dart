@@ -16,15 +16,17 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: const Color(0xfff3eaff),
       appBar: AppBar(
         backgroundColor: const Color(0xfff3eaff),
-        title: const Text("MyConcert"),
         elevation: 0,
+        title: const Text("MyConcert", style: TextStyle(color: Colors.black)),
       ),
-      drawer: const Drawer(child: Center(child: Text("Drawer"))),
+      drawer: const Drawer(),
 
       body: _selectedIndex == 0 ? _buildHomeUI() : _dummy(),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
+        selectedItemColor: Colors.deepPurpleAccent,
+        unselectedItemColor: Colors.grey,
         onTap: (i) => setState(() => _selectedIndex = i),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -41,7 +43,57 @@ class _HomePageState extends State<HomePage> {
   Widget _buildHomeUI() {
     return SingleChildScrollView(
       child: Column(
-        children: const [SizedBox(height: 20), Text("Home UI Placeholder")],
+        children: [
+          const SizedBox(height: 10),
+
+          // SEARCH BAR
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 45,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.search, color: Colors.grey),
+                        SizedBox(width: 8),
+                        Text(
+                          "Cari di ...",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(width: 12),
+
+                Container(
+                  height: 45,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Row(
+                    children: const [
+                      Icon(Icons.location_on, color: Colors.redAccent),
+                      SizedBox(width: 6),
+                      Text("Semua Lokasi"),
+                      Icon(Icons.arrow_drop_down),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
