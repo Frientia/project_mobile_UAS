@@ -13,10 +13,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("MyConcert")),
+      backgroundColor: const Color(0xfff3eaff),
+      appBar: AppBar(
+        backgroundColor: const Color(0xfff3eaff),
+        title: const Text("MyConcert"),
+        elevation: 0,
+      ),
       drawer: const Drawer(child: Center(child: Text("Drawer"))),
 
-      body: const Center(child: Text("Home Page")),
+      body: _selectedIndex == 0 ? _buildHomeUI() : _dummy(),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -31,5 +36,17 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  Widget _buildHomeUI() {
+    return SingleChildScrollView(
+      child: Column(
+        children: const [SizedBox(height: 20), Text("Home UI Placeholder")],
+      ),
+    );
+  }
+
+  Widget _dummy() {
+    return const Center(child: Text("Halaman lain"));
   }
 }
