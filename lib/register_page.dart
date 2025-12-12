@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_uas/login_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -13,6 +14,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _isLoading = false;
 
   // Controller
   final TextEditingController namaController = TextEditingController();
@@ -22,56 +24,81 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController confirmController = TextEditingController();
 
   // Register ke Firebase
-  Future<void> registerUser() async {
-    final nama = namaController.text.trim();
+  Future<void> registerUser({
+    required String email,
+    required String password,
+    required String fullName,
+    required String phone,
+  }) async {
+    final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    final firebaseUid = cred.user!.uid;
+
+    //Insert ke Supabase
+    final supabase = Supabase.instance.client;
+
+    await supabase.from('users').insert({
+      'firebase_uid': firebaseUid,
+      'name': fullName,
+      'email': email,
+      'phone': phone,
+    });
+  }
+
+  Future<void> handleRegister() async {
     final email = emailController.text.trim();
-    final hp = hpController.text.trim();
     final password = passController.text.trim();
-    final confirm = confirmController.text.trim();
+    final confirmPassword = confirmController.text.trim();
+    final fullName = namaController.text.trim();
+    final phone = hpController.text.trim();
 
-    // Validasi
-    if (nama.isEmpty || email.isEmpty || hp.isEmpty || password.isEmpty) {
+    if (fullName.isEmpty ||
+        email.isEmpty ||
+        phone.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("Semua field harus diisi")));
+      ).showSnackBar(const SnackBar(content: Text('Semua field harus diisi')));
+      return;
+    }
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password dan konfirmasi tidak sesuai')),
+      );
       return;
     }
 
-    if (password != confirm) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Password tidak sama")));
-      return;
-    }
+    setState(() {
+      _isLoading = true;
+    });
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await registerUser(
         email: email,
         password: password,
+        fullName: fullName,
+        phone: phone,
       );
 
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("Registrasi berhasil")));
-
+      ).showSnackBar(const SnackBar(content: Text('Registrasi berhasil')));
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),
       );
-    } on FirebaseAuthException catch (e) {
-      String message = "Terjadi kesalahan";
-
-      if (e.code == "email-already-in-use") {
-        message = "Email sudah digunakan";
-      } else if (e.code == "invalid-email") {
-        message = "Format email tidak valid";
-      } else if (e.code == "weak-password") {
-        message = "Password terlalu lemah";
-      }
-
+    } catch (e) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(message)));
+      ).showSnackBar(SnackBar(content: Text('Gagal registrasi: $e')));
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -264,7 +291,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: double.infinity,
                       height: isTablet ? 55 : 45,
                       child: ElevatedButton(
-                        onPressed: registerUser,
+                        onPressed: _isLoading ? null : handleRegister,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(
                             255,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_uas/screens/home_page.dart';
 import 'package:mobile_uas/screens/splash_screen2.dart';
 
 class SplashScreen1 extends StatelessWidget {
@@ -87,7 +86,7 @@ class SplashScreen1 extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePage(),
+                            builder: (context) => SplashScreen2(),
                           ),
                         );
                       },
