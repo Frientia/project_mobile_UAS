@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_uas/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_uas/screens/home_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -30,6 +31,17 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       final user = credential.user;
+      final uid = user!.uid;
+
+      final supabase = Supabase.instance.client;
+      final data = await supabase
+          .from('users')
+          .select('name')
+          .eq('firebase_uid', uid)
+          .maybeSingle();
+
+      final fullName = data?['name'] ?? "User";
+
       if (!mounted) return;
 
       showDialog(
