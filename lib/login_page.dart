@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (_) => AlertDialog(
           title: const Text('Login Success'),
-          content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
+          content: Text('Anda berhasil login\nSelamat datang, $fullName'),
           actions: [
             TextButton(
               onPressed: () {
