@@ -20,10 +20,15 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadSession() async {
     final prefs = await SharedPreferences.getInstance();
+    final n = prefs.getString('name');
+
+    print("DEBUG SESSION: $n"); // lihat di terminal
+
     setState(() {
-      _name = prefs.getString('name') ?? "User";
+      _name = n ?? "User";
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
