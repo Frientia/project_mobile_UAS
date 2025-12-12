@@ -24,12 +24,29 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController confirmController = TextEditingController();
 
   // Register ke Firebase
-  Future<void> registerUser() async {
-    final nama = namaController.text.trim();
-    final email = emailController.text.trim();
-    final hp = hpController.text.trim();
-    final password = passController.text.trim();
-    final confirm = confirmController.text.trim();
+  // Register ke Firebase
+  Future<void> registerUser({
+    required String email,
+    required String password,
+    required String fullName,
+    required String phone,
+  }) async {
+    final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    final firebaseUid = cred.user!.uid;
+
+    //Insert ke Supabase
+    final supabase = Supabase.instance.client;
+
+    await supabase.from('users').insert({
+      'firebase_uid': firebaseUid,
+      'name': fullName,
+      'email': email,
+      'phone': phone,
+    });
   }
 
   @override
