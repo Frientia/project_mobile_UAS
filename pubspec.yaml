@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^6.1.2
   flutter_dotenv: ^6.0.0
   supabase_flutter: ^2.12.0
+  shared_preferences: ^2.5.4
 
 dev_dependencies:
   flutter_test:
@@ -59,6 +60,7 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
+    - .env
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,6 +10,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  String _name = "User";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSession();
+  }
+
+  Future<void> _loadSession() async {
+    final prefs = await SharedPreferences.getInstance();
+    final n = prefs.getString('name');
+
+    print("DEBUG SESSION: $n"); // lihat di terminal
+
+    setState(() {
+      _name = n ?? "User";
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +38,15 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         backgroundColor: const Color(0xfff3eaff),
         foregroundColor: Colors.black87,
-        title: const Text(
-          "MyConcert",
-          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
+        title: Text(
+          "Welcome, $_name",
+          style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
         ),
       ),
 
-      drawer: const Drawer(child: Center(child: Text("Drawer"))),
+      drawer: Drawer(
+        child: Center(child: Text("Hello $_name")),
+      ),
 
       body: _selectedIndex == 0 ? _buildHomeUI() : _dummy(),
 

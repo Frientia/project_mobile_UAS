@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_uas/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_uas/screens/home_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -30,13 +32,28 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       final user = credential.user;
+      final uid = user!.uid;
+
+      final supabase = Supabase.instance.client;
+      final data = await supabase
+          .from('users')
+          .select('name')
+          .eq('firebase_uid', uid)
+          .maybeSingle();
+
+      final fullName = data?['name'] ?? "User";
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('uid', uid);
+      await prefs.setString('name', fullName);
       if (!mounted) return;
 
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: const Text('Login Success'),
-          content: Text('UID: ${user?.uid}\nEmail: ${user?.email}'),
+          content: Text('Anda berhasil login\nSelamat datang, $fullName'),
           actions: [
             TextButton(
               onPressed: () {
