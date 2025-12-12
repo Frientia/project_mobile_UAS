@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_uas/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -13,9 +14,71 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
+  // Controller
+  final TextEditingController namaController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController hpController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController confirmController = TextEditingController();
+
+  // Register ke Firebase
+  Future<void> registerUser() async {
+    final nama = namaController.text.trim();
+    final email = emailController.text.trim();
+    final hp = hpController.text.trim();
+    final password = passController.text.trim();
+    final confirm = confirmController.text.trim();
+
+    // Validasi
+    if (nama.isEmpty || email.isEmpty || hp.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Semua field harus diisi")));
+      return;
+    }
+
+    if (password != confirm) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Password tidak sama")));
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Registrasi berhasil")));
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message = "Terjadi kesalahan";
+
+      if (e.code == "email-already-in-use") {
+        message = "Email sudah digunakan";
+      } else if (e.code == "invalid-email") {
+        message = "Format email tidak valid";
+      } else if (e.code == "weak-password") {
+        message = "Password terlalu lemah";
+      }
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -37,6 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: const Color.fromARGB(255, 113, 50, 202),
                     ),
                     const SizedBox(height: 20),
+
                     Text(
                       "Register",
                       style: TextStyle(
@@ -44,69 +108,71 @@ class _RegisterPageState extends State<RegisterPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+
                     const SizedBox(height: 8),
+
                     Text(
                       "Silakan isi data untuk membuat akun",
                       style: TextStyle(fontSize: subtitleSize),
                     ),
+
                     const SizedBox(height: 20),
+
                     // Nama Lengkap
                     TextField(
+                      controller: namaController,
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: 'Nama Lengkap',
                         hintText: 'Masukkan nama Anda',
-                        hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 113, 50, 202),
-                        ),
                         prefixIcon: const Icon(Icons.person_outline),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 20),
-                    // Alamat Email
+
+                    // Email
                     TextField(
-                      keyboardType: TextInputType.name,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         hintText: 'Masukkan Email Anda',
-                        hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 113, 50, 202),
-                        ),
                         prefixIcon: const Icon(Icons.email_outlined),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 20),
-                    // No Handphone
+
+                    // No HP
                     TextField(
+                      controller: hpController,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         labelText: 'No Handphone',
                         hintText: 'Masukkan nomor HP Anda',
-                        hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 113, 50, 202),
-                        ),
                         prefixIcon: const Icon(Icons.phone_android_outlined),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 20),
+
                     // Password
                     TextField(
+                      controller: passController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         hintText: 'Masukkan password',
-                        hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 113, 50, 202),
-                        ),
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -114,28 +180,27 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ? Icons.visibility_off_outlined
                                 : Icons.visibility_outlined,
                           ),
-                          onPressed: () => setState(
-                            () => _obscurePassword = !_obscurePassword,
-                          ),
-                          tooltip: _obscurePassword
-                              ? 'Tampilkan Password'
-                              : 'Sembunyikan Password',
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 20),
+
                     // Konfirmasi Password
                     TextField(
+                      controller: confirmController,
                       obscureText: _obscureConfirmPassword,
                       decoration: InputDecoration(
                         labelText: 'Konfirmasi Password',
                         hintText: 'Ulangi password Anda',
-                        hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 113, 50, 202),
-                        ),
                         prefixIcon: const Icon(Icons.lock_reset_outlined),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -143,13 +208,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ? Icons.visibility_off_outlined
                                 : Icons.visibility_outlined,
                           ),
-                          onPressed: () => setState(
-                            () => _obscureConfirmPassword =
-                                !_obscureConfirmPassword,
-                          ),
-                          tooltip: _obscurePassword
-                              ? 'Tampilkan Password'
-                              : 'Sembunyikan Password',
+                          onPressed: () {
+                            setState(() {
+                              _obscureConfirmPassword =
+                                  !_obscureConfirmPassword;
+                            });
+                          },
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -158,6 +222,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
 
                     const SizedBox(height: 24),
+
                     Align(
                       alignment: Alignment.centerRight,
                       child: RichText(
@@ -182,7 +247,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => LoginPage(),
+                                      builder: (context) => const LoginPage(),
                                     ),
                                   );
                                 },
@@ -192,11 +257,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
 
+                    const SizedBox(height: 20),
+
+                    // Tombol Register
                     SizedBox(
                       width: double.infinity,
                       height: isTablet ? 55 : 45,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: registerUser,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(
                             255,
