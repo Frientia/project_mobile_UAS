@@ -24,7 +24,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController confirmController = TextEditingController();
 
   // Register ke Firebase
-  // Register ke Firebase
   Future<void> registerUser({
     required String email,
     required String password,
@@ -48,6 +47,32 @@ class _RegisterPageState extends State<RegisterPage> {
       'phone': phone,
     });
   }
+
+  Future<void> handleRegister() async {
+    final email = emailController.text.trim();
+    final password = passController.text.trim();
+    final confirmPassword = confirmController.text.trim();
+    final fullName = namaController.text.trim();
+    final phone = hpController.text.trim();
+
+    if (fullName.isEmpty ||
+        email.isEmpty ||
+        phone.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Semua field harus diisi')));
+      return;
+    }
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(
+        const SnackBar(content: Text('Password dan konfirmasi tidak sesuai')),
+      );
+      return;
+    }
 
   @override
   Widget build(BuildContext context) {
