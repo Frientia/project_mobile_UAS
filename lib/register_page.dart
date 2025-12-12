@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_uas/login_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -13,6 +14,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool isLoading = false;
 
   // Controller
   final TextEditingController namaController = TextEditingController();
@@ -28,51 +30,6 @@ class _RegisterPageState extends State<RegisterPage> {
     final hp = hpController.text.trim();
     final password = passController.text.trim();
     final confirm = confirmController.text.trim();
-
-    // Validasi
-    if (nama.isEmpty || email.isEmpty || hp.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Semua field harus diisi")));
-      return;
-    }
-
-    if (password != confirm) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Password tidak sama")));
-      return;
-    }
-
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Registrasi berhasil")));
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
-    } on FirebaseAuthException catch (e) {
-      String message = "Terjadi kesalahan";
-
-      if (e.code == "email-already-in-use") {
-        message = "Email sudah digunakan";
-      } else if (e.code == "invalid-email") {
-        message = "Format email tidak valid";
-      } else if (e.code == "weak-password") {
-        message = "Password terlalu lemah";
-      }
-
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(message)));
-    }
   }
 
   @override
