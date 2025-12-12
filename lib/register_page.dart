@@ -14,7 +14,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
-  bool isLoading = false;
+  bool _isLoading = false;
 
   // Controller
   final TextEditingController namaController = TextEditingController();
@@ -66,13 +66,41 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
     if (password != confirmPassword) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Password dan konfirmasi tidak sesuai')),
       );
       return;
     }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await registerUser(
+        email: email,
+        password: password,
+        fullName: fullName,
+        phone: phone,
+      );
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Registrasi berhasil')));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Gagal registrasi: $e')));
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -263,7 +291,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: double.infinity,
                       height: isTablet ? 55 : 45,
                       child: ElevatedButton(
-                        onPressed: registerUser,
+                        onPressed: _isLoading ? null : handleRegister,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(
                             255,
