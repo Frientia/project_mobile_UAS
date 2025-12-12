@@ -3,6 +3,7 @@ import 'package:mobile_uas/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_uas/screens/home_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,6 +43,10 @@ class _LoginPageState extends State<LoginPage> {
 
       final fullName = data?['name'] ?? "User";
 
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('uid', uid);
+      await prefs.setString('fullName', fullName);
       if (!mounted) return;
 
       showDialog(
