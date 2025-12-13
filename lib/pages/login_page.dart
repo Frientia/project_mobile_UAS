@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_uas/register_page.dart';
+import 'package:mobile_uas/pages/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mobile_uas/screens/home_page.dart';
+import 'package:mobile_uas/pages/home_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

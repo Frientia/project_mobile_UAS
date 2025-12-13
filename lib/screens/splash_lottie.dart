@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mobile_uas/login_page.dart';
+import 'package:mobile_uas/pages/login_page.dart';
 
 class SplashLottie extends StatefulWidget {
   const SplashLottie({super.key});
