@@ -21,7 +21,7 @@ class _MyProdukState extends State<MyProduk> {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/example.jpg'),
+                    image: AssetImage('assets/images/example.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
