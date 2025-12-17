@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mobile_uas/pages/produkdetail_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:mobile_uas/firebase_options.dart';
 import 'screens/splash_screen1.dart';
@@ -24,7 +25,7 @@ class MyProject extends StatelessWidget {
     return MaterialApp(
       title: 'MyConcert',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen1(),
+      home: MyProduk(),
     );
   }
 }

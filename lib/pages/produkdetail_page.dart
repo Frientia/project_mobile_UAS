@@ -68,6 +68,19 @@ class _MyProdukState extends State<MyProduk> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 16),
+                    Divider(),
+
+                    Text(
+                      'Deskripsi Event',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Sorak Sorai Fest adalah festival musik yang menghadirkan berbagai musisi lokal dan nasional dengan pengalaman hiburan terbaik selama liburan akhir tahun.',
+                      textAlign: TextAlign.justify,
+                    ),
+                    SizedBox(height: 24),
                   ],
                 ),
               ),
