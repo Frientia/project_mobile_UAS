@@ -26,6 +26,10 @@ class _MyProdukState extends State<MyProduk> {
                   ),
                 ),
               ),
+              SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              ),
             ],
           ),
         ),
