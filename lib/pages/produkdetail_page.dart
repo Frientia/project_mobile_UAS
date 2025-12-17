@@ -9,6 +9,7 @@ class MyProduk extends StatefulWidget {
 
 class _MyProdukState extends State<MyProduk> {
   String selectedTicket = 'Reguler';
+  String selectedDays = 'Day 1';
 
   
   @override
@@ -114,6 +115,43 @@ class _MyProdukState extends State<MyProduk> {
                           onChanged: (value) {
                            setState(() {
                              selectedTicket = value!;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    
+                    Text(
+                      'Pilih Hari',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8),
+
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedDays,
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          isExpanded: true,
+                          items: const [
+                            DropdownMenuItem(
+                              value: 'Day 1',
+                              child: Text('Day 1 - Konser Hari Pertama'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Day 2',
+                              child: Text('Day 2 - Konser Hari Kedua'),
+                            ),
+                          ],
+                          onChanged: (value) {
+                           setState(() {
+                             selectedDays = value!;
                             });
                           },
                         ),
