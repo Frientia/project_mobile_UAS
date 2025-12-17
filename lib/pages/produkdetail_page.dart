@@ -183,15 +183,32 @@ class _MyProdukState extends State<MyProduk> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("Mulai dari", style: TextStyle(fontSize: 12)
+                Text(
+                  "Mulai dari", 
+                  style: TextStyle(fontSize: 12),
                 ),
-                Text("Rp54.581", style: TextStyle(
+                Text("Rp54.581", 
+                  style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                  color: Colors.black),
                 ),
               ],
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 113, 50, 202),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {
+              },
+              child: Text(
+                'Pesan Tiket',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
             ),
           ],
         ),
