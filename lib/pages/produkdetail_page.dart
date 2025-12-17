@@ -81,6 +81,20 @@ class _MyProdukState extends State<MyProduk> {
                       textAlign: TextAlign.justify,
                     ),
                     SizedBox(height: 24),
+
+                    Text(
+                      'Pilih Tiket',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8),
+
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                   ],
                 ),
               ),
