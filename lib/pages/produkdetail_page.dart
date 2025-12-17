@@ -8,6 +8,9 @@ class MyProduk extends StatefulWidget {
 }
 
 class _MyProdukState extends State<MyProduk> {
+  String selectedTicket = 'Reguler';
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
