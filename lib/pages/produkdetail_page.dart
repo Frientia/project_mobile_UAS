@@ -94,6 +94,27 @@ class _MyProdukState extends State<MyProduk> {
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(8),
                       ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedTicket,
+                          isExpanded: true,
+                          items: const [
+                            DropdownMenuItem(
+                              value: 'Reguler',
+                              child: Text('Reguler - Rp54.581'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'VIP',
+                              child: Text('VIP - Rp150.000'),
+                            ),
+                          ],
+                          onChanged: (value) {
+                           setState(() {
+                             selectedTicket = value!;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 ),
