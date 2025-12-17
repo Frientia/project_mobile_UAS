@@ -17,7 +17,20 @@ class MyMenu extends StatelessWidget {
             child: Container(
               width: maxWidth,
               padding: const EdgeInsets.all(24),
-              child: const Text('Menu Page'),
+              child: ListView(
+                children: const [
+                  SizedBox(height: 24),
+                  Center(
+                    child: Text(
+                      'Menu',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },
