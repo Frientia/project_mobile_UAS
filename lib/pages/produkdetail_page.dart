@@ -13,8 +13,8 @@ class _MyProdukState extends State<MyProduk> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
-          child: Container(
-            child: Text('Produk Detail Page'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
           ),
         ),
       ),
