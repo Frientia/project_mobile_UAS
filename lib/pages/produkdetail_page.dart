@@ -164,6 +164,19 @@ class _MyProdukState extends State<MyProduk> {
           ),
         ),
       ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 10,
+              offset: Offset(0, -2),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
