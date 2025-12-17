@@ -176,6 +176,25 @@ class _MyProdukState extends State<MyProduk> {
             ),
           ],
         ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Mulai dari", style: TextStyle(fontSize: 12)
+                ),
+                Text("Rp54.581", style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
