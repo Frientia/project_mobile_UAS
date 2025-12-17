@@ -54,6 +54,20 @@ class _MyProdukState extends State<MyProduk> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Icon(Icons.calendar_today, size: 16, color: Colors.grey),
+                        SizedBox(width: 4),
+                        Text(
+                          '30 Desember 2024',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
