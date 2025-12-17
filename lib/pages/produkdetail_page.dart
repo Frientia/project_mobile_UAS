@@ -187,7 +187,7 @@ class _MyProdukState extends State<MyProduk> {
                   "Mulai dari", 
                   style: TextStyle(fontSize: 12),
                 ),
-                Text("Rp54.581", 
+                Text(selectedTicket == 'Reguler' ? 'Rp54.581' : 'Rp150.000', 
                   style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
