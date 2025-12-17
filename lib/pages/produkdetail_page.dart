@@ -45,33 +45,58 @@ class _MyProdukState extends State<MyProduk> {
                       ),
                     ),
                     SizedBox(height: 8),
-                    Row(
+                    Column(
                       children: [
-                        Icon(Icons.location_on, size: 16, color: Colors.grey),
-                        SizedBox(width: 4),
-                        Text(
-                          'Jakarta, Indonesia',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.location_on, size: 16),
+                                  SizedBox(width: 4),
+                                  Text('Jakarta, Indonesia'),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.access_time, size: 16),
+                                  SizedBox(width: 4),
+                                  Text('18:00 - 22:00 WIB'),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.calendar_today, size: 16),
+                                  SizedBox(width: 4),
+                                  Text('30 Desember 2024'),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.music_note, size: 16),
+                                  SizedBox(width: 4),
+                                  Text('Music Concert'),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Icon(Icons.calendar_today, size: 16, color: Colors.grey),
-                        SizedBox(width: 4),
-                        Text(
-                          '30 Desember 2024',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
+
                     SizedBox(height: 16),
                     Divider(),
 
