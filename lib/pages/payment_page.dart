@@ -15,7 +15,12 @@ class _PaymentPageState extends State<PaymentPage> {
         title: Text('Pembayaran Page'),
       ),
       body: SingleChildScrollView(
-        child: Column(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Ringkasan Pesanan"),
+          ],
+        ),
       ),
     );
   }
