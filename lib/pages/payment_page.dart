@@ -29,11 +29,28 @@ class _PaymentPageState extends State<PaymentPage> {
           children: [
             Text("Ringkasan Pesanan", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
             SizedBox(height: 10),
-            Text("Tiker : ${widget.ticketType}"),
-            Text("Hari  : ${widget.day}"),
-            Text("Harga : ${widget.price}"),
+            _rowItem('Tiket', widget.ticketType),
+            _rowItem('Hari', widget.day),
+            _rowItem('Harga', 'Rp${widget.price}', bold: true),
           ],
         ),
+      ),
+    );
+  }
+    Widget _rowItem(String label, String value, {bool bold = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        ],
       ),
     );
   }
