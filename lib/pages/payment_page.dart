@@ -10,6 +10,13 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pembayaran Page'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(),
+      ),
+    );
   }
 }
