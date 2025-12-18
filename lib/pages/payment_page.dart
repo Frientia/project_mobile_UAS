@@ -162,6 +162,7 @@ class _PaymentPageState extends State<PaymentPage> {
               children: const [
                 Text('Total Pembayaran',
                     style: TextStyle(fontSize: 12, color: Colors.grey)),
+                SizedBox(height: 4),
                 Text('Rp 500.000',
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -177,7 +178,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Text('Bayar'),
+              child: const Text('Bayar', style: TextStyle(fontSize: 16, color: Colors.white),),
             ),
           ],
         ),
