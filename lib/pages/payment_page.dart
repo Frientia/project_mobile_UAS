@@ -69,6 +69,12 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ),
             SizedBox(height: 26),
+            _sectionCard(
+              title: 'Metode Pembayaran', 
+              child: Column(
+                children: []
+              ),
+            ),
             RadioListTile(
               value: 'Transfer Bank',
               groupValue: selectedPayment,
