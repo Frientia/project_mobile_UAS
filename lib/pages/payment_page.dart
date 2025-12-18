@@ -18,7 +18,11 @@ class _PaymentPageState extends State<PaymentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Ringkasan Pesanan"),
+            Text("Ringkasan Pesanan", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+            SizedBox(height: 10),
+            Text("Tiker : ${widget.ticketType}"),
+            Text("Hari  : ${widget.day}"),
+            Text("Harga : ${widget.price}"),
           ],
         ),
       ),
