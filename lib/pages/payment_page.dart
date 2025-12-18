@@ -16,6 +16,35 @@ class PaymentPage extends StatefulWidget {
   State<PaymentPage> createState() => _PaymentPageState();
 }
 
+class _PaymentTile extends StatelessWidget {
+  const _PaymentTile({
+    required this.value,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
+
+  final String value;
+  final String title;
+  final String subtitle;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return RadioListTile(
+      value: value,
+      title: Row(
+        children: [
+          Icon(icon, size: 20),
+          const SizedBox(width: 8),
+          Text(title),
+        ],
+      ),
+      subtitle: Text(subtitle),
+    );
+  }
+}
+
 class _PaymentPageState extends State<PaymentPage> {
   String? selectedPayment;
 
