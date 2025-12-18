@@ -27,16 +27,41 @@ class _PaymentPageState extends State<PaymentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Ringkasan Pesanan", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-            SizedBox(height: 10),
-            _rowItem('Tiket', widget.ticketType),
-            _rowItem('Hari', widget.day),
-            _rowItem('Harga', 'Rp${widget.price}', bold: true),
+            _sectionCard(
+              title: 'Ringkasan Pesanan', 
+              child: Column(
+                children: [
+                  _rowItem('Tiket', widget.ticketType),
+                  _rowItem('Hari', widget.day),
+                  _rowItem('Harga', 'Rp${widget.price}', bold: true),
+                ]
+              ),          
+            ),
           ],
         ),
       ),
     );
   }
+    Widget _sectionCard({required String title, required Widget child}) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title,
+              style: const TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          child,
+        ],
+      ),
+    );
+  }
+  
     Widget _rowItem(String label, String value, {bool bold = false}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
