@@ -17,6 +17,8 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
+  String? selectedPayment;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +37,18 @@ class _PaymentPageState extends State<PaymentPage> {
                   _rowItem('Hari', widget.day),
                   _rowItem('Harga', 'Rp${widget.price}', bold: true),
                 ]
-              ),          
+              ),
+            ),
+            SizedBox(height: 26),
+            RadioListTile(
+              value: 'Transfer Bank',
+              groupValue: selectedPayment,
+              onChanged: (value) {
+                setState(() {
+                  selectedPayment = value;
+                });
+              },
+              title: const Text('Transfer Bank'),
             ),
           ],
         ),
