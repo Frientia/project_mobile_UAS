@@ -62,6 +62,7 @@ class _PaymentPageState extends State<PaymentPage> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
