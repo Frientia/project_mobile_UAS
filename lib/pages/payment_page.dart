@@ -79,6 +79,15 @@ class _PaymentPageState extends State<PaymentPage> {
               },
               title: const Text('Transfer Bank'),
             ),
+
+            SizedBox(height: 16),
+            Text(
+              'Yang dipilih: ${selectedPayment ?? "Belum memilih"}',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
+              ),
+            ),
           ],
         ),
       ),
