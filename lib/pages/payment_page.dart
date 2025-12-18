@@ -207,14 +207,15 @@ class _PaymentPageState extends State<PaymentPage> {
   
     Widget _rowItem(String label, String value, {bool bold = false}) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label),
+          Text(label, style: const TextStyle(fontSize: 14)),
           Text(
             value,
             style: TextStyle(
+              fontSize: 14,
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
             ),
           ),
