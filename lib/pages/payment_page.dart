@@ -94,16 +94,38 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                   ),
-
-            RadioListTile(
-              value: 'Transfer Bank',
-              groupValue: selectedPayment,
-              onChanged: (value) {
-                setState(() {
-                  selectedPayment = value;
-                });
-              },
-              title: const Text('Transfer Bank'),
+                  RadioGroup<String>(
+                    groupValue: selectedPayment,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedPayment = value;
+                      });
+                    },
+                    child: Column(
+                      children: const [
+                        _PaymentTile(
+                          value: 'Transfer Bank',
+                          title: 'Transfer Bank',
+                          subtitle: 'BCA, Mandiri, BRI',
+                          icon: Icons.account_balance,
+                        ),
+                        _PaymentTile(
+                          value: 'E-Wallet',
+                          title: 'E-Wallet',
+                          subtitle: 'OVO, GoPay, Dana',
+                          icon: Icons.account_balance_wallet,
+                        ),
+                        _PaymentTile(
+                          value: 'Virtual Account',
+                          title: 'Virtual Account',
+                          subtitle: 'VA Bank',
+                          icon: Icons.credit_card,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             SizedBox(height: 16),
