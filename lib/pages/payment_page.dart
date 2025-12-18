@@ -70,11 +70,31 @@ class _PaymentPageState extends State<PaymentPage> {
             ),
             SizedBox(height: 26),
             _sectionCard(
-              title: 'Metode Pembayaran', 
+              title: 'Metode Pembayaran',
               child: Column(
-                children: []
-              ),
-            ),
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.only(bottom: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple.shade50,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.info_outline,
+                            size: 18, color: Colors.deepPurple),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Pembayaran hanya simulasi (tanpa validasi)',
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
             RadioListTile(
               value: 'Transfer Bank',
               groupValue: selectedPayment,
