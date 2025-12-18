@@ -91,6 +91,33 @@ class _PaymentPageState extends State<PaymentPage> {
           ],
         ),
       ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: Colors.black12)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text('Total Pembayaran',
+                    style: TextStyle(fontSize: 12, color: Colors.grey)),
+                Text('Rp 500.000',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ],
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Bayar'),
+            ),
+          ],
+        ),
+      ),
     );
   }
     Widget _sectionCard({required String title, required Widget child}) {
