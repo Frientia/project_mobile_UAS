@@ -24,7 +24,7 @@ class MyProject extends StatelessWidget {
     return MaterialApp(
       title: 'MyConcert',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen1(),
+      home: SplashScreen1()
     );
   }
 }
