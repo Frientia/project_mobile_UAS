@@ -113,6 +113,14 @@ class _PaymentPageState extends State<PaymentPage> {
             ),
             ElevatedButton(
               onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 113, 50, 202),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               child: const Text('Bayar'),
             ),
           ],
