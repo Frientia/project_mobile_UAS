@@ -39,6 +39,13 @@ class MyMenu extends StatelessWidget {
 
                   const SizedBox(height: 32),
 
+                  _sectionTitle('Aktivitas Saya'),
+                  _menuItem(Icons.trending_up, 'Riwayat Transaksi'),
+                  _menuItem(Icons.groups, 'Komunitas Saya'),
+                  _menuItem(Icons.dashboard, 'Dashboard'),
+
+                  const SizedBox(height: 32),
+
                   _sectionTitle('Pengaturan'),
                   _menuItem(Icons.settings, 'Pengaturan Akun'),
                   _menuItem(Icons.code, 'Developer'),
