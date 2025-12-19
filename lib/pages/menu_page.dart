@@ -39,12 +39,14 @@ class MyMenu extends StatelessWidget {
 
                   const SizedBox(height: 32),
 
-                  _sectionTitle('Pusat Bantuan'),
+                  _sectionTitle('Pengaturan'),
                   _menuItem(Icons.settings, 'Pengaturan Akun'),
                   _menuItem(Icons.code, 'Developer'),
                   _menuItem(Icons.info_outline, 'About'),
 
                   const SizedBox(height: 32),
+
+                  _logoutButton(context),
 
                   const SizedBox(height: 40),
                 ],
@@ -56,7 +58,6 @@ class MyMenu extends StatelessWidget {
     );
   }
 
-  // ===================== PROFILE =====================
   Widget _profileCard() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -119,11 +120,47 @@ class MyMenu extends StatelessWidget {
     );
   }
 
+  Widget _logoutButton(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.logout, color: Colors.red),
+      title: const Text(
+        'Logout',
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+      ),
+      tileColor: Colors.red.withOpacity(0.05),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      onTap: () => _showLogoutDialog(context),
+    );
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Logout'),
+        content: const Text('Yakin ingin logout?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Logout'),
+          ),
+        ],
+      ),
+    );
+  }
+
   BoxDecoration _cardDecoration() {
     return BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(16),
-      boxShadow: [BoxShadow(color: Colors.black, blurRadius: 10)],
+      boxShadow: [
+        BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
+      ],
     );
   }
 }
