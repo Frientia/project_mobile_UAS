@@ -140,12 +140,12 @@ class _MyProdukState extends State<MyProduk> {
                     Divider(),
 
                     Text(
-                      product!['description'],
+                      'Deskripsi Event',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Sorak Sorai Fest adalah festival musik yang menghadirkan berbagai musisi lokal dan nasional dengan pengalaman hiburan terbaik selama liburan akhir tahun.',
+                      product!['description'],
                       textAlign: TextAlign.justify,
                     ),
                     SizedBox(height: 24),
