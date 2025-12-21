@@ -249,10 +249,11 @@ class _MyProdukState extends State<MyProduk> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Mulai dari", 
+                  "Total Harga", 
                   style: TextStyle(fontSize: 12),
                 ),
-                Text(selectedTicket == 'Reguler' ? 'Rp54.581' : 'Rp150.000', 
+                Text(
+                  'Rp $selectedPrice', 
                   style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
