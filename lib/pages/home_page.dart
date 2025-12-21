@@ -70,8 +70,26 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 320,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final p = products[index];
+                  return Container(
+                    width: 220,
+                    margin: const EdgeInsets.only(right: 12),
+                    color: Colors.white,
+                    child: Text(p.name),
+                  );
+                },
+              ),
+            ),
           ],
+          
         ),
+        
       ),
     );
   }
