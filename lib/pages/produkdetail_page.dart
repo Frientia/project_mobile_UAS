@@ -204,22 +204,19 @@ class _MyProdukState extends State<MyProduk> {
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: selectedDays,
+                          value: selectedDay,
                           icon: Icon(Icons.keyboard_arrow_down),
                           isExpanded: true,
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'Day 1',
-                              child: Text('Day 1 - Konser Hari Pertama'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Day 2',
-                              child: Text('Day 2 - Konser Hari Kedua'),
-                            ),
-                          ],
+                          items: (product!['available_days'] as List)
+                              .map<DropdownMenuItem<String>>((day) {
+                            return DropdownMenuItem<String>(
+                              value: day,
+                              child: Text(day),
+                            );
+                          }).toList(),
                           onChanged: (value) {
-                           setState(() {
-                             selectedDays = value!;
+                            setState(() {
+                              selectedDay = value!;
                             });
                           },
                         ),
