@@ -118,7 +118,7 @@ class MyMenu extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                badge!,
+                badge,
                 style: const TextStyle(color: Colors.white, fontSize: 10),
               ),
             )
