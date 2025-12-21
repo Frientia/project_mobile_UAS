@@ -12,7 +12,6 @@ class _MyProfileState extends State<MyProfile> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   String _countryCode = '+62';
 
@@ -21,14 +20,26 @@ class _MyProfileState extends State<MyProfile> {
     _nameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Informasi Pribadi')),
+      appBar: AppBar(
+        title: const Text(
+          'Informasi Pribadi',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        centerTitle: true, // 🎯 TENGAH
+        leading: IconButton(
+          // ⬅ BACK
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -38,12 +49,6 @@ class _MyProfileState extends State<MyProfile> {
             _inputField('Nama', Icons.person, _nameController),
             _inputField('Email', Icons.email, _emailController),
             _phoneField(),
-            _inputField(
-              'Password',
-              Icons.lock,
-              _passwordController,
-              obscure: true,
-            ),
 
             const SizedBox(height: 24),
             ElevatedButton(
@@ -64,12 +69,7 @@ class _MyProfileState extends State<MyProfile> {
       children: [
         const CircleAvatar(radius: 40, child: Icon(Icons.person, size: 40)),
         const SizedBox(height: 8),
-        TextButton(
-          onPressed: () {
-            // nanti bisa isi upload image
-          },
-          child: const Text('Upload Foto Profil'),
-        ),
+        TextButton(onPressed: () {}, child: const Text('Upload Foto Profil')),
       ],
     );
   }
@@ -117,7 +117,6 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-  //Widget untuk input field
   Widget _inputField(
     String label,
     IconData icon,
