@@ -140,7 +140,7 @@ class _MyProdukState extends State<MyProduk> {
                     Divider(),
 
                     Text(
-                      'Deskripsi Event',
+                      product!['description'],
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
