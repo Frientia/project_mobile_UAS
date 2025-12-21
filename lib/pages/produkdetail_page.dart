@@ -62,7 +62,7 @@ class _MyProdukState extends State<MyProduk> {
               Container(
                 height: 220,
                 width: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(product!['image_url']),
                     fit: BoxFit.cover,
@@ -90,7 +90,7 @@ class _MyProdukState extends State<MyProduk> {
                           children: [
                             Expanded(
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.location_on, size: 16),
                                   SizedBox(width: 4),
                                   Text(product!['location']),
@@ -99,7 +99,7 @@ class _MyProdukState extends State<MyProduk> {
                             ),
                             Expanded(
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.access_time, size: 16),
                                   SizedBox(width: 4),
                                   Text(product!['event_time']),
@@ -115,7 +115,7 @@ class _MyProdukState extends State<MyProduk> {
                           children: [
                             Expanded(
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.calendar_today, size: 16),
                                   SizedBox(width: 4),
                                   Text(product!['event_date']),
@@ -124,7 +124,7 @@ class _MyProdukState extends State<MyProduk> {
                             ),
                             Expanded(
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.music_note, size: 16),
                                   SizedBox(width: 4),
                                   Text(product!['category']),
@@ -166,14 +166,18 @@ class _MyProdukState extends State<MyProduk> {
                         child: DropdownButton<String>(
                           value: selectedTicket,
                           isExpanded: true,
-                          items: const [
+                          items: [
                             DropdownMenuItem(
                               value: 'Reguler',
-                              child: Text('Reguler - Rp54.581'),
+                              child: Text(
+                                'Reguler - Rp${product!['price_regular']}',
+                              ),
                             ),
                             DropdownMenuItem(
                               value: 'VIP',
-                              child: Text('VIP - Rp150.000'),
+                              child: Text(
+                                'VIP - Rp${product!['price_vip']}',
+                              ),
                             ),
                           ],
                           onChanged: (value) {
