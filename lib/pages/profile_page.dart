@@ -44,6 +44,15 @@ class _MyProfileState extends State<MyProfile> {
               _passwordController,
               obscure: true,
             ),
+
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                final phone = '$_countryCode${_phoneController.text}';
+                debugPrint(phone);
+              },
+              child: const Text('Simpan'),
+            ),
           ],
         ),
       ),
