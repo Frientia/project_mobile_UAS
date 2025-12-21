@@ -47,6 +47,12 @@ class _MyProdukState extends State<MyProduk> {
   
   @override
   Widget build(BuildContext context) {
+    if (product == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -58,7 +64,7 @@ class _MyProdukState extends State<MyProduk> {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/example.png'),
+                    image: NetworkImage(product!['image_url']),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -70,7 +76,7 @@ class _MyProdukState extends State<MyProduk> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Sorak Sorai Festival',
+                      product!['name'],
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -87,7 +93,7 @@ class _MyProdukState extends State<MyProduk> {
                                 children: const [
                                   Icon(Icons.location_on, size: 16),
                                   SizedBox(width: 4),
-                                  Text('Jakarta, Indonesia'),
+                                  Text(product!['location']),
                                 ],
                               ),
                             ),
@@ -96,7 +102,7 @@ class _MyProdukState extends State<MyProduk> {
                                 children: const [
                                   Icon(Icons.access_time, size: 16),
                                   SizedBox(width: 4),
-                                  Text('18:00 - 22:00 WIB'),
+                                  Text(product!['event_time']),
                                 ],
                               ),
                             ),
@@ -112,7 +118,7 @@ class _MyProdukState extends State<MyProduk> {
                                 children: const [
                                   Icon(Icons.calendar_today, size: 16),
                                   SizedBox(width: 4),
-                                  Text('30 Desember 2024'),
+                                  Text(product!['event_date']),
                                 ],
                               ),
                             ),
@@ -121,7 +127,7 @@ class _MyProdukState extends State<MyProduk> {
                                 children: const [
                                   Icon(Icons.music_note, size: 16),
                                   SizedBox(width: 4),
-                                  Text('Music Concert'),
+                                  Text(product!['category']),
                                 ],
                               ),
                             ),
