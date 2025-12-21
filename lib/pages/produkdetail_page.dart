@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyProduk extends StatefulWidget {
-  const MyProduk({super.key});
+  const MyProduk({
+    super.key,
+    required this.productId,
+    });
+    final String productId;
 
   @override
   State<MyProduk> createState() => _MyProdukState();
@@ -14,6 +18,25 @@ class _MyProdukState extends State<MyProduk> {
   Map<String, dynamic>? product;
   String selectedTicket = 'Reguler';
   String? selectedDay;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProduct();
+  }
+
+  Future<void> fetchProduct() async {
+    final data = await supabase
+        .from('products')
+        .select()
+        .eq('id', widget.productId)
+        .single();
+
+    setState(() {
+      product = data;
+      selectedDay = (product!['available_days'] as List).first;
+    });
+  }
   
   @override
   Widget build(BuildContext context) {
