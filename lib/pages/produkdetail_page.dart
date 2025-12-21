@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/pages/payment_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyProduk extends StatefulWidget {
@@ -270,9 +271,20 @@ class _MyProdukState extends State<MyProduk> {
                 ),
               ),
               onPressed: () {
-              },
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => PaymentPage(
+                    productId: product!['id'],
+                    ticketType: selectedTicket,
+                    day: selectedDay!,
+                    price: selectedPrice,
+                  ),
+                ),
+              );
+            },
               child: Text(
-                'Pesan Tiket',
+                'Beli Tiket',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
