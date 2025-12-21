@@ -37,6 +37,13 @@ class _MyProdukState extends State<MyProduk> {
       selectedDay = (product!['available_days'] as List).first;
     });
   }
+
+   int get selectedPrice {
+    if (selectedTicket == 'VIP') {
+      return product!['price_vip'];
+    }
+    return product!['price_regular'];
+  }
   
   @override
   Widget build(BuildContext context) {
