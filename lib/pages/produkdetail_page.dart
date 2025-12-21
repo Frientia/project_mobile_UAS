@@ -9,10 +9,11 @@ class MyProduk extends StatefulWidget {
 }
 
 class _MyProdukState extends State<MyProduk> {
-  String selectedTicket = 'Reguler';
-  String selectedDays = 'Day 1';
   final supabase = Supabase.instance.client;
 
+  Map<String, dynamic>? product;
+  String selectedTicket = 'Reguler';
+  String? selectedDay;
   
   @override
   Widget build(BuildContext context) {
