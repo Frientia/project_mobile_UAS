@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashLottie> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 196, 123, 228),
+                color: Color.fromARGB(255, 196, 123, 228),
               ),
             ),
             const SizedBox(height: 16),

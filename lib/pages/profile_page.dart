@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
 class MyProfile extends StatefulWidget {
@@ -12,6 +13,8 @@ class _MyProfileState extends State<MyProfile> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  String _countryCode = '+62';
 
   @override
   void dispose() {
@@ -32,6 +35,7 @@ class _MyProfileState extends State<MyProfile> {
           children: [
             _inputField('Nama', Icons.person, _nameController),
             _inputField('Email', Icons.email, _emailController),
+            _phoneField(),
             _inputField(
               'Password',
               Icons.lock,
@@ -40,6 +44,49 @@ class _MyProfileState extends State<MyProfile> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _phoneField() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              showCountryPicker(
+                context: context,
+                showPhoneCode: true,
+                onSelect: (country) {
+                  setState(() {
+                    _countryCode = '+${country.phoneCode}';
+                  });
+                },
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              child: Text(_countryCode),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextField(
+              controller: _phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(
+                hintText: 'Nomor HP',
+                filled: true,
+                border: OutlineInputBorder(borderSide: BorderSide.none),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
