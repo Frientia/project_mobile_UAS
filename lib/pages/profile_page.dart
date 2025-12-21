@@ -33,6 +33,8 @@ class _MyProfileState extends State<MyProfile> {
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
+            _profileHeader(), // ✅ PANGGIL DI SINI
+            const SizedBox(height: 24),
             _inputField('Nama', Icons.person, _nameController),
             _inputField('Email', Icons.email, _emailController),
             _phoneField(),
@@ -45,6 +47,21 @@ class _MyProfileState extends State<MyProfile> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _profileHeader() {
+    return Column(
+      children: [
+        const CircleAvatar(radius: 40, child: Icon(Icons.person, size: 40)),
+        const SizedBox(height: 8),
+        TextButton(
+          onPressed: () {
+            // nanti bisa isi upload image
+          },
+          child: const Text('Upload Foto Profil'),
+        ),
+      ],
     );
   }
 
