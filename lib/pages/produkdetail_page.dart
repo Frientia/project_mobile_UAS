@@ -1,19 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/pages/payment_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyProduk extends StatefulWidget {
-  const MyProduk({super.key});
+  const MyProduk({
+    super.key,
+    required this.productId,
+    });
+    final String productId;
 
   @override
   State<MyProduk> createState() => _MyProdukState();
 }
 
 class _MyProdukState extends State<MyProduk> {
-  String selectedTicket = 'Reguler';
-  String selectedDays = 'Day 1';
+  final supabase = Supabase.instance.client;
 
+  Map<String, dynamic>? product;
+  String selectedTicket = 'Reguler';
+  String? selectedDay;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProduct();
+  }
+
+  Future<void> fetchProduct() async {
+    final data = await supabase
+        .from('products')
+        .select()
+        .eq('id', widget.productId)
+        .single();
+
+    setState(() {
+      product = data;
+      selectedDay = (product!['available_days'] as List).first;
+    });
+  }
+
+   int get selectedPrice {
+    if (selectedTicket == 'VIP') {
+      return product!['price_vip'];
+    }
+    return product!['price_regular'];
+  }
   
   @override
   Widget build(BuildContext context) {
+    if (product == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -23,9 +63,9 @@ class _MyProdukState extends State<MyProduk> {
               Container(
                 height: 220,
                 width: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/example.png'),
+                    image: NetworkImage(product!['image_url']),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -37,7 +77,7 @@ class _MyProdukState extends State<MyProduk> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Sorak Sorai Festival',
+                      product!['name'],
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -51,19 +91,19 @@ class _MyProdukState extends State<MyProduk> {
                           children: [
                             Expanded(
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.location_on, size: 16),
                                   SizedBox(width: 4),
-                                  Text('Jakarta, Indonesia'),
+                                  Text(product!['location']),
                                 ],
                               ),
                             ),
                             Expanded(
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.access_time, size: 16),
                                   SizedBox(width: 4),
-                                  Text('18:00 - 22:00 WIB'),
+                                  Text(product!['event_time']),
                                 ],
                               ),
                             ),
@@ -76,19 +116,19 @@ class _MyProdukState extends State<MyProduk> {
                           children: [
                             Expanded(
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.calendar_today, size: 16),
                                   SizedBox(width: 4),
-                                  Text('30 Desember 2024'),
+                                  Text(product!['event_date']),
                                 ],
                               ),
                             ),
                             Expanded(
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.music_note, size: 16),
                                   SizedBox(width: 4),
-                                  Text('Music Concert'),
+                                  Text(product!['category']),
                                 ],
                               ),
                             ),
@@ -106,7 +146,7 @@ class _MyProdukState extends State<MyProduk> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Sorak Sorai Fest adalah festival musik yang menghadirkan berbagai musisi lokal dan nasional dengan pengalaman hiburan terbaik selama liburan akhir tahun.',
+                      product!['description'],
                       textAlign: TextAlign.justify,
                     ),
                     SizedBox(height: 24),
@@ -127,14 +167,18 @@ class _MyProdukState extends State<MyProduk> {
                         child: DropdownButton<String>(
                           value: selectedTicket,
                           isExpanded: true,
-                          items: const [
+                          items: [
                             DropdownMenuItem(
                               value: 'Reguler',
-                              child: Text('Reguler - Rp54.581'),
+                              child: Text(
+                                'Reguler - Rp${product!['price_regular']}',
+                              ),
                             ),
                             DropdownMenuItem(
                               value: 'VIP',
-                              child: Text('VIP - Rp150.000'),
+                              child: Text(
+                                'VIP - Rp${product!['price_vip']}',
+                              ),
                             ),
                           ],
                           onChanged: (value) {
@@ -161,22 +205,19 @@ class _MyProdukState extends State<MyProduk> {
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: selectedDays,
+                          value: selectedDay,
                           icon: Icon(Icons.keyboard_arrow_down),
                           isExpanded: true,
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'Day 1',
-                              child: Text('Day 1 - Konser Hari Pertama'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Day 2',
-                              child: Text('Day 2 - Konser Hari Kedua'),
-                            ),
-                          ],
+                          items: (product!['available_days'] as List)
+                              .map<DropdownMenuItem<String>>((day) {
+                            return DropdownMenuItem<String>(
+                              value: day,
+                              child: Text(day),
+                            );
+                          }).toList(),
                           onChanged: (value) {
-                           setState(() {
-                             selectedDays = value!;
+                            setState(() {
+                              selectedDay = value!;
                             });
                           },
                         ),
@@ -209,10 +250,11 @@ class _MyProdukState extends State<MyProduk> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Mulai dari", 
+                  "Total Harga", 
                   style: TextStyle(fontSize: 12),
                 ),
-                Text(selectedTicket == 'Reguler' ? 'Rp54.581' : 'Rp150.000', 
+                Text(
+                  'Rp $selectedPrice', 
                   style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -229,9 +271,20 @@ class _MyProdukState extends State<MyProduk> {
                 ),
               ),
               onPressed: () {
-              },
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => PaymentPage(
+                    productId: product!['id'],
+                    ticketType: selectedTicket,
+                    day: selectedDay!,
+                    price: selectedPrice,
+                  ),
+                ),
+              );
+            },
               child: Text(
-                'Pesan Tiket',
+                'Beli Tiket',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
