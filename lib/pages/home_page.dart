@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// ===============================================================
@@ -7,16 +8,22 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class Product {
   final String id;
   final String name;
+  final String description;
   final int priceRegular;
   final int priceVip;
+  final int stockRegular;
+  final int stockVip;
   final String imageUrl;
-  final String eventDate; // 🔥 COMMIT 6
+  final String eventDate;
 
   Product({
     required this.id,
     required this.name,
+    required this.description,
     required this.priceRegular,
     required this.priceVip,
+    required this.stockRegular,
+    required this.stockVip,
     required this.imageUrl,
     required this.eventDate,
   });
@@ -25,10 +32,13 @@ class Product {
     return Product(
       id: json['id'],
       name: json['name'],
+      description: json['description'],
       priceRegular: json['price_regular'],
       priceVip: json['price_vip'],
+      stockRegular: json['stock_regular'],
+      stockVip: json['stock_vip'],
       imageUrl: json['image_url'] ?? '',
-      eventDate: json['event_date'] ?? '-', // 🔥
+      eventDate: json['event_date'] ?? '-',
     );
   }
 }
@@ -44,26 +54,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  String _name = "User";
+
   bool isLoading = true;
   List<Product> products = [];
 
   @override
   void initState() {
     super.initState();
+    _loadSession();
     _loadProducts();
   }
 
   /// ===============================================================
-  /// FETCH PRODUCTS FROM SUPABASE
+  /// LOAD SESSION
+  /// ===============================================================
+  Future<void> _loadSession() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _name = prefs.getString('name') ?? "User";
+    });
+  }
+
+  /// ===============================================================
+  /// FETCH PRODUCTS FROM SUPABASE (FIX ERROR)
   /// ===============================================================
   Future<void> _loadProducts() async {
-    final response = await Supabase.instance.client.from('products').select();
+    try {
+      debugPrint("FETCHING PRODUCTS...");
 
-    products = (response as List)
-        .map<Product>((e) => Product.fromMap(e))
-        .toList();
+      final response = await Supabase.instance.client.from('products').select();
 
-    setState(() => isLoading = false);
+      debugPrint("RAW RESPONSE: $response");
+
+      if (response == null || response is! List) {
+        debugPrint("RESPONSE NULL ATAU BUKAN LIST");
+        setState(() {
+          products = [];
+          isLoading = false;
+        });
+        return;
+      }
+
+      products = response
+          .map<Product>((e) => Product.fromMap(e as Map<String, dynamic>))
+          .toList();
+
+      debugPrint("PRODUCT COUNT: ${products.length}");
+    } catch (e, stacktrace) {
+      debugPrint("ERROR FETCH PRODUCTS: $e");
+      debugPrint(stacktrace.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   /// ===============================================================
@@ -77,14 +123,21 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         backgroundColor: const Color(0xfff3eaff),
         foregroundColor: Colors.black,
-        title: const Text(
-          "Events",
-          style: TextStyle(fontWeight: FontWeight.w600),
+        title: Text(
+          "Welcome, $_name",
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _buildHomeUI(),
+      body: _selectedIndex == 0 ? _buildHomeUI() : _dummy(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (i) => setState(() => _selectedIndex = i),
+        selectedItemColor: Colors.deepPurple,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+      ),
     );
   }
 
@@ -113,18 +166,18 @@ class _HomePageState extends State<HomePage> {
 
           const SizedBox(height: 20),
 
-          /// TITLE + ARROW HINT
+          /// TITLE
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "Events of The Month",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Row(
-                  children: [
+                  children: const [
                     Icon(Icons.chevron_left, color: Colors.grey),
                     Icon(Icons.chevron_right, color: Colors.deepPurple),
                   ],
@@ -133,160 +186,269 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
 
-          /// HORIZONTAL EVENT LIST + OVERLAY ARROW
-          Stack(
-            children: [
-              SizedBox(
-                height: 340,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    final p = products[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: SizedBox(
-                        width: 220,
-                        child: _eventVerticalCard(product: p),
+          /// GRID EVENT
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : Stack(
+                    children: [
+                      SizedBox(
+                        height: 320,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: products.length,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          itemBuilder: (context, index) {
+                            final p = products[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 12),
+                              child: SizedBox(
+                                width: 220,
+                                child: _eventVerticalCard(product: p),
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    );
-                  },
-                ),
-              ),
 
-              /// 👉 SCROLL HINT ARROW
-              Positioned(
-                right: 8,
-                top: 0,
-                bottom: 0,
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.85),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: Colors.deepPurple,
-                    ),
+                      // 👉 PANAH KANAN (HINT SCROLL)
+                      Positioned(
+                        right: 8,
+                        top: 0,
+                        bottom: 0,
+                        child: Center(
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.85),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 18,
+                              color: Colors.deepPurple,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ],
           ),
-
-          const SizedBox(height: 24),
         ],
       ),
     );
   }
 
   /// ===============================================================
-  /// EVENT CARD (COMMIT 6)
+  /// EVENT CARD
+  /// ===============================================================
+  /// ===============================================================
+  /// EVENT CARD
   /// ===============================================================
   Widget _eventVerticalCard({required Product product}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// IMAGE
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(14)),
-            child: product.imageUrl.isNotEmpty
-                ? Image.network(
-                    product.imageUrl,
-                    height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  )
-                : Image.asset(
-                    "assets/images/02.jpeg",
-                    height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-          ),
-
-          const SizedBox(height: 8),
-
-          /// TITLE
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              product.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 6,
+              offset: const Offset(0, 3),
             ),
-          ),
-
-          const SizedBox(height: 6),
-
-          /// EVENT DATE 🔥
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// IMAGE + STATUS
+            Stack(
               children: [
-                const Icon(Icons.calendar_today, size: 13, color: Colors.grey),
-                const SizedBox(width: 6),
-                Text(
-                  product.eventDate,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500,
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(14),
+                  ),
+                  child: product.imageUrl.isNotEmpty
+                      ? Image.network(
+                          product.imageUrl,
+                          height: 200,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          "assets/images/02.jpeg",
+                          height: 200,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                ),
+
+                Positioned(
+                  top: 8,
+                  left: 8,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Text(
+                      "Tiket Tersedia",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
 
-          const SizedBox(height: 8),
+            const SizedBox(height: 8),
 
-          /// PRICE
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Reguler Rp ${product.priceRegular}",
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
+            /// TITLE
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                product.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 8),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.calendar_today,
+                    size: 13,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    product.eventDate, // 🔥 DARI SUPABASE
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            /// PRICE
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _priceRow(
+                    label: "Reguler",
+                    price: product.priceRegular,
                     color: Colors.deepPurple,
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  "VIP Rp ${product.priceVip}",
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
+                  const SizedBox(height: 4),
+                  _priceRow(
+                    label: "VIP",
+                    price: product.priceVip,
                     color: Colors.orange,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                width: double.infinity,
+                height: 36,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MyProduk(
+                          productId: product.id, // 🔥 kirim ID
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Lihat Detail",
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  /// ===============================================================
+  /// PRICE ROW
+  /// ===============================================================
+  Widget _priceRow({
+    required String label,
+    required int price,
+    required Color color,
+  }) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+        ),
+        const SizedBox(width: 6),
+        Text(
+          "Rp $price",
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _dummy() {
+    return const Center(child: Text("Halaman lain masih dummy"));
   }
 }
