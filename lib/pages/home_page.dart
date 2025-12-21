@@ -10,6 +10,7 @@ class Product {
   final int priceRegular;
   final int priceVip;
   final String imageUrl;
+  final String eventDate; // 🔥 COMMIT 6
 
   Product({
     required this.id,
@@ -17,6 +18,7 @@ class Product {
     required this.priceRegular,
     required this.priceVip,
     required this.imageUrl,
+    required this.eventDate,
   });
 
   factory Product.fromMap(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Product {
       priceRegular: json['price_regular'],
       priceVip: json['price_vip'],
       imageUrl: json['image_url'] ?? '',
+      eventDate: json['event_date'] ?? '-', // 🔥
     );
   }
 }
@@ -110,35 +113,71 @@ class _HomePageState extends State<HomePage> {
 
           const SizedBox(height: 20),
 
-          /// TITLE
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              "Events of The Month",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          /// TITLE + ARROW HINT
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  "Events of The Month",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.chevron_left, color: Colors.grey),
+                    Icon(Icons.chevron_right, color: Colors.deepPurple),
+                  ],
+                ),
+              ],
             ),
           ),
 
           const SizedBox(height: 12),
 
-          /// HORIZONTAL EVENT LIST
-          SizedBox(
-            height: 320,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                final p = products[index];
-                return Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: SizedBox(
-                    width: 220,
-                    child: _eventVerticalCard(product: p),
+          /// HORIZONTAL EVENT LIST + OVERLAY ARROW
+          Stack(
+            children: [
+              SizedBox(
+                height: 340,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    final p = products[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 12),
+                      child: SizedBox(
+                        width: 220,
+                        child: _eventVerticalCard(product: p),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              /// 👉 SCROLL HINT ARROW
+              Positioned(
+                right: 8,
+                top: 0,
+                bottom: 0,
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.85),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 18,
+                      color: Colors.deepPurple,
+                    ),
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+            ],
           ),
 
           const SizedBox(height: 24),
@@ -148,7 +187,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// ===============================================================
-  /// EVENT CARD (COMMIT 5)
+  /// EVENT CARD (COMMIT 6)
   /// ===============================================================
   Widget _eventVerticalCard({required Product product}) {
     return Container(
@@ -194,6 +233,27 @@ class _HomePageState extends State<HomePage> {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+            ),
+          ),
+
+          const SizedBox(height: 6),
+
+          /// EVENT DATE 🔥
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                const Icon(Icons.calendar_today, size: 13, color: Colors.grey),
+                const SizedBox(width: 6),
+                Text(
+                  product.eventDate,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
             ),
           ),
 
