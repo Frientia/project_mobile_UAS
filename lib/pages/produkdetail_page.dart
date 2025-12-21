@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyProduk extends StatefulWidget {
   const MyProduk({super.key});
@@ -10,6 +11,7 @@ class MyProduk extends StatefulWidget {
 class _MyProdukState extends State<MyProduk> {
   String selectedTicket = 'Reguler';
   String selectedDays = 'Day 1';
+  final supabase = Supabase.instance.client;
 
   
   @override
