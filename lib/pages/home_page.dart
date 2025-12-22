@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/pages/produkdetail_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -379,7 +380,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(10),
               child: SizedBox(
                 width: double.infinity,
-                height: 36,
+                height: 30,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,

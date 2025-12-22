@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 class PaymentPage extends StatefulWidget {
   const PaymentPage({
     super.key,
+    required this.productId,
     required this.ticketType,
     required this.day,
     required this.price,
   });
 
+  final String productId;
   final String ticketType;
   final String day;
-  final String price;
+  final int price;
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
