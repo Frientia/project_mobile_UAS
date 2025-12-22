@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/widgets/main_bottom_nav.dart';
 
-class MyMenu extends StatelessWidget {
+class MyMenu extends StatefulWidget {
   const MyMenu({super.key});
 
   static const Color primaryColor = Color.fromARGB(255, 113, 50, 202);
 
   @override
+  State<MyMenu> createState() => _MyMenuState();
+}
+
+class _MyMenuState extends State<MyMenu> {
+  int selectedIndex = 1;
+  
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
+      bottomNavigationBar: MainBottomNav(
+        currentIndex: 1,
+        context: context,
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           double maxWidth = constraints.maxWidth > 1100
@@ -73,7 +85,7 @@ class MyMenu extends StatelessWidget {
         children: const [
           CircleAvatar(
             radius: 28,
-            backgroundColor: primaryColor,
+            backgroundColor: MyMenu.primaryColor,
             child: Icon(Icons.person, color: Colors.white),
           ),
           SizedBox(width: 16),
@@ -108,7 +120,7 @@ class MyMenu extends StatelessWidget {
   Widget _menuItem(IconData icon, String title, {String? badge}) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      leading: Icon(icon, color: primaryColor),
+      leading: Icon(icon, color: MyMenu.primaryColor),
       title: Text(title),
       trailing: badge != null
           ? Container(

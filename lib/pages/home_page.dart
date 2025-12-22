@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_uas/pages/produkdetail_page.dart';
+import 'package:mobile_uas/widgets/main_bottom_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -55,7 +56,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
   String _name = "User";
 
   bool isLoading = true;
@@ -85,33 +86,26 @@ class _HomePageState extends State<HomePage> {
     try {
       debugPrint("FETCHING PRODUCTS...");
 
-      final response = await Supabase.instance.client.from('products').select();
-
-      debugPrint("RAW RESPONSE: $response");
-
-      if (response == null || response is! List) {
-        debugPrint("RESPONSE NULL ATAU BUKAN LIST");
-        setState(() {
-          products = [];
-          isLoading = false;
-        });
-        return;
-      }
+      final response =
+          await Supabase.instance.client.from('products').select();
 
       products = response
-          .map<Product>((e) => Product.fromMap(e as Map<String, dynamic>))
-          .toList();
+        .map<Product>((e) => Product.fromMap(e))
+        .toList();
+
 
       debugPrint("PRODUCT COUNT: ${products.length}");
     } catch (e, stacktrace) {
       debugPrint("ERROR FETCH PRODUCTS: $e");
       debugPrint(stacktrace.toString());
+      products = [];
     } finally {
       setState(() {
         isLoading = false;
       });
     }
   }
+
 
   /// ===============================================================
   /// UI
@@ -129,15 +123,11 @@ class _HomePageState extends State<HomePage> {
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
-      body: _selectedIndex == 0 ? _buildHomeUI() : _dummy(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (i) => setState(() => _selectedIndex = i),
-        selectedItemColor: Colors.deepPurple,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
+      body: 
+      selectedIndex == 0 ? _buildHomeUI() : _dummy(),
+      bottomNavigationBar: MainBottomNav(
+        currentIndex: 0,
+        context: context,
       ),
     );
   }
@@ -199,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                 : Stack(
                     children: [
                       SizedBox(
-                        height: 320,
+                        height: 350,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: products.length,
@@ -323,7 +313,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 product.name,
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontSize: 15,
@@ -400,7 +390,11 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Text(
                     "Lihat Detail",
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 13, 
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white
+                      ),
                   ),
                 ),
               ),
