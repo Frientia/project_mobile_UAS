@@ -195,13 +195,14 @@ class _PaymentPageState extends State<PaymentPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text('Total Pembayaran',
+              children: [
+                const Text('Total Pembayaran',
                     style: TextStyle(fontSize: 12, color: Colors.grey)),
-                SizedBox(height: 4),
-                Text('Rp 500.000',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                Text(
+                  'Rp ${widget.price}',
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             ElevatedButton(
