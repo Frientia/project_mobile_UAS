@@ -284,7 +284,7 @@ class _MyProdukState extends State<MyProduk> {
               );
             },
               child: Text(
-                'Beli Tiket',
+                'Pesan Tiket',
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),

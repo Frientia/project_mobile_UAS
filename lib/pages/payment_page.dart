@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({
@@ -49,6 +50,39 @@ class _PaymentTile extends StatelessWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   String? selectedPayment;
+  
+  Future<void> _submitPayment() async {
+  if (selectedPayment == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Pilih metode pembayaran terlebih dahulu')),
+    );
+    return;
+  }
+
+  try {
+    await Supabase.instance.client.from('orders').insert({
+      'product_id': widget.productId,
+      'ticket_type': widget.ticketType,
+      'day': widget.day,
+      'price': widget.price,
+      'payment_method': selectedPayment,
+      'status': 'paid',
+    });
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Pembayaran berhasil')),
+    );
+
+    Navigator.pop(context);
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Gagal menyimpan pembayaran: $e')),
+    );
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
