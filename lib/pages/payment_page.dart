@@ -205,7 +205,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ],
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _submitPayment,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 113, 50, 202),
                 padding:
