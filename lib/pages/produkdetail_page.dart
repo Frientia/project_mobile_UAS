@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_uas/pages/payment_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +23,7 @@ class _MyProdukState extends State<MyProduk> {
   Map<String, dynamic>? product;
   String selectedTicket = 'Reguler';
   String? selectedDay;
+  String? firebaseUid;
 
   @override
   void initState() {
@@ -283,6 +285,14 @@ class _MyProdukState extends State<MyProduk> {
                 ),
               ),
               onPressed: () {
+              final firebaseUser = FirebaseAuth.instance.currentUser;
+
+              if (firebaseUser == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Silakan login terlebih dahulu')),
+                );
+                return;
+              }
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -290,7 +300,8 @@ class _MyProdukState extends State<MyProduk> {
                     productId: product!['id'],
                     ticketType: selectedTicket,
                     day: selectedDay!,
-                    price: selectedPrice,
+                    price: selectedPrice, 
+                    firebaseUid: firebaseUser.uid,
                   ),
                 ),
               );
