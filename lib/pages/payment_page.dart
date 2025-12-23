@@ -8,12 +8,14 @@ class PaymentPage extends StatefulWidget {
     required this.ticketType,
     required this.day,
     required this.price,
+    required this.firebaseUid,
   });
 
   final String productId;
   final String ticketType;
   final String day;
   final int price;
+  final String firebaseUid;
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
@@ -52,36 +54,52 @@ class _PaymentPageState extends State<PaymentPage> {
   String? selectedPayment;
   
   Future<void> _submitPayment() async {
-  if (selectedPayment == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Pilih metode pembayaran terlebih dahulu')),
-    );
-    return;
+    if (selectedPayment == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pilih metode pembayaran terlebih dahulu')),
+      );
+      return;
+    }
+
+    try {
+      final supabase = Supabase.instance.client;
+
+      final order = await supabase
+          .from('orders')
+          .insert({
+            'firebase_uid': widget.firebaseUid,
+            'total_price': widget.price,
+            'payment_method': selectedPayment,
+            'status': 'paid',
+          })
+          .select()
+          .single();
+
+      final orderId = order['id'];
+
+      await supabase.from('order_items').insert({
+        'order_id': orderId,
+        'product_id': widget.productId,
+        'ticket_type': widget.ticketType,
+        'day': widget.day,
+        'quantity': 1,
+        'price_each': widget.price,
+        'subtotal': widget.price,
+      });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pembayaran berhasil')),
+      );
+
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal menyimpan pembayaran: $e')),
+      );
+    }
   }
-
-  try {
-    await Supabase.instance.client.from('orders').insert({
-      'product_id': widget.productId,
-      'ticket_type': widget.ticketType,
-      'day': widget.day,
-      'price': widget.price,
-      'payment_method': selectedPayment,
-      'status': 'paid',
-    });
-
-    if (!mounted) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Pembayaran berhasil')),
-    );
-
-    Navigator.pop(context);
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Gagal menyimpan pembayaran: $e')),
-    );
-  }
-}
 
 
   @override
