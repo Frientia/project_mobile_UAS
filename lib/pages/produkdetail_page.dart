@@ -19,11 +19,12 @@ class MyProduk extends StatefulWidget {
 
 class _MyProdukState extends State<MyProduk> {
   final supabase = Supabase.instance.client;
+  String? firebaseUid;
+
 
   Map<String, dynamic>? product;
   String selectedTicket = 'Reguler';
   String? selectedDay;
-  String? firebaseUid;
 
   @override
   void initState() {
