@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_uas/pages/payment_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyProduk extends StatefulWidget {
   const MyProduk({
     super.key,
     required this.productId,
+    required this.firebaseUid,
     });
     final String productId;
+    final String firebaseUid;
 
   @override
   State<MyProduk> createState() => _MyProdukState();
@@ -23,8 +26,17 @@ class _MyProdukState extends State<MyProduk> {
   @override
   void initState() {
     super.initState();
+    _loadSession();
     fetchProduct();
   }
+
+  Future<void> _loadSession() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      firebaseUid = prefs.getString('uid');
+    });
+  }
+
 
   Future<void> fetchProduct() async {
     final data = await supabase
