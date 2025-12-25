@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({
@@ -7,12 +8,14 @@ class PaymentPage extends StatefulWidget {
     required this.ticketType,
     required this.day,
     required this.price,
+    required this.firebaseUid,
   });
 
   final String productId;
   final String ticketType;
   final String day;
   final int price;
+  final String firebaseUid;
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();
@@ -49,6 +52,55 @@ class _PaymentTile extends StatelessWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   String? selectedPayment;
+  
+  Future<void> _submitPayment() async {
+    if (selectedPayment == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pilih metode pembayaran terlebih dahulu')),
+      );
+      return;
+    }
+
+    try {
+      final supabase = Supabase.instance.client;
+
+      final order = await supabase
+          .from('orders')
+          .insert({
+            'firebase_uid': widget.firebaseUid,
+            'total_price': widget.price,
+            'payment_method': selectedPayment,
+            'status': 'paid',
+          })
+          .select()
+          .single();
+
+      final orderId = order['id'];
+
+      await supabase.from('order_items').insert({
+        'order_id': orderId,
+        'product_id': widget.productId,
+        'ticket_type': widget.ticketType,
+        'day': widget.day,
+        'quantity': 1,
+        'price_each': widget.price,
+        'subtotal': widget.price,
+      });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pembayaran berhasil')),
+      );
+
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal menyimpan pembayaran: $e')),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -161,17 +213,18 @@ class _PaymentPageState extends State<PaymentPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text('Total Pembayaran',
+              children: [
+                const Text('Total Pembayaran',
                     style: TextStyle(fontSize: 12, color: Colors.grey)),
-                SizedBox(height: 4),
-                Text('Rp 500.000',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4),
+                Text(
+                  'Rp ${widget.price}',
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _submitPayment,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 113, 50, 202),
                 padding:

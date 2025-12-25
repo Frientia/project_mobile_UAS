@@ -383,7 +383,8 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (_) => MyProduk(
-                          productId: product.id, // 🔥 kirim ID
+                          productId: product.id, 
+                          firebaseUid: '',
                         ),
                       ),
                     );

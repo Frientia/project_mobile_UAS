@@ -35,7 +35,7 @@ class MainBottomNav extends StatelessWidget {
           label: "Home",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: Icon(Icons.settings),
           label: "Profile",
         ),
       ],

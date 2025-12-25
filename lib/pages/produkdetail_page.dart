@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_uas/pages/payment_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyProduk extends StatefulWidget {
   const MyProduk({
     super.key,
     required this.productId,
+    required this.firebaseUid,
     });
     final String productId;
+    final String firebaseUid;
 
   @override
   State<MyProduk> createState() => _MyProdukState();
@@ -15,6 +19,8 @@ class MyProduk extends StatefulWidget {
 
 class _MyProdukState extends State<MyProduk> {
   final supabase = Supabase.instance.client;
+  String? firebaseUid;
+
 
   Map<String, dynamic>? product;
   String selectedTicket = 'Reguler';
@@ -23,8 +29,17 @@ class _MyProdukState extends State<MyProduk> {
   @override
   void initState() {
     super.initState();
+    _loadSession();
     fetchProduct();
   }
+
+  Future<void> _loadSession() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      firebaseUid = prefs.getString('uid');
+    });
+  }
+
 
   Future<void> fetchProduct() async {
     final data = await supabase
@@ -271,6 +286,14 @@ class _MyProdukState extends State<MyProduk> {
                 ),
               ),
               onPressed: () {
+              final firebaseUser = FirebaseAuth.instance.currentUser;
+
+              if (firebaseUser == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Silakan login terlebih dahulu')),
+                );
+                return;
+              }
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -278,7 +301,8 @@ class _MyProdukState extends State<MyProduk> {
                     productId: product!['id'],
                     ticketType: selectedTicket,
                     day: selectedDay!,
-                    price: selectedPrice,
+                    price: selectedPrice, 
+                    firebaseUid: firebaseUser.uid,
                   ),
                 ),
               );
