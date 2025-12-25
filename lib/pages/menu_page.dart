@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_uas/widgets/main_bottom_nav.dart';
 
 class MyMenu extends StatefulWidget {
@@ -11,8 +12,24 @@ class MyMenu extends StatefulWidget {
 }
 
 class _MyMenuState extends State<MyMenu> {
-  int selectedIndex = 1;
-  
+  String _name = "User";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSession();
+  }
+
+  /// =============================
+  /// LOAD USERNAME FROM SESSION
+  /// =============================
+  Future<void> _loadSession() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _name = prefs.getString('name') ?? "User";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,34 +91,41 @@ class _MyMenuState extends State<MyMenu> {
           );
         },
       ),
+      bottomNavigationBar: MainBottomNav(currentIndex: 1, context: context),
     );
   }
 
+  /// =============================
+  /// PROFILE CARD
+  /// =============================
   Widget _profileCard() {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: _cardDecoration(),
       child: Row(
-        children: const [
-          CircleAvatar(
+        children: [
+          const CircleAvatar(
             radius: 28,
             backgroundColor: MyMenu.primaryColor,
             child: Icon(Icons.person, color: Colors.white),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Agra Alfian Hafiz',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  _name, // ✅ SAMA DENGAN HOME PAGE
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                Text('Personal', style: TextStyle(color: Colors.grey)),
+                const Text('Personal', style: TextStyle(color: Colors.grey)),
               ],
             ),
           ),
-          Icon(Icons.arrow_forward_ios, size: 16),
+          const Icon(Icons.arrow_forward_ios, size: 16),
         ],
       ),
     );
@@ -117,24 +141,12 @@ class _MyMenuState extends State<MyMenu> {
     );
   }
 
-  Widget _menuItem(IconData icon, String title, {String? badge}) {
+  Widget _menuItem(IconData icon, String title) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
       leading: Icon(icon, color: MyMenu.primaryColor),
       title: Text(title),
-      trailing: badge != null
-          ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                badge,
-                style: const TextStyle(color: Colors.white, fontSize: 10),
-              ),
-            )
-          : const Icon(Icons.arrow_forward_ios, size: 16),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: () {},
     );
   }
@@ -148,28 +160,7 @@ class _MyMenuState extends State<MyMenu> {
       ),
       tileColor: Colors.red.withOpacity(0.05),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      onTap: () => _showLogoutDialog(context),
-    );
-  }
-
-  void _showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Logout'),
-        content: const Text('Yakin ingin logout?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Logout'),
-          ),
-        ],
-      ),
+      onTap: () {},
     );
   }
 
