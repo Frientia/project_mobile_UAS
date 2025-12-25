@@ -2,6 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -13,9 +14,9 @@ class MyProfile extends StatefulWidget {
 class _MyProfileState extends State<MyProfile> {
   final user = FirebaseAuth.instance.currentUser;
 
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   String _countryCode = '+62';
   bool _loading = true;
@@ -34,60 +35,82 @@ class _MyProfileState extends State<MyProfile> {
     super.dispose();
   }
 
-  // =========================
-  // LOAD DATA FROM SUPABASE
-  // =========================
+  // ==================================================
+  // LOAD PROFILE FROM SUPABASE (BY FIREBASE UID)
+  // ==================================================
   Future<void> _loadProfile() async {
     final firebaseUid = user?.uid;
-    if (firebaseUid == null) return;
+    if (firebaseUid == null) {
+      setState(() => _loading = false);
+      return;
+    }
 
-    final data = await Supabase.instance.client
-        .from('users')
-        .select()
-        .eq('firebase_uid', firebaseUid)
-        .maybeSingle();
+    try {
+      final data = await Supabase.instance.client
+          .from('users')
+          .select()
+          .eq('firebase_uid', firebaseUid)
+          .maybeSingle();
 
-    if (data != null) {
-      _nameController.text = data['name'] ?? '';
-      _emailController.text = data['email'] ?? '';
+      if (data != null) {
+        _nameController.text = data['name'] ?? '';
+        _emailController.text = data['email'] ?? '';
 
-      final phone = data['phone'] ?? '';
-      if (phone.isNotEmpty) {
-        final match = RegExp(r'^(\+\d+)(.*)').firstMatch(phone);
-        if (match != null) {
-          _countryCode = match.group(1)!;
-          _phoneController.text = match.group(2)!;
+        final phone = data['phone'] ?? '';
+        if (phone.isNotEmpty) {
+          final match = RegExp(r'^(\+\d+)(.*)').firstMatch(phone);
+          if (match != null) {
+            _countryCode = match.group(1)!;
+            _phoneController.text = match.group(2)!;
+          }
         }
       }
+    } catch (e) {
+      debugPrint('Load profile error: $e');
     }
 
     setState(() => _loading = false);
   }
 
-  // =========================
-  // SAVE DATA
-  // =========================
+  // ==================================================
+  // UPDATE PROFILE (UPDATE DATA LAMA)
+  // ==================================================
   Future<void> _saveProfile() async {
     final firebaseUid = user?.uid;
     if (firebaseUid == null) return;
 
-    final phone = '$_countryCode${_phoneController.text}';
+    setState(() => _loading = true);
 
-    await Supabase.instance.client
-        .from('users')
-        .update({'name': _nameController.text, 'phone': phone})
-        .eq('firebase_uid', firebaseUid);
+    final phone = '$_countryCode${_phoneController.text.trim()}';
 
-    if (!mounted) return;
+    try {
+      // UPDATE SUPABASE (TANPA updated_at)
+      await Supabase.instance.client
+          .from('users')
+          .update({'name': _nameController.text.trim(), 'phone': phone})
+          .eq('firebase_uid', firebaseUid);
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Profil berhasil disimpan')));
+      // UPDATE SHARED PREFERENCES
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('name', _nameController.text.trim());
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Profil berhasil diperbarui')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Gagal menyimpan profil: $e')));
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
   }
 
-  // =========================
+  // ==================================================
   // UI
-  // =========================
+  // ==================================================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +151,13 @@ class _MyProfileState extends State<MyProfile> {
                     height: 48,
                     child: ElevatedButton(
                       onPressed: _saveProfile,
-                      child: const Text('Simpan'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF6F32CA),
+                      ),
+                      child: const Text(
+                        'Simpan',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ],
@@ -137,9 +166,9 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-  // =========================
+  // ==================================================
   // COMPONENTS
-  // =========================
+  // ==================================================
   Widget _profileHeader() {
     return Column(
       children: [
@@ -151,7 +180,7 @@ class _MyProfileState extends State<MyProfile> {
         const SizedBox(height: 8),
         TextButton(
           onPressed: () {
-            // TODO: upload image
+            // upload foto (optional)
           },
           child: const Text(
             'Upload Foto Profil',
