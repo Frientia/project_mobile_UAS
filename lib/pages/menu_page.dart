@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobile_uas/widgets/main_bottom_nav.dart';
 
 class MyMenu extends StatefulWidget {
   const MyMenu({super.key});
@@ -86,6 +87,7 @@ class _MyMenuState extends State<MyMenu> {
           );
         },
       ),
+      bottomNavigationBar: MainBottomNav(currentIndex: 1, context: context),
     );
   }
 
