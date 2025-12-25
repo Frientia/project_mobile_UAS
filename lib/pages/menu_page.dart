@@ -34,10 +34,6 @@ class _MyMenuState extends State<MyMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      bottomNavigationBar: MainBottomNav(
-        currentIndex: 1,
-        context: context,
-      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           double maxWidth = constraints.maxWidth > 1100
