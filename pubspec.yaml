@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  country_picker: ^2.0.26
   flutter:
     sdk: flutter
   lottie: ^3.3.2
