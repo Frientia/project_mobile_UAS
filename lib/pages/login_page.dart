@@ -65,10 +65,10 @@ class _LoginPageState extends State<LoginPage> {
       final data = await supabase 
         .from('users') 
         .select('name') 
-        .eq('firebase_uid', uid) 
-        .maybeSingle(); 
+        .eq('email', email)
+        .single(); 
       
-      final fullName = data?['name'] ?? 'User';
+      final fullName = data['name'] ?? 'User';
 
       final prefs = await SharedPreferences.getInstance(); 
       await prefs.setBool('isLoggedIn', true); 
