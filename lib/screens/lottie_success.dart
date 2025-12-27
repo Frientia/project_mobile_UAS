@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobile_uas/pages/home_page.dart';
 import 'package:mobile_uas/pages/riwayat_pesanan.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+final FlutterLocalNotificationsPlugin notificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 class MySuccess extends StatefulWidget {
   const MySuccess({super.key});
@@ -12,6 +16,37 @@ class MySuccess extends StatefulWidget {
 
 class _MySuccessState extends State<MySuccess> {
   @override
+  void initState() {
+    super.initState();
+    _initNotification();
+    _showSuccessNotification();
+  }
+
+  Future<void> _initNotification() async {
+    const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const initSettings = InitializationSettings(android: androidInit);
+    await notificationsPlugin.initialize(initSettings);
+  }
+
+  Future<void> _showSuccessNotification() async {
+    const androidDetails = AndroidNotificationDetails(
+      'payment_success',
+      'Pembayaran',
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+
+    const notificationDetails = NotificationDetails(android: androidDetails);
+
+    await notificationsPlugin.show(
+      0,
+      'Pembayaran Berhasil',
+      'Terima kasih, pembayaran Anda telah berhasil',
+      notificationDetails,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -19,6 +54,22 @@ class _MySuccessState extends State<MySuccess> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              'Pembayaran Berhasil',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 113, 50, 202),
+              ),
+            ),
+
+            const SizedBox(height: 8),
+            const Text(
+              'Tiket Anda berhasil diproses',
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+
+            const SizedBox(height: 24),
             Lottie.asset(
               'assets/animations/Check_Mark.json',
               width: 300,
@@ -26,7 +77,9 @@ class _MySuccessState extends State<MySuccess> {
               fit: BoxFit.contain,
               repeat: true,
             ),
+
             const SizedBox(height: 24),
+
             SizedBox(
               width: 220,
               height: 40,
@@ -45,8 +98,8 @@ class _MySuccessState extends State<MySuccess> {
                     (route) => false,
                   );
                 },
-                child: Text(
-                  'Kemabli ke Home',
+                child: const Text(
+                  'Kembali ke Home',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
