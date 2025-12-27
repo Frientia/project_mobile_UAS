@@ -44,8 +44,15 @@ class _LoginPageState extends State<LoginPage> {
 
       final user = userCredential.user; 
       final uid = user!.uid;
+      final email = user.email!;
       
       final supabase = Supabase.instance.client;
+
+      final existingUser = await supabase
+        .from('users')
+        .select('id, name')
+        .eq('email', email)
+        .maybeSingle();
 
       await supabase.from('users').upsert({
         'firebase_uid': uid,
