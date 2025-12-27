@@ -35,7 +35,6 @@ class _SplashScreenState extends State<SplashLottie> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Animasi Lottie
             Lottie.asset(
               'assets/animations/Ticket_load.json',
               width: 300,
@@ -52,7 +51,6 @@ class _SplashScreenState extends State<SplashLottie> {
               ),
             ),
             const SizedBox(height: 16),
-            const CircularProgressIndicator(),
           ],
         ),
       ),
