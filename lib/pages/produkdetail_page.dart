@@ -9,9 +9,9 @@ class MyProduk extends StatefulWidget {
     super.key,
     required this.productId,
     required this.firebaseUid,
-    });
-    final String productId;
-    final String firebaseUid;
+  });
+  final String productId;
+  final String firebaseUid;
 
   @override
   State<MyProduk> createState() => _MyProdukState();
@@ -20,7 +20,6 @@ class MyProduk extends StatefulWidget {
 class _MyProdukState extends State<MyProduk> {
   final supabase = Supabase.instance.client;
   String? firebaseUid;
-
 
   Map<String, dynamic>? product;
   String selectedTicket = 'Reguler';
@@ -40,7 +39,6 @@ class _MyProdukState extends State<MyProduk> {
     });
   }
 
-
   Future<void> fetchProduct() async {
     final data = await supabase
         .from('products')
@@ -54,19 +52,17 @@ class _MyProdukState extends State<MyProduk> {
     });
   }
 
-   int get selectedPrice {
+  int get selectedPrice {
     if (selectedTicket == 'VIP') {
       return product!['price_vip'];
     }
     return product!['price_regular'];
   }
-  
+
   @override
   Widget build(BuildContext context) {
     if (product == null) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -160,10 +156,7 @@ class _MyProdukState extends State<MyProduk> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      product!['description'],
-                      textAlign: TextAlign.justify,
-                    ),
+                    Text(product!['description'], textAlign: TextAlign.justify),
                     SizedBox(height: 24),
 
                     Text(
@@ -191,21 +184,19 @@ class _MyProdukState extends State<MyProduk> {
                             ),
                             DropdownMenuItem(
                               value: 'VIP',
-                              child: Text(
-                                'VIP - Rp${product!['price_vip']}',
-                              ),
+                              child: Text('VIP - Rp${product!['price_vip']}'),
                             ),
                           ],
                           onChanged: (value) {
-                           setState(() {
-                             selectedTicket = value!;
+                            setState(() {
+                              selectedTicket = value!;
                             });
                           },
                         ),
                       ),
                     ),
                     SizedBox(height: 16),
-                    
+
                     Text(
                       'Pilih Hari',
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -225,11 +216,12 @@ class _MyProdukState extends State<MyProduk> {
                           isExpanded: true,
                           items: (product!['available_days'] as List)
                               .map<DropdownMenuItem<String>>((day) {
-                            return DropdownMenuItem<String>(
-                              value: day,
-                              child: Text(day),
-                            );
-                          }).toList(),
+                                return DropdownMenuItem<String>(
+                                  value: day,
+                                  child: Text(day),
+                                );
+                              })
+                              .toList(),
                           onChanged: (value) {
                             setState(() {
                               selectedDay = value!;
@@ -264,16 +256,14 @@ class _MyProdukState extends State<MyProduk> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                Text("Total Harga", style: TextStyle(fontSize: 12)),
                 Text(
-                  "Total Harga", 
-                  style: TextStyle(fontSize: 12),
-                ),
-                Text(
-                  'Rp $selectedPrice', 
+                  'Rp $selectedPrice',
                   style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -286,27 +276,29 @@ class _MyProdukState extends State<MyProduk> {
                 ),
               ),
               onPressed: () {
-              final firebaseUser = FirebaseAuth.instance.currentUser;
+                final firebaseUser = FirebaseAuth.instance.currentUser;
 
-              if (firebaseUser == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Silakan login terlebih dahulu')),
-                );
-                return;
-              }
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => PaymentPage(
-                    productId: product!['id'],
-                    ticketType: selectedTicket,
-                    day: selectedDay!,
-                    price: selectedPrice, 
-                    firebaseUid: firebaseUser.uid,
+                if (firebaseUser == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Silakan login terlebih dahulu'),
+                    ),
+                  );
+                  return;
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => PaymentPage(
+                      productId: product!['id'],
+                      ticketType: selectedTicket,
+                      day: selectedDay!,
+                      price: selectedPrice,
+                      firebaseUid: firebaseUser.uid,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
               child: Text(
                 'Beli Tiket',
                 style: TextStyle(fontSize: 16, color: Colors.white),
