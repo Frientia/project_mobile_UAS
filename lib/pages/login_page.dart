@@ -47,6 +47,11 @@ class _LoginPageState extends State<LoginPage> {
       
       final supabase = Supabase.instance.client;
 
+      await supabase.from('users').upsert({
+        'firebase_uid': uid,
+        'email': user.email,
+        'name': user.displayName ?? 'User',
+      });
       
     } on FirebaseAuthException catch (e) { 
       setState(() => _error = e.message); 
