@@ -279,7 +279,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
-                    onPressed: () {},
+                    onPressed: _isLoading ? null : _loginWithGoogle,
                     icon: Image.asset(
                       'assets/images/google_logo.png',
                       height: 24,
