@@ -60,7 +60,14 @@ class _LoginPageState extends State<LoginPage> {
         .maybeSingle(); 
       
       final fullName = data?['name'] ?? 'User';
-      
+
+      final prefs = await SharedPreferences.getInstance(); 
+      await prefs.setBool('isLoggedIn', true); 
+      await prefs.setString('uid', uid); 
+      await prefs.setString('name', fullName);
+
+      if (!mounted) return;
+
     } on FirebaseAuthException catch (e) { 
       setState(() => _error = e.message); 
     } catch (e) { 
