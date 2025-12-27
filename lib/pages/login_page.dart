@@ -291,6 +291,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
+                SizedBox(height: 20),
+
                 Row(
                   children: [
                     Expanded(child: Divider()),
