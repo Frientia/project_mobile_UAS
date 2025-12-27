@@ -8,7 +8,8 @@ final FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class MySuccess extends StatefulWidget {
-  const MySuccess({super.key});
+  final String order_id;
+  const MySuccess({super.key, required this.order_id});
 
   @override
   State<MySuccess> createState() => _MySuccessState();
@@ -67,6 +68,17 @@ class _MySuccessState extends State<MySuccess> {
             const Text(
               'Tiket Anda berhasil diproses',
               style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+
+            const SizedBox(height: 8),
+
+            Text(
+              'Pesanan ID (#${widget.order_id}) berhasil diproses',
+              style: const TextStyle(
+                fontSize: 13,
+                color: Colors.black54,
+                fontWeight: FontWeight.w500,
+              ),
             ),
 
             const SizedBox(height: 24),

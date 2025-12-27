@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_uas/pages/payment_page.dart';
-import 'package:mobile_uas/screens/lottie_success.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -298,13 +297,7 @@ class _MyProdukState extends State<MyProduk> {
                       firebaseUid: firebaseUser.uid,
                     ),
                   ),
-                ).then((_) {
-                  // ✅ SETELAH PAYMENT SELESAI → SPLASH SUCCESS
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const MySuccess()),
-                  );
-                });
+                );
               },
               child: Text(
                 'Beli Tiket',
