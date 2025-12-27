@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobile_uas/pages/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_uas/pages/home_page.dart';
@@ -18,6 +19,27 @@ class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
   String? _error;
   bool _obscurePassword = true;
+
+  Future<void> _loginWithGoogle() async { 
+    setState(() { 
+      _isLoading = true; 
+      _error = null; 
+    });
+
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        setState(() => _isLoading = false); 
+        return;
+      }
+    } on FirebaseAuthException catch (e) { 
+      setState(() => _error = e.message); 
+    } catch (e) { 
+      setState(() => _error = e.toString()); 
+    } finally { 
+      setState(() => _isLoading = false); 
+    }
+  }
 
   Future<void> _logins() async {
     setState(() {
