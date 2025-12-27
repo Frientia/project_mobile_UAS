@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobile_uas/pages/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_uas/pages/home_page.dart';
@@ -18,6 +19,91 @@ class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
   String? _error;
   bool _obscurePassword = true;
+
+  Future<void> _loginWithGoogle() async { 
+    setState(() { 
+      _isLoading = true; 
+      _error = null; 
+    });
+
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        setState(() => _isLoading = false); 
+        return;
+      }
+
+      final googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential( 
+        accessToken: googleAuth.accessToken, 
+        idToken: googleAuth.idToken, 
+      );
+      final userCredential = 
+        await FirebaseAuth.instance.signInWithCredential(credential); 
+
+      final user = userCredential.user; 
+      final uid = user!.uid;
+      final email = user.email!;
+      
+      final supabase = Supabase.instance.client;
+
+      final existingUser = await supabase
+        .from('users')
+        .select('id, name')
+        .eq('email', email)
+        .maybeSingle();
+
+      if (existingUser == null) {
+        await supabase.from('users').upsert({
+          'firebase_uid': uid,
+          'email': user.email,
+          'name': user.displayName ?? 'User',
+        });
+      }
+
+      final data = await supabase 
+        .from('users') 
+        .select('name') 
+        .eq('email', email)
+        .single(); 
+      
+      final fullName = data['name'] ?? 'User';
+
+      final prefs = await SharedPreferences.getInstance(); 
+      await prefs.setBool('isLoggedIn', true); 
+      await prefs.setString('uid', uid); 
+      await prefs.setString('name', fullName);
+
+      if (!mounted) return;
+
+      showDialog( 
+        context: context, 
+        builder: (_) => AlertDialog( 
+          title: const Text('Login Success'), 
+          content: Text('Anda berhasil login\nSelamat datang, $fullName'), 
+          actions: [ 
+            TextButton( 
+              onPressed: () { 
+                Navigator.pop(context); 
+                Navigator.pushReplacement( 
+                  context, MaterialPageRoute(builder: (_) => HomePage()), 
+                  ); 
+                }, 
+            child: const Text('OK'), 
+            ), 
+          ], 
+        ), 
+      );
+
+    } on FirebaseAuthException catch (e) { 
+      setState(() => _error = e.message); 
+    } catch (e) { 
+      setState(() => _error = e.toString()); 
+    } finally { 
+      setState(() => _isLoading = false); 
+    }
+  }
 
   Future<void> _logins() async {
     setState(() {
@@ -204,6 +290,46 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                   ),
                 ),
+
+                SizedBox(height: 20),
+
+                Row(
+                  children: [
+                    Expanded(child: Divider()),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text("atau"),
+                    ),
+                    Expanded(child: Divider()),
+                  ],
+                ),
+
+                SizedBox(height: 20),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: _isLoading ? null : _loginWithGoogle,
+                    icon: Image.asset(
+                      'assets/images/google_logo.png',
+                      height: 24,
+                      width: 24,
+                    ),
+                    label: Text(
+                      'Login dengan Google',
+                      style: TextStyle(color: Colors.black87),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      backgroundColor: Colors.white,
+                      side: BorderSide(color: Colors.grey),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
+
 
                 SizedBox(height: 20),
                 Row(
