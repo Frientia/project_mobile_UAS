@@ -263,6 +263,44 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
+                Row(
+                  children: [
+                    Expanded(child: Divider()),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text("atau"),
+                    ),
+                    Expanded(child: Divider()),
+                  ],
+                ),
+
+                SizedBox(height: 20),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () {},
+                    icon: Image.asset(
+                      'assets/images/google_logo.png',
+                      height: 24,
+                      width: 24,
+                    ),
+                    label: Text(
+                      'Login dengan Google',
+                      style: TextStyle(color: Colors.black87),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      backgroundColor: Colors.white,
+                      side: BorderSide(color: Colors.grey),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
+
+
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
