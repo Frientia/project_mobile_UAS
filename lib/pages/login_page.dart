@@ -32,6 +32,19 @@ class _LoginPageState extends State<LoginPage> {
         setState(() => _isLoading = false); 
         return;
       }
+
+      final googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential( 
+        accessToken: googleAuth.accessToken, 
+        idToken: googleAuth.idToken, 
+      );
+      final userCredential = 
+        await FirebaseAuth.instance.signInWithCredential(credential); 
+
+      final user = userCredential.user; 
+      final uid = user!.uid;
+      
     } on FirebaseAuthException catch (e) { 
       setState(() => _error = e.message); 
     } catch (e) { 
