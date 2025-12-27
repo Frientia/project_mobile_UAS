@@ -45,6 +45,9 @@ class _LoginPageState extends State<LoginPage> {
       final user = userCredential.user; 
       final uid = user!.uid;
       
+      final supabase = Supabase.instance.client;
+
+      
     } on FirebaseAuthException catch (e) { 
       setState(() => _error = e.message); 
     } catch (e) { 
