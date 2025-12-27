@@ -54,11 +54,13 @@ class _LoginPageState extends State<LoginPage> {
         .eq('email', email)
         .maybeSingle();
 
-      await supabase.from('users').upsert({
-        'firebase_uid': uid,
-        'email': user.email,
-        'name': user.displayName ?? 'User',
-      });
+      if (existingUser == null) {
+        await supabase.from('users').upsert({
+          'firebase_uid': uid,
+          'email': user.email,
+          'name': user.displayName ?? 'User',
+        });
+      }
 
       final data = await supabase 
         .from('users') 
