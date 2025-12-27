@@ -52,6 +52,14 @@ class _LoginPageState extends State<LoginPage> {
         'email': user.email,
         'name': user.displayName ?? 'User',
       });
+
+      final data = await supabase 
+        .from('users') 
+        .select('name') 
+        .eq('firebase_uid', uid) 
+        .maybeSingle(); 
+      
+      final fullName = data?['name'] ?? 'User';
       
     } on FirebaseAuthException catch (e) { 
       setState(() => _error = e.message); 
