@@ -6,7 +6,6 @@ import 'package:mobile_uas/pages/menu_page.dart';
 import 'package:mobile_uas/screens/splash_screen1.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:mobile_uas/firebase_options.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,15 +18,6 @@ Future<void> main() async {
   runApp(const MyProject());
 }
 
-final FlutterLocalNotificationsPlugin notificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
-Future<void> initNotifications() async {
-  const android = AndroidInitializationSettings('@mipmap/ic_launcher');
-  const settings = InitializationSettings(android: android);
-  await notificationsPlugin.initialize(settings);
-}
-
 class MyProject extends StatelessWidget {
   const MyProject({super.key});
 
@@ -37,7 +27,10 @@ class MyProject extends StatelessWidget {
       title: 'MyConcert',
       debugShowCheckedModeBanner: false,
       home: SplashScreen1(),
-      routes: {'/home': (_) => HomePage(), '/profile': (_) => MyMenu()},
+      routes: {
+        '/home': (_) => HomePage(),
+        '/profile': (_) => MyMenu(),
+      },
     );
   }
 }
