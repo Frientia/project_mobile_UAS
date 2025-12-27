@@ -68,6 +68,25 @@ class _LoginPageState extends State<LoginPage> {
 
       if (!mounted) return;
 
+      showDialog( 
+        context: context, 
+        builder: (_) => AlertDialog( 
+          title: const Text('Login Success'), 
+          content: Text('Anda berhasil login\nSelamat datang, $fullName'), 
+          actions: [ 
+            TextButton( 
+              onPressed: () { 
+                Navigator.pop(context); 
+                Navigator.pushReplacement( 
+                  context, MaterialPageRoute(builder: (_) => HomePage()), 
+                  ); 
+                }, 
+            child: const Text('OK'), 
+            ), 
+          ], 
+        ), 
+      );
+
     } on FirebaseAuthException catch (e) { 
       setState(() => _error = e.message); 
     } catch (e) { 
