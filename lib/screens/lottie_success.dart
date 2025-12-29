@@ -74,6 +74,7 @@ class _MySuccessState extends State<MySuccess> {
 
             Text(
               'Pesanan ID (#${widget.order_id}) berhasil diproses',
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 13,
                 color: Colors.black54,
