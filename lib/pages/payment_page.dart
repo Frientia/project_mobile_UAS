@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_uas/screens/lottie_success.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -40,7 +39,11 @@ class _PaymentTile extends StatelessWidget {
     return RadioListTile(
       value: value,
       title: Row(
-        children: [Icon(icon, size: 20), const SizedBox(width: 8), Text(title)],
+        children: [
+          Icon(icon, size: 20),
+          const SizedBox(width: 8),
+          Text(title),
+        ],
       ),
       subtitle: Text(subtitle),
     );
@@ -49,13 +52,11 @@ class _PaymentTile extends StatelessWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   String? selectedPayment;
-
+  
   Future<void> _submitPayment() async {
     if (selectedPayment == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Pilih metode pembayaran terlebih dahulu'),
-        ),
+        const SnackBar(content: Text('Pilih metode pembayaran terlebih dahulu')),
       );
       return;
     }
@@ -88,16 +89,18 @@ class _PaymentPageState extends State<PaymentPage> {
 
       if (!mounted) return;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => MySuccess(order_id: orderId)),
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pembayaran berhasil')),
       );
+
+      Navigator.pop(context);
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Gagal menyimpan pembayaran: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal menyimpan pembayaran: $e')),
+      );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,13 +121,13 @@ class _PaymentPageState extends State<PaymentPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _sectionCard(
-              title: 'Ringkasan Pesanan',
+              title: 'Ringkasan Pesanan', 
               child: Column(
                 children: [
                   _rowItem('Tiket', widget.ticketType),
                   _rowItem('Hari', widget.day),
                   _rowItem('Harga', 'Rp${widget.price}', bold: true),
-                ],
+                ]
               ),
             ),
             SizedBox(height: 26),
@@ -141,11 +144,8 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                     child: const Row(
                       children: [
-                        Icon(
-                          Icons.info_outline,
-                          size: 18,
-                          color: Colors.deepPurple,
-                        ),
+                        Icon(Icons.info_outline,
+                            size: 18, color: Colors.deepPurple),
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -214,17 +214,12 @@ class _PaymentPageState extends State<PaymentPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Total Pembayaran',
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
+                const Text('Total Pembayaran',
+                    style: TextStyle(fontSize: 12, color: Colors.grey)),
                 const SizedBox(height: 4),
                 Text(
                   'Rp ${widget.price}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -232,26 +227,20 @@ class _PaymentPageState extends State<PaymentPage> {
               onPressed: _submitPayment,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 113, 50, 202),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 28,
-                  vertical: 14,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Text(
-                'Bayar',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
+              child: const Text('Bayar', style: TextStyle(fontSize: 16, color: Colors.white),),
             ),
           ],
         ),
       ),
     );
   }
-
-  Widget _sectionCard({required String title, required Widget child}) {
+    Widget _sectionCard({required String title, required Widget child}) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -261,18 +250,17 @@ class _PaymentPageState extends State<PaymentPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+          Text(title,
+              style: const TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           child,
         ],
       ),
     );
   }
-
-  Widget _rowItem(String label, String value, {bool bold = false}) {
+  
+    Widget _rowItem(String label, String value, {bool bold = false}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
