@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/screens/lottie_success.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -89,15 +90,14 @@ class _PaymentPageState extends State<PaymentPage> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Pembayaran berhasil')),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => MySuccess(order_id: orderId)),
       );
-
-      Navigator.pop(context);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Gagal menyimpan pembayaran: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Gagal menyimpan pembayaran: $e')));
     }
   }
 
