@@ -95,7 +95,7 @@ class _MySuccessState extends State<MySuccess> {
 
             SizedBox(
               width: 220,
-              height: 40,
+              height: 45,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 113, 50, 202),
