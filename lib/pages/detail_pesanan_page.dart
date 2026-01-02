@@ -21,7 +21,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   /// ===============================================================
-  /// LOAD DETAIL PESANAN + ORDER ITEMS
+  /// LOAD DETAIL PESANAN + ORDER ITEMS + PRODUCTS (NAME)
   /// ===============================================================
   Future<void> _loadDetail() async {
     try {
@@ -31,7 +31,8 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
           .from('orders')
           .select(
             'id,total_price,status,payment_method,created_at,'
-            'order_items(ticket_type,quantity,subtotal,day)',
+            'order_items(ticket_type,quantity,subtotal,day,'
+            'products(name))',
           )
           .eq('id', widget.orderId)
           .single();
@@ -85,11 +86,23 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   Widget _buildContent() {
     final items = List<Map<String, dynamic>>.from(order!['order_items'] ?? []);
 
+    final Map<String, dynamic>? product = items.isNotEmpty
+        ? items.first['products']
+        : null;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          /// NAMA EVENT (DARI PRODUCTS)
+          Text(
+            product?['name'] ?? 'Nama Event',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+
+          const SizedBox(height: 16),
+
           /// INFORMASI PESANAN
           _card(
             title: "Informasi Pesanan",
