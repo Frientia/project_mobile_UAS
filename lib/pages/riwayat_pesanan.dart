@@ -20,9 +20,6 @@ class _MyRiwayatState extends State<MyRiwayat> {
     _loadRiwayat();
   }
 
-  /// ===============================================================
-  /// LOAD RIWAYAT + ORDER ITEMS
-  /// ===============================================================
   Future<void> _loadRiwayat() async {
     try {
       final supabase = Supabase.instance.client;
@@ -30,7 +27,7 @@ class _MyRiwayatState extends State<MyRiwayat> {
       final response = await supabase
           .from('orders')
           .select(
-            'id,total_price,status,created_at,'
+            'id,total_price,status,payment_method,created_at,'
             'order_items(ticket_type,quantity,subtotal,day)',
           )
           .eq('firebase_uid', widget.firebaseUid)
@@ -77,7 +74,7 @@ class _MyRiwayatState extends State<MyRiwayat> {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.05),
@@ -90,24 +87,51 @@ class _MyRiwayatState extends State<MyRiwayat> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Order ID: ${order['id']}",
+                        "Order #${order['id']}",
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 6),
+                      Text(
+                        order['payment_method'] ?? '-',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
 
-                      /// ITEM RINGKAS
+                      const Divider(height: 24),
+
                       ...items.map((item) {
-                        return Text(
-                          "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
+                              ),
+                              Text(
+                                "Rp ${item['subtotal']}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         );
                       }),
 
-                      const SizedBox(height: 8),
-                      Text(
-                        "Total: Rp ${order['total_price']}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 113, 50, 202),
+                      const Divider(height: 24),
+
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "Total: Rp ${order['total_price']}",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 113, 50, 202),
+                          ),
                         ),
                       ),
                     ],
