@@ -27,26 +27,28 @@ class _MyDeveloperState extends State<MyDeveloper> {
               name: 'Agra Hafiz',
               role: 'Flutter Developer',
               image: 'assets/images/developer/people.png',
+              onTap: () {},
               isMain: true,
             ),
 
             const SizedBox(height: 20),
-
             Row(
               children: [
                 Expanded(
                   child: _DeveloperCard(
                     name: 'Developer 2',
-                    role: 'Backend Developer',
+                    role: 'Backend',
                     image: 'assets/images/developer/people.png',
+                    onTap: () {},
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: _DeveloperCard(
                     name: 'Developer 3',
-                    role: 'UI / UX Designer',
+                    role: 'UI/UX',
                     image: 'assets/images/developer/people.png',
+                    onTap: () {},
                   ),
                 ),
               ],
@@ -64,12 +66,14 @@ class _DeveloperCard extends StatefulWidget {
   final String name;
   final String role;
   final String image;
+  final VoidCallback onTap;
   final bool isMain;
 
   const _DeveloperCard({
     required this.name,
     required this.role,
     required this.image,
+    required this.onTap,
     this.isMain = false,
   });
 
@@ -77,40 +81,18 @@ class _DeveloperCard extends StatefulWidget {
   State<_DeveloperCard> createState() => _DeveloperCardState();
 }
 
-class _DeveloperCardState extends State<_DeveloperCard>
-    with SingleTickerProviderStateMixin {
-  double _scale = 1.0;
-
-  late AnimationController _controller;
-  late Animation<double> _fade;
-  late Animation<double> _zoom;
+class _DeveloperCardState extends State<_DeveloperCard> {
+  double _scale = 1;
+  bool _visible = false;
 
   @override
   void initState() {
     super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 600),
-    );
-
-    _fade = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-
-    _zoom = Tween<double>(
-      begin: 0.9,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    Future.delayed(const Duration(milliseconds: 120), () {
+      if (mounted) {
+        setState(() => _visible = true);
+      }
+    });
   }
 
   @override
@@ -122,7 +104,10 @@ class _DeveloperCardState extends State<_DeveloperCard>
         borderRadius: BorderRadius.circular(16),
         onTapDown: (_) => setState(() => _scale = 0.97),
         onTapCancel: () => setState(() => _scale = 1),
-        onTapUp: (_) => setState(() => _scale = 1),
+        onTapUp: (_) {
+          setState(() => _scale = 1);
+          widget.onTap();
+        },
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -142,13 +127,20 @@ class _DeveloperCardState extends State<_DeveloperCard>
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(16),
                 ),
-                child: FadeTransition(
-                  opacity: _fade,
-                  child: ScaleTransition(
-                    scale: _zoom,
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: Image.asset(widget.image, fit: BoxFit.cover),
+                child: AnimatedOpacity(
+                  opacity: _visible ? 1 : 0,
+                  duration: const Duration(milliseconds: 600),
+                  curve: Curves.easeOut,
+                  child: AnimatedScale(
+                    scale: _visible ? 1 : 0.85,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeOutBack,
+                    child: Padding(
+                      padding: EdgeInsets.all(widget.isMain ? 24 : 0),
+                      child: AspectRatio(
+                        aspectRatio: widget.isMain ? 1.2 : 1,
+                        child: Image.asset(widget.image, fit: BoxFit.contain),
+                      ),
                     ),
                   ),
                 ),
@@ -159,8 +151,8 @@ class _DeveloperCardState extends State<_DeveloperCard>
               Center(
                 child: Text(
                   widget.name,
-                  style: TextStyle(
-                    fontSize: widget.isMain ? 17 : 15,
+                  style: const TextStyle(
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -172,6 +164,28 @@ class _DeveloperCardState extends State<_DeveloperCard>
                 child: Text(
                   widget.role,
                   style: const TextStyle(color: Colors.grey),
+                ),
+              ),
+
+              const SizedBox(height: 14),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  height: 38,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _MyDeveloperState.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: widget.onTap,
+                    child: const Text(
+                      'Detail Developer',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ),
 
