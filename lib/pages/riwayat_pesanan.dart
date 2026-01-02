@@ -21,7 +21,7 @@ class _MyRiwayatState extends State<MyRiwayat> {
   }
 
   /// ===============================================================
-  /// LOAD RIWAYAT PESANAN DARI SUPABASE (BY FIREBASE UID)
+  /// LOAD RIWAYAT + ORDER ITEMS
   /// ===============================================================
   Future<void> _loadRiwayat() async {
     try {
@@ -29,7 +29,10 @@ class _MyRiwayatState extends State<MyRiwayat> {
 
       final response = await supabase
           .from('orders')
-          .select()
+          .select(
+            'id,total_price,status,created_at,'
+            'order_items(ticket_type,quantity,subtotal,day)',
+          )
           .eq('firebase_uid', widget.firebaseUid)
           .order('created_at', ascending: false);
 
@@ -59,20 +62,18 @@ class _MyRiwayatState extends State<MyRiwayat> {
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : orders.isEmpty
-          ? const Center(
-              child: Text(
-                "Belum ada riwayat pesanan",
-                style: TextStyle(fontSize: 14),
-              ),
-            )
+          ? const Center(child: Text("Belum ada riwayat pesanan"))
           : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 final order = orders[index];
+                final items = List<Map<String, dynamic>>.from(
+                  order['order_items'] ?? [],
+                );
 
                 return Container(
-                  margin: const EdgeInsets.only(bottom: 12),
+                  margin: const EdgeInsets.only(bottom: 16),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -92,12 +93,21 @@ class _MyRiwayatState extends State<MyRiwayat> {
                         "Order ID: ${order['id']}",
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 8),
+
+                      /// ITEM RINGKAS
+                      ...items.map((item) {
+                        return Text(
+                          "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
+                        );
+                      }),
+
+                      const SizedBox(height: 8),
                       Text(
                         "Total: Rp ${order['total_price']}",
                         style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 113, 50, 202),
-                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
