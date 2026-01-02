@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mobile_uas/pages/developer_page.dart';
 import 'package:mobile_uas/pages/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_uas/widgets/main_bottom_nav.dart';
@@ -76,7 +77,6 @@ class _MyMenuState extends State<MyMenu> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +120,16 @@ class _MyMenuState extends State<MyMenu> {
 
                   _sectionTitle('Pengaturan'),
                   _menuItem(Icons.settings, 'Pengaturan Akun'),
-                  _menuItem(Icons.code, 'Developer'),
+                  _menuItem(
+                    Icons.code,
+                    'Developer',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const MyDeveloper()),
+                      );
+                    },
+                  ),
                   _menuItem(Icons.info_outline, 'About'),
 
                   const SizedBox(height: 32),
@@ -158,7 +167,7 @@ class _MyMenuState extends State<MyMenu> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _name, // ✅ SAMA DENGAN HOME PAGE
+                  _name,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -184,13 +193,13 @@ class _MyMenuState extends State<MyMenu> {
     );
   }
 
-  Widget _menuItem(IconData icon, String title) {
+  Widget _menuItem(IconData icon, String title, {VoidCallback? onTap}) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
       leading: Icon(icon, color: MyMenu.primaryColor),
       title: Text(title),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 
