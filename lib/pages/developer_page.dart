@@ -29,6 +29,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
               image: 'assets/images/developer/people.png',
               isMain: true,
             ),
+
             const SizedBox(height: 20),
 
             Row(
@@ -59,7 +60,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
   }
 }
 
-class _DeveloperCard extends StatelessWidget {
+class _DeveloperCard extends StatefulWidget {
   final String name;
   final String role;
   final String image;
@@ -73,48 +74,81 @@ class _DeveloperCard extends StatelessWidget {
   });
 
   @override
+  State<_DeveloperCard> createState() => _DeveloperCardState();
+}
+
+class _DeveloperCardState extends State<_DeveloperCard> {
+  double _scale = 1.0;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return AnimatedScale(
+      scale: _scale,
+      duration: const Duration(milliseconds: 120),
+      curve: Curves.easeInOut,
+      child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.asset(image, fit: BoxFit.cover),
-            ),
-          ),
-          const SizedBox(height: 12),
 
-          Center(
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: isMain ? 17 : 15,
-                fontWeight: FontWeight.bold,
+        onTapDown: (_) {
+          setState(() => _scale = 0.97);
+        },
+        onTapCancel: () {
+          setState(() => _scale = 1.0);
+        },
+        onTapUp: (_) {
+          setState(() => _scale = 1.0);
+        },
+
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
               ),
-            ),
+            ],
           ),
-          const SizedBox(height: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.asset(widget.image, fit: BoxFit.cover),
+                ),
+              ),
 
-          Center(
-            child: Text(role, style: const TextStyle(color: Colors.grey)),
+              const SizedBox(height: 12),
+
+              Center(
+                child: Text(
+                  widget.name,
+                  style: TextStyle(
+                    fontSize: widget.isMain ? 17 : 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 4),
+
+              Center(
+                child: Text(
+                  widget.role,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+            ],
           ),
-
-          const SizedBox(height: 16),
-        ],
+        ),
       ),
     );
   }
