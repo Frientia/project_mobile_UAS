@@ -21,7 +21,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   /// ===============================================================
-  /// LOAD DETAIL PESANAN + ORDER ITEMS + PRODUCTS (NAME)
+  /// LOAD DETAIL PESANAN + ORDER ITEMS + PRODUCTS (NAME, IMAGE)
   /// ===============================================================
   Future<void> _loadDetail() async {
     try {
@@ -32,7 +32,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
           .select(
             'id,total_price,status,payment_method,created_at,'
             'order_items(ticket_type,quantity,subtotal,day,'
-            'products(name))',
+            'products(name,image_url))',
           )
           .eq('id', widget.orderId)
           .single();
@@ -90,12 +90,28 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
         ? items.first['products']
         : null;
 
+    final String? imageUrl = product?['image_url'];
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// NAMA EVENT (DARI PRODUCTS)
+          /// IMAGE EVENT (BELUM ADA FALLBACK DI COMMIT INI)
+          if (imageUrl != null && imageUrl.isNotEmpty)
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.network(
+                imageUrl,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+
+          const SizedBox(height: 16),
+
+          /// NAMA EVENT
           Text(
             product?['name'] ?? 'Nama Event',
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
