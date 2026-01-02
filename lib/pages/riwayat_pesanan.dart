@@ -46,6 +46,18 @@ class _MyRiwayatState extends State<MyRiwayat> {
     }
   }
 
+  /// ===============================================================
+  /// FORMAT DATE
+  /// ===============================================================
+  String _formatDate(String isoDate) {
+    final date = DateTime.parse(isoDate);
+    return "${date.day.toString().padLeft(2, '0')}-"
+        "${date.month.toString().padLeft(2, '0')}-"
+        "${date.year} "
+        "${date.hour.toString().padLeft(2, '0')}:"
+        "${date.minute.toString().padLeft(2, '0')}";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +110,16 @@ class _MyRiwayatState extends State<MyRiwayat> {
                         ],
                       ),
 
+                      const SizedBox(height: 6),
+
+                      Text(
+                        _formatDate(order['created_at']),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+
                       const Divider(height: 24),
 
                       ...items.map((item) {
@@ -141,9 +163,6 @@ class _MyRiwayatState extends State<MyRiwayat> {
     );
   }
 
-  /// ===============================================================
-  /// STATUS BADGE
-  /// ===============================================================
   Widget _statusBadge(String status) {
     Color color;
     String text;
