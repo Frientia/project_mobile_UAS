@@ -97,17 +97,19 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// IMAGE EVENT (BELUM ADA FALLBACK DI COMMIT INI)
-          if (imageUrl != null && imageUrl.isNotEmpty)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                imageUrl,
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
+          /// IMAGE EVENT (WITH FALLBACK)
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: imageUrl != null && imageUrl.isNotEmpty
+                ? Image.network(
+                    imageUrl,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => _imageFallback(),
+                  )
+                : _imageFallback(),
+          ),
 
           const SizedBox(height: 16),
 
@@ -238,6 +240,25 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  /// ===============================================================
+  /// IMAGE FALLBACK
+  /// ===============================================================
+  Widget _imageFallback() {
+    return Container(
+      height: 200,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: const Icon(
+        Icons.image_not_supported,
+        size: 40,
+        color: Colors.grey,
       ),
     );
   }
