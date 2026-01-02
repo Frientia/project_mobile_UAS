@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class MyRiwayat extends StatefulWidget {
-  const MyRiwayat({super.key});
+class MyRiwayat extends StatelessWidget {
+  final String firebaseUid;
 
-  @override
-  State<MyRiwayat> createState() => _MyRiwayatState();
-}
+  const MyRiwayat({super.key, required this.firebaseUid});
 
-class _MyRiwayatState extends State<MyRiwayat> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Text("Riwayat Pesanan")),
+      body: const Center(child: Text("Riwayat Pesanan")),
+    );
   }
 }
