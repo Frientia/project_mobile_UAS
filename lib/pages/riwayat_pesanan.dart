@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'detail_pesanan_page.dart';
 
 class MyRiwayat extends StatefulWidget {
   final String firebaseUid;
@@ -46,9 +47,6 @@ class _MyRiwayatState extends State<MyRiwayat> {
     }
   }
 
-  /// ===============================================================
-  /// FORMAT DATE
-  /// ===============================================================
   String _formatDate(String isoDate) {
     final date = DateTime.parse(isoDate);
     return "${date.day.toString().padLeft(2, '0')}-"
@@ -70,15 +68,13 @@ class _MyRiwayatState extends State<MyRiwayat> {
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : orders.isEmpty
-          ? const Center(child: Text("Belum ada riwayat pesanan"))
           : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 final order = orders[index];
                 final items = List<Map<String, dynamic>>.from(
-                  order['order_items'] ?? [],
+                  order['order_items'],
                 );
 
                 return Container(
@@ -98,7 +94,6 @@ class _MyRiwayatState extends State<MyRiwayat> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /// HEADER
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -109,9 +104,7 @@ class _MyRiwayatState extends State<MyRiwayat> {
                           _statusBadge(order['status']),
                         ],
                       ),
-
                       const SizedBox(height: 6),
-
                       Text(
                         _formatDate(order['created_at']),
                         style: const TextStyle(
@@ -119,41 +112,47 @@ class _MyRiwayatState extends State<MyRiwayat> {
                           color: Colors.grey,
                         ),
                       ),
-
                       const Divider(height: 24),
-
                       ...items.map((item) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
+                            ),
+                            Text(
+                              "Rp ${item['subtotal']}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
-                              Text(
-                                "Rp ${item['subtotal']}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         );
                       }),
-
                       const Divider(height: 24),
-
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "Total: Rp ${order['total_price']}",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 113, 50, 202),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Rp ${order['total_price']}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 113, 50, 202),
+                            ),
                           ),
-                        ),
+                          OutlinedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      DetailPesananPage(orderId: order['id']),
+                                ),
+                              );
+                            },
+                            child: const Text("Detail Pesanan"),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -165,20 +164,15 @@ class _MyRiwayatState extends State<MyRiwayat> {
 
   Widget _statusBadge(String status) {
     Color color;
-    String text;
-
     switch (status.toLowerCase()) {
       case 'paid':
         color = Colors.green;
-        text = 'PAID';
         break;
       case 'pending':
         color = Colors.orange;
-        text = 'PENDING';
         break;
       default:
         color = Colors.grey;
-        text = status.toUpperCase();
     }
 
     return Container(
@@ -188,7 +182,7 @@ class _MyRiwayatState extends State<MyRiwayat> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        text,
+        status.toUpperCase(),
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
