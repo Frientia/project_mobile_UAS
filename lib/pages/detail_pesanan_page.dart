@@ -20,28 +20,177 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
     _loadDetail();
   }
 
+  /// ===============================================================
+  /// LOAD DETAIL PESANAN + ORDER ITEMS
+  /// ===============================================================
   Future<void> _loadDetail() async {
-    final supabase = Supabase.instance.client;
+    try {
+      final supabase = Supabase.instance.client;
 
-    final response = await supabase
-        .from('orders')
-        .select()
-        .eq('id', widget.orderId)
-        .single();
+      final response = await supabase
+          .from('orders')
+          .select(
+            'id,total_price,status,payment_method,created_at,'
+            'order_items(ticket_type,quantity,subtotal,day)',
+          )
+          .eq('id', widget.orderId)
+          .single();
 
-    setState(() {
-      order = response;
-      isLoading = false;
-    });
+      if (!mounted) return;
+
+      setState(() {
+        order = response;
+        isLoading = false;
+      });
+    } catch (e) {
+      debugPrint('ERROR LOAD DETAIL: $e');
+      if (!mounted) return;
+      setState(() => isLoading = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Detail Pesanan")),
+      backgroundColor: const Color(0xfff3eaff),
+      appBar: AppBar(
+        title: const Text("Detail Pesanan"),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Center(child: Text("Total: Rp ${order!['total_price']}")),
+          : order == null
+          ? const Center(child: Text("Data tidak ditemukan"))
+          : _buildContent(),
+    );
+  }
+
+  /// ===============================================================
+  /// MAIN CONTENT
+  /// ===============================================================
+  Widget _buildContent() {
+    final items = List<Map<String, dynamic>>.from(order!['order_items'] ?? []);
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// INFO ORDER
+          _card(
+            title: "Informasi Pesanan",
+            child: Column(
+              children: [
+                _row("Order ID", order!['id']),
+                _row("Status", order!['status']),
+                _row("Metode Pembayaran", order!['payment_method']),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          /// DETAIL TIKET
+          _card(
+            title: "Detail Tiket",
+            child: Column(
+              children: items.map((item) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${item['ticket_type']} - ${item['day']}",
+                            style: const TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            "Qty ${item['quantity']}",
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Rp ${item['subtotal']}",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          /// TOTAL
+          _card(
+            title: "Total Pembayaran",
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Total",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "Rp ${order!['total_price']}",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 113, 50, 202),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// ===============================================================
+  /// CARD WIDGET
+  /// ===============================================================
+  Widget _card({required String title, required Widget child}) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 12),
+          child,
+        ],
+      ),
+    );
+  }
+
+  Widget _row(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w500)),
+        ],
+      ),
     );
   }
 }
