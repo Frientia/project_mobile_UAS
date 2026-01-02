@@ -49,6 +49,18 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
     }
   }
 
+  /// ===============================================================
+  /// FORMAT TANGGAL
+  /// ===============================================================
+  String _formatDate(String isoDate) {
+    final date = DateTime.parse(isoDate);
+    return "${date.day.toString().padLeft(2, '0')}-"
+        "${date.month.toString().padLeft(2, '0')}-"
+        "${date.year} "
+        "${date.hour.toString().padLeft(2, '0')}:"
+        "${date.minute.toString().padLeft(2, '0')}";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +90,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// INFO ORDER
+          /// INFORMASI PESANAN
           _card(
             title: "Informasi Pesanan",
             child: Column(
@@ -86,6 +98,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
                 _row("Order ID", order!['id']),
                 _row("Status", order!['status']),
                 _row("Metode Pembayaran", order!['payment_method']),
+                _row("Tanggal", _formatDate(order!['created_at'])),
               ],
             ),
           ),
@@ -188,7 +201,13 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w500)),
+          Flexible(
+            child: Text(
+              value,
+              textAlign: TextAlign.right,
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
+          ),
         ],
       ),
     );
