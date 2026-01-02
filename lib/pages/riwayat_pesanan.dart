@@ -86,17 +86,16 @@ class _MyRiwayatState extends State<MyRiwayat> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Order #${order['id']}",
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        order['payment_method'] ?? '-',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
+                      /// HEADER
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Order #${order['id']}",
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          _statusBadge(order['status']),
+                        ],
                       ),
 
                       const Divider(height: 24),
@@ -139,6 +138,44 @@ class _MyRiwayatState extends State<MyRiwayat> {
                 );
               },
             ),
+    );
+  }
+
+  /// ===============================================================
+  /// STATUS BADGE
+  /// ===============================================================
+  Widget _statusBadge(String status) {
+    Color color;
+    String text;
+
+    switch (status.toLowerCase()) {
+      case 'paid':
+        color = Colors.green;
+        text = 'PAID';
+        break;
+      case 'pending':
+        color = Colors.orange;
+        text = 'PENDING';
+        break;
+      default:
+        color = Colors.grey;
+        text = status.toUpperCase();
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: color,
+        ),
+      ),
     );
   }
 }
