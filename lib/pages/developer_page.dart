@@ -77,28 +77,52 @@ class _DeveloperCard extends StatefulWidget {
   State<_DeveloperCard> createState() => _DeveloperCardState();
 }
 
-class _DeveloperCardState extends State<_DeveloperCard> {
+class _DeveloperCardState extends State<_DeveloperCard>
+    with SingleTickerProviderStateMixin {
   double _scale = 1.0;
+
+  late AnimationController _controller;
+  late Animation<double> _fade;
+  late Animation<double> _zoom;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+
+    _fade = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _zoom = Tween<double>(
+      begin: 0.9,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedScale(
       scale: _scale,
       duration: const Duration(milliseconds: 120),
-      curve: Curves.easeInOut,
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-
-        onTapDown: (_) {
-          setState(() => _scale = 0.97);
-        },
-        onTapCancel: () {
-          setState(() => _scale = 1.0);
-        },
-        onTapUp: (_) {
-          setState(() => _scale = 1.0);
-        },
-
+        onTapDown: (_) => setState(() => _scale = 0.97),
+        onTapCancel: () => setState(() => _scale = 1),
+        onTapUp: (_) => setState(() => _scale = 1),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -118,9 +142,15 @@ class _DeveloperCardState extends State<_DeveloperCard> {
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(16),
                 ),
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: Image.asset(widget.image, fit: BoxFit.cover),
+                child: FadeTransition(
+                  opacity: _fade,
+                  child: ScaleTransition(
+                    scale: _zoom,
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Image.asset(widget.image, fit: BoxFit.cover),
+                    ),
+                  ),
                 ),
               ),
 
