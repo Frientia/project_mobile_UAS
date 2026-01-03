@@ -11,9 +11,15 @@ class MyRiwayat extends StatefulWidget {
   State<MyRiwayat> createState() => _MyRiwayatState();
 }
 
-class _MyRiwayatState extends State<MyRiwayat> {
+class _MyRiwayatState extends State<MyRiwayat> 
+    with SingleTickerProviderStateMixin {
+
   bool isLoading = true;
   List<Map<String, dynamic>> orders = [];
+
+  late AnimationController _animController;
+  late Animation<double> _fadeAnim;
+  late Animation<Offset> _slideAnim;
 
   @override
   void initState() {
