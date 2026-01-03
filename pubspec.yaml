@@ -41,8 +41,8 @@ dependencies:
   flutter_dotenv: ^6.0.0
   supabase_flutter: ^2.12.0
   shared_preferences: ^2.5.4
-  flutter_local_notifications: ^17.0.0
   google_sign_in: ^6.2.1
+  flutter_local_notifications: ^19.5.0
 
 
 dev_dependencies:
@@ -63,6 +63,10 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/images/developer/
+    - assets/images/developer/developer1/
+    - assets/images/developer/developer2/
+    - assets/images/developer/developer3/
     - assets/animations/
     - .env
 
