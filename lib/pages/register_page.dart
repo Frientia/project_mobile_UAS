@@ -22,6 +22,32 @@ class _RegisterPageState extends State<RegisterPage>
   late Animation<double> _fadeAnim;
   late Animation<Offset> _slideAnim;
 
+  @override
+  void initState() {
+    super.initState();
+
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+
+    _fadeAnim = CurvedAnimation(
+      parent: _animController,
+      curve: Curves.easeOut,
+    );
+
+    _slideAnim = Tween<Offset>(
+      begin: const Offset(0, 0.1),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: Curves.easeOut,
+      ),
+    );
+
+    _animController.forward();
+  }
 
   // Controller
   final TextEditingController namaController = TextEditingController();
