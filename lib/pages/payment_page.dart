@@ -247,11 +247,25 @@ class _PaymentPageState extends State<PaymentPage>
                 ),
           
                 SizedBox(height: 16),
-                Text(
-                  'Yang dipilih: ${selectedPayment ?? "Belum memilih"}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
+                Container(
+                  margin: const EdgeInsets.only(top: 12),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurple.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.check_circle, color: Colors.deepPurple),
+                      const SizedBox(width: 8),
+                      Text(
+                        selectedPayment ?? 'Belum memilih metode pembayaran',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -306,7 +320,7 @@ class _PaymentPageState extends State<PaymentPage>
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
