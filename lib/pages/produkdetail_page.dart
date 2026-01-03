@@ -106,177 +106,183 @@ class _MyProdukState extends State<MyProduk>
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 220,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(product!['image_url']),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product!['name'],
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 220,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(product!['image_url']),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Column(
+                  ),
+                  SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
+                        Text(
+                          product!['name'],
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Column(
                           children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.location_on, size: 16),
-                                  SizedBox(width: 4),
-                                  Text(product!['location']),
-                                ],
-                              ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.location_on, size: 16),
+                                      SizedBox(width: 4),
+                                      Text(product!['location']),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.access_time, size: 16),
+                                      SizedBox(width: 4),
+                                      Text(product!['event_time']),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.access_time, size: 16),
-                                  SizedBox(width: 4),
-                                  Text(product!['event_time']),
-                                ],
-                              ),
+            
+                            const SizedBox(height: 16),
+            
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.calendar_today, size: 16),
+                                      SizedBox(width: 4),
+                                      Text(product!['event_date']),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.music_note, size: 16),
+                                      SizedBox(width: 4),
+                                      Text(product!['category']),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-
-                        const SizedBox(height: 16),
-
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.calendar_today, size: 16),
-                                  SizedBox(width: 4),
-                                  Text(product!['event_date']),
-                                ],
-                              ),
+            
+                        SizedBox(height: 16),
+                        Divider(),
+            
+                        Text(
+                          'Deskripsi Event',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          product!['description'],
+                          textAlign: TextAlign.justify,
+                        ),
+                        SizedBox(height: 24),
+            
+                        Text(
+                          'Pilih Tiket',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+            
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: selectedTicket,
+                              isExpanded: true,
+                              items: [
+                                DropdownMenuItem(
+                                  value: 'Reguler',
+                                  child: Text(
+                                    'Reguler - Rp${product!['price_regular']}',
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'VIP',
+                                  child: Text(
+                                    'VIP - Rp${product!['price_vip']}',
+                                  ),
+                                ),
+                              ],
+                              onChanged: (value) {
+                               setState(() {
+                                 selectedTicket = value!;
+                                });
+                              },
                             ),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.music_note, size: 16),
-                                  SizedBox(width: 4),
-                                  Text(product!['category']),
-                                ],
-                              ),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        
+                        Text(
+                          'Pilih Hari',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+            
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: selectedDay,
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              isExpanded: true,
+                              items: (product!['available_days'] as List)
+                                  .map<DropdownMenuItem<String>>((day) {
+                                return DropdownMenuItem<String>(
+                                  value: day,
+                                  child: Text(day),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedDay = value!;
+                                });
+                              },
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-
-                    SizedBox(height: 16),
-                    Divider(),
-
-                    Text(
-                      'Deskripsi Event',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      product!['description'],
-                      textAlign: TextAlign.justify,
-                    ),
-                    SizedBox(height: 24),
-
-                    Text(
-                      'Pilih Tiket',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: selectedTicket,
-                          isExpanded: true,
-                          items: [
-                            DropdownMenuItem(
-                              value: 'Reguler',
-                              child: Text(
-                                'Reguler - Rp${product!['price_regular']}',
-                              ),
-                            ),
-                            DropdownMenuItem(
-                              value: 'VIP',
-                              child: Text(
-                                'VIP - Rp${product!['price_vip']}',
-                              ),
-                            ),
-                          ],
-                          onChanged: (value) {
-                           setState(() {
-                             selectedTicket = value!;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    
-                    Text(
-                      'Pilih Hari',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 8),
-
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: selectedDay,
-                          icon: Icon(Icons.keyboard_arrow_down),
-                          isExpanded: true,
-                          items: (product!['available_days'] as List)
-                              .map<DropdownMenuItem<String>>((day) {
-                            return DropdownMenuItem<String>(
-                              value: day,
-                              child: Text(day),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedDay = value!;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
