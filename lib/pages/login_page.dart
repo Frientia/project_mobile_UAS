@@ -243,16 +243,19 @@ class _LoginPageState extends State<LoginPage>
                     SizedBox(height: 20),
                     Text(
                       'Login to MyConcert',
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 113, 50, 202),
-                      ),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 113, 50, 202),
+                          ),
                     ),
+
                     SizedBox(height: 8),
                     Text(
-                      'Silahkan Login untuk melanjutkan',
-                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                      'Silahkan login untuk melanjutkan',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.grey),
                     ),
                 
                     SizedBox(height: 40),
