@@ -119,8 +119,11 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color(0xfff3eaff),
         foregroundColor: Colors.black,
         title: Text(
-          "Welcome, $_name",
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          "Hi, $_name",
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       body: 
