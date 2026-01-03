@@ -220,8 +220,8 @@ class _LoginPageState extends State<LoginPage>
           child: Container(
             padding: const EdgeInsets.all(16.0),
             constraints: const BoxConstraints(maxWidth: 400),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+            child: FadeTransition(
+              opacity: _fadeAnim,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
