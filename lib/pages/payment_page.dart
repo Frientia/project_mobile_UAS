@@ -37,16 +37,23 @@ class _PaymentTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RadioListTile(
-      value: value,
-      title: Row(
-        children: [
-          Icon(icon, size: 20),
-          const SizedBox(width: 8),
-          Text(title),
-        ],
+    return Container(
+      margin: EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey.shade300),
       ),
-      subtitle: Text(subtitle),
+      child: RadioListTile(
+        value: value,
+        title: Row(
+          children: [
+            Icon(icon, size: 20),
+            const SizedBox(width: 8),
+            Text(title),
+          ],
+        ),
+        subtitle: Text(subtitle),
+      ),
     );
   }
 }
