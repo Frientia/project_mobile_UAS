@@ -17,7 +17,9 @@ class MyProduk extends StatefulWidget {
   State<MyProduk> createState() => _MyProdukState();
 }
 
-class _MyProdukState extends State<MyProduk> {
+class _MyProdukState extends State<MyProduk> 
+    with SingleTickerProviderStateMixin {
+  
   final supabase = Supabase.instance.client;
   String? firebaseUid;
 
@@ -25,6 +27,10 @@ class _MyProdukState extends State<MyProduk> {
   Map<String, dynamic>? product;
   String selectedTicket = 'Reguler';
   String? selectedDay;
+
+  late AnimationController _animController;
+  late Animation<double> _fadeAnim;
+  late Animation<Offset> _slideAnim;
 
   @override
   void initState() {
