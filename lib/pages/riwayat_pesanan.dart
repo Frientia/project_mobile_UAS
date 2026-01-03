@@ -126,9 +126,9 @@ class _MyRiwayatState extends State<MyRiwayat>
                         borderRadius: BorderRadius.circular(14),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 6,
-                            offset: const Offset(0, 3),
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 10,
+                            offset: const Offset(0, 6),
                           ),
                         ],
                       ),
@@ -157,7 +157,10 @@ class _MyRiwayatState extends State<MyRiwayat>
                             ),
                           ),
               
-                          const Divider(height: 24),
+                          Divider(
+                            height: 24,
+                            color: Colors.grey.shade200,
+                          ),
               
                           /// ITEM RINGKAS
                           ...items.map((item) {
