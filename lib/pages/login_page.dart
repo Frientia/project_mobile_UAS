@@ -13,12 +13,19 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
+
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
   bool _isLoading = false;
   String? _error;
   bool _obscurePassword = true;
+
+  late AnimationController _animController;
+  late Animation<double> _fadeAnim;
+  late Animation<Offset> _slideAnim;
+
 
   Future<void> _loginWithGoogle() async { 
     setState(() { 
