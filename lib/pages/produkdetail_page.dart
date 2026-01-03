@@ -91,6 +91,12 @@ class _MyProdukState extends State<MyProduk>
   }
   
   @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (product == null) {
       return const Scaffold(
