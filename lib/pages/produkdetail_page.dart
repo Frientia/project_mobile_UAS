@@ -246,6 +246,7 @@ class _MyProdukState extends State<MyProduk>
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
                               value: selectedTicket,
+                              icon: Icon(Icons.keyboard_arrow_down),
                               isExpanded: true,
                               items: [
                                 DropdownMenuItem(
