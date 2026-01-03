@@ -27,10 +27,22 @@ class _MyRiwayatState extends State<MyRiwayat> {
 
       final response = await supabase
           .from('orders')
-          .select(
-            'id,total_price,status,payment_method,created_at,'
-            'order_items(ticket_type,quantity,subtotal,day)',
-          )
+          .select('''
+      id,
+      total_price,
+      status,
+      payment_method,
+      created_at,
+      order_items (
+        ticket_type,
+        quantity,
+        subtotal,
+        day,
+        products (
+          name
+        )
+      )
+    ''')
           .eq('firebase_uid', widget.firebaseUid)
           .order('created_at', ascending: false);
 
@@ -68,6 +80,8 @@ class _MyRiwayatState extends State<MyRiwayat> {
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
+          : orders.isEmpty
+          ? const Center(child: Text("Belum ada riwayat pesanan"))
           : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: orders.length,
@@ -94,17 +108,20 @@ class _MyRiwayatState extends State<MyRiwayat> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      /// HEADER
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Order #${order['id']}",
+                            "Order #${order['id'].toString().substring(0, 8)}",
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           _statusBadge(order['status']),
                         ],
                       ),
+
                       const SizedBox(height: 6),
+
                       Text(
                         _formatDate(order['created_at']),
                         style: const TextStyle(
@@ -112,45 +129,96 @@ class _MyRiwayatState extends State<MyRiwayat> {
                           color: Colors.grey,
                         ),
                       ),
+
                       const Divider(height: 24),
+
+                      /// ITEM RINGKAS
                       ...items.map((item) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
-                            ),
-                            Text(
-                              "Rp ${item['subtotal']}",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                          ],
+                              Text(
+                                "Rp ${item['subtotal']}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         );
                       }),
+
                       const Divider(height: 24),
+
+                      /// FOOTER + BUTTON DETAIL
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Rp ${order['total_price']}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 113, 50, 202),
-                            ),
-                          ),
-                          OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) =>
-                                      DetailPesananPage(orderId: order['id']),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                order['payment_method'],
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              const SizedBox(height: 4),
+                              const Text(
+                                "Total Pembayaran",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
                                 ),
-                              );
-                            },
-                            child: const Text("Detail Pesanan"),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Rp ${order['total_price']}",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 113, 50, 202),
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              SizedBox(
+                                height: 32,
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => DetailPesananPage(
+                                          orderId: order['id'],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(
+                                      color: Color.fromARGB(255, 113, 50, 202),
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "Detail Pesanan",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -164,15 +232,20 @@ class _MyRiwayatState extends State<MyRiwayat> {
 
   Widget _statusBadge(String status) {
     Color color;
+    String text;
+
     switch (status.toLowerCase()) {
       case 'paid':
         color = Colors.green;
+        text = 'PAID';
         break;
       case 'pending':
         color = Colors.orange;
+        text = 'PENDING';
         break;
       default:
         color = Colors.grey;
+        text = status.toUpperCase();
     }
 
     return Container(
@@ -182,7 +255,7 @@ class _MyRiwayatState extends State<MyRiwayat> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        status.toUpperCase(),
+        text,
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
