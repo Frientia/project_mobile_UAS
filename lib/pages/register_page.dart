@@ -155,8 +155,6 @@ class _RegisterPageState extends State<RegisterPage>
         builder: (context, constraints) {
           final isTablet = constraints.maxWidth > 600;
           final iconSize = isTablet ? 120.0 : 80.0;
-          final titleSize = isTablet ? 36.0 : 28.0;
-          final subtitleSize = isTablet ? 20.0 : 16.0;
 
           return Center(
             child: SingleChildScrollView(
