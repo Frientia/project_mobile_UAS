@@ -51,8 +51,14 @@ class _PaymentTile extends StatelessWidget {
   }
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _PaymentPageState extends State<PaymentPage> 
+    with SingleTickerProviderStateMixin {
   String? selectedPayment;
+
+  late AnimationController _animController;
+  late Animation<double> _fadeAnim;
+  late Animation<Offset> _slideAnim;
+
   
   Future<void> _submitPayment() async {
     if (selectedPayment == null) {
@@ -95,7 +101,7 @@ class _PaymentPageState extends State<PaymentPage> {
         MaterialPageRoute(
           builder: (_) => MySuccess(
             order_id: orderId,
-            firebaseUid: widget.firebaseUid, // 🔥 PENTING
+            firebaseUid: widget.firebaseUid,
           ),
         ),
       );
