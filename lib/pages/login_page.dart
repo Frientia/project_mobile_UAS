@@ -331,23 +331,27 @@ class _LoginPageState extends State<LoginPage>
                       Text(_error!, style: const TextStyle(color: Colors.red)),
                     const SizedBox(height: 16),
                 
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: _isLoading ? null : _logins,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 113, 50, 202),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                    AnimatedScale(
+                      scale: _isLoading ? 0.97 : 1,
+                      duration: const Duration(milliseconds: 150),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                          child: ElevatedButton(
+                          onPressed: _isLoading ? null : _logins,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 113, 50, 202),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
+                          child: _isLoading
+                              ? const CircularProgressIndicator(color: Colors.white)
+                              : const Text(
+                                  'Login',
+                                  style: TextStyle(fontSize: 16, color: Colors.white),
+                                ),
                         ),
-                        child: _isLoading
-                            ? const CircularProgressIndicator(color: Colors.white)
-                            : const Text(
-                                'Login',
-                                style: TextStyle(fontSize: 16, color: Colors.white),
-                              ),
                       ),
                     ),
                 
