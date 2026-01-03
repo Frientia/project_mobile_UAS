@@ -71,6 +71,7 @@ class _MyRiwayatState extends State<MyRiwayat>
       if (!mounted) return;
 
       setState(() {
+        _animController.forward();
         orders = List<Map<String, dynamic>>.from(response);
         isLoading = false;
       });
