@@ -263,6 +263,8 @@ class _LoginPageState extends State<LoginPage>
                       controller: emailCtrl,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey.shade50,
                         labelText: 'Email',
                         hintText: 'Masukkan email Anda',
                         prefixIcon: Icon(Icons.email_outlined),
@@ -290,6 +292,8 @@ class _LoginPageState extends State<LoginPage>
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey.shade50,
                         labelText: 'Password',
                         hintText: 'Masukkan password Anda',
                         prefixIcon: Icon(Icons.password_outlined),
