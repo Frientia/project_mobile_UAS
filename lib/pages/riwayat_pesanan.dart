@@ -92,6 +92,12 @@ class _MyRiwayatState extends State<MyRiwayat>
   }
 
   @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
