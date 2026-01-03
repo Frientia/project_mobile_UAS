@@ -177,7 +177,7 @@ class _RegisterPageState extends State<RegisterPage>
                           ),
                           child: Icon(
                             Icons.person_add_alt_1_outlined,
-                            size: iconSize,
+                            size: iconSize * 0.7,
                             color: const Color.fromARGB(255, 113, 50, 202),
                           ),
                         ),
