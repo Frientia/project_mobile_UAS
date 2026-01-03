@@ -336,6 +336,7 @@ class _RegisterPageState extends State<RegisterPage>
                                     color: Color.fromARGB(255, 113, 50, 202),
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
