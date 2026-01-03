@@ -215,6 +215,7 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Container(
@@ -385,8 +386,8 @@ class _LoginPageState extends State<LoginPage>
                         ),
                         style: OutlinedButton.styleFrom(
                           padding: EdgeInsets.symmetric(vertical: 14),
-                          backgroundColor: Colors.white,
-                          side: BorderSide(color: Colors.grey.shade300),
+                          backgroundColor: Colors.grey.shade100,
+                          side: BorderSide(color: Colors.grey),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),

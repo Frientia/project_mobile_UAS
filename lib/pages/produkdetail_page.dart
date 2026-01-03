@@ -105,6 +105,7 @@ class _MyProdukState extends State<MyProduk>
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: FadeTransition(
           opacity: _fadeAnim,
