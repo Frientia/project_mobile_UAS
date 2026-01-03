@@ -105,151 +105,157 @@ class _MyRiwayatState extends State<MyRiwayat>
           ? const Center(child: CircularProgressIndicator())
           : orders.isEmpty
           ? const Center(child: Text("Belum ada riwayat pesanan"))
-          : ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: orders.length,
-              itemBuilder: (context, index) {
-                final order = orders[index];
-                final items = List<Map<String, dynamic>>.from(
-                  order['order_items'],
-                );
-
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 16),
+          : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
                   padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 6,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// HEADER
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Order #${order['id'].toString().substring(0, 8)}",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                  itemCount: orders.length,
+                  itemBuilder: (context, index) {
+                    final order = orders[index];
+                    final items = List<Map<String, dynamic>>.from(
+                      order['order_items'],
+                    );
+              
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(14),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.05),
+                            blurRadius: 6,
+                            offset: const Offset(0, 3),
                           ),
-                          _statusBadge(order['status']),
                         ],
                       ),
-
-                      const SizedBox(height: 6),
-
-                      Text(
-                        _formatDate(order['created_at']),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-
-                      const Divider(height: 24),
-
-                      /// ITEM RINGKAS
-                      ...items.map((item) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// HEADER
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                "Order #${order['id'].toString().substring(0, 8)}",
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                "Rp ${item['subtotal']}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              _statusBadge(order['status']),
                             ],
                           ),
-                        );
-                      }),
-
-                      const Divider(height: 24),
-
-                      /// FOOTER + BUTTON DETAIL
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                order['payment_method'],
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                              const SizedBox(height: 4),
-                              const Text(
-                                "Total Pembayaran",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
+              
+                          const SizedBox(height: 6),
+              
+                          Text(
+                            _formatDate(order['created_at']),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Rp ${order['total_price']}",
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 113, 50, 202),
-                                ),
+              
+                          const Divider(height: 24),
+              
+                          /// ITEM RINGKAS
+                          ...items.map((item) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${item['ticket_type']} - ${item['day']} (x${item['quantity']})",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Rp ${item['subtotal']}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 6),
-                              SizedBox(
-                                height: 32,
-                                child: OutlinedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => DetailPesananPage(
-                                          orderId: order['id'],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
+                            );
+                          }),
+              
+                          const Divider(height: 24),
+              
+                          /// FOOTER + BUTTON DETAIL
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    order['payment_method'],
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  const Text(
+                                    "Total Pembayaran",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Rp ${order['total_price']}",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                       color: Color.fromARGB(255, 113, 50, 202),
                                     ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  SizedBox(
+                                    height: 32,
+                                    child: OutlinedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => DetailPesananPage(
+                                              orderId: order['id'],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      style: OutlinedButton.styleFrom(
+                                        side: const BorderSide(
+                                          color: Color.fromARGB(255, 113, 50, 202),
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        "Detail Pesanan",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ),
-                                  child: const Text(
-                                    "Detail Pesanan",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ),
+                                ],
                               ),
                             ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
             ),
+          ),
     );
   }
 
