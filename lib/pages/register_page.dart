@@ -355,28 +355,32 @@ class _RegisterPageState extends State<RegisterPage>
                         const SizedBox(height: 20),
                     
                         // Tombol Register
-                        SizedBox(
-                          width: double.infinity,
-                          height: isTablet ? 55 : 45,
-                          child: ElevatedButton(
-                            onPressed: _isLoading ? null : handleRegister,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(
-                                255,
-                                113,
-                                50,
-                                202,
+                        AnimatedScale(
+                          scale: _isLoading ? 0.97 : 1,
+                          duration: const Duration(milliseconds: 150),
+                          child: SizedBox(
+                              width: double.infinity,
+                              height: isTablet ? 55 : 45,
+                              child: ElevatedButton(
+                              onPressed: _isLoading ? null : handleRegister,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color.fromARGB(
+                                  255,
+                                  113,
+                                  50,
+                                  202,
+                                ),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
                               ),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: Text(
-                              'Daftar',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: isTablet ? 18 : 16,
+                              child: Text(
+                                'Daftar',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: isTablet ? 18 : 16,
+                                ),
                               ),
                             ),
                           ),
