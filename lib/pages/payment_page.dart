@@ -160,10 +160,10 @@ class _PaymentPageState extends State<PaymentPage>
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+      body: FadeTransition(
+        opacity: _fadeAnim,
+        child: SlideTransition(
+          position: _slideAnim,
           child: SingleChildScrollView(
             padding: EdgeInsets.all(16),
             child: Column(
