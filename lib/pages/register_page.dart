@@ -169,10 +169,17 @@ class _RegisterPageState extends State<RegisterPage>
                     position: _slideAnim,
                     child: Column(
                       children: [
-                        Icon(
-                          Icons.person_add_alt_1_outlined,
-                          size: iconSize,
-                          color: const Color.fromARGB(255, 113, 50, 202),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 113, 50, 202).withValues(alpha: 0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.person_add_alt_1_outlined,
+                            size: iconSize,
+                            color: const Color.fromARGB(255, 113, 50, 202),
+                          ),
                         ),
                         const SizedBox(height: 20),
                     
