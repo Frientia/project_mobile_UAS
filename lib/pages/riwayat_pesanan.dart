@@ -141,7 +141,10 @@ class _MyRiwayatState extends State<MyRiwayat>
                             children: [
                               Text(
                                 "Order #${order['id'].toString().substring(0, 8)}",
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13,
+                                ),
                               ),
                               _statusBadge(order['status']),
                             ],
@@ -178,7 +181,7 @@ class _MyRiwayatState extends State<MyRiwayat>
                                   Text(
                                     "Rp ${item['subtotal']}",
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.bold, fontSize: 17,
                                     ),
                                   ),
                                 ],
