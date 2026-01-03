@@ -160,90 +160,96 @@ class _PaymentPageState extends State<PaymentPage>
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _sectionCard(
-              title: 'Ringkasan Pesanan', 
-              child: Column(
-                children: [
-                  _rowItem('Tiket', widget.ticketType),
-                  _rowItem('Hari', widget.day),
-                  _rowItem('Harga', 'Rp${widget.price}', bold: true),
-                ]
-              ),
-            ),
-            SizedBox(height: 26),
-            _sectionCard(
-              title: 'Metode Pembayaran',
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(bottom: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurple.shade50,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Row(
-                      children: [
-                        Icon(Icons.info_outline,
-                            size: 18, color: Colors.deepPurple),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            'Pembayaran hanya simulasi (tanpa validasi)',
-                            style: TextStyle(fontSize: 13),
-                          ),
-                        ),
-                      ],
-                    ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _sectionCard(
+                  title: 'Ringkasan Pesanan', 
+                  child: Column(
+                    children: [
+                      _rowItem('Tiket', widget.ticketType),
+                      _rowItem('Hari', widget.day),
+                      _rowItem('Harga', 'Rp${widget.price}', bold: true),
+                    ]
                   ),
-                  RadioGroup<String>(
-                    groupValue: selectedPayment,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedPayment = value;
-                      });
-                    },
-                    child: Column(
-                      children: const [
-                        _PaymentTile(
-                          value: 'Transfer Bank',
-                          title: 'Transfer Bank',
-                          subtitle: 'BCA, Mandiri, BRI',
-                          icon: Icons.account_balance,
+                ),
+                SizedBox(height: 26),
+                _sectionCard(
+                  title: 'Metode Pembayaran',
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(bottom: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurple.shade50,
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        _PaymentTile(
-                          value: 'E-Wallet',
-                          title: 'E-Wallet',
-                          subtitle: 'OVO, GoPay, Dana',
-                          icon: Icons.account_balance_wallet,
+                        child: const Row(
+                          children: [
+                            Icon(Icons.info_outline,
+                                size: 18, color: Colors.deepPurple),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Pembayaran hanya simulasi (tanpa validasi)',
+                                style: TextStyle(fontSize: 13),
+                              ),
+                            ),
+                          ],
                         ),
-                        _PaymentTile(
-                          value: 'Virtual Account',
-                          title: 'Virtual Account',
-                          subtitle: 'VA Bank',
-                          icon: Icons.credit_card,
+                      ),
+                      RadioGroup<String>(
+                        groupValue: selectedPayment,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedPayment = value;
+                          });
+                        },
+                        child: Column(
+                          children: const [
+                            _PaymentTile(
+                              value: 'Transfer Bank',
+                              title: 'Transfer Bank',
+                              subtitle: 'BCA, Mandiri, BRI',
+                              icon: Icons.account_balance,
+                            ),
+                            _PaymentTile(
+                              value: 'E-Wallet',
+                              title: 'E-Wallet',
+                              subtitle: 'OVO, GoPay, Dana',
+                              icon: Icons.account_balance_wallet,
+                            ),
+                            _PaymentTile(
+                              value: 'Virtual Account',
+                              title: 'Virtual Account',
+                              subtitle: 'VA Bank',
+                              icon: Icons.credit_card,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+          
+                SizedBox(height: 16),
+                Text(
+                  'Yang dipilih: ${selectedPayment ?? "Belum memilih"}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+              ],
             ),
-
-            SizedBox(height: 16),
-            Text(
-              'Yang dipilih: ${selectedPayment ?? "Belum memilih"}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(
