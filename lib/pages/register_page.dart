@@ -163,10 +163,10 @@ class _RegisterPageState extends State<RegisterPage>
               child: Container(
                 width: size.width * 0.9,
                 padding: const EdgeInsets.all(20.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                child: FadeTransition(
+                  opacity: _fadeAnim,
+                  child: SlideTransition(
+                    position: _slideAnim,
                     child: Column(
                       children: [
                         Icon(
