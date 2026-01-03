@@ -114,15 +114,19 @@ class _MyProdukState extends State<MyProduk>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 220,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(product!['image_url']),
-                        fit: BoxFit.cover,
+                  Stack(
+                    children: [
+                      Container(
+                        height: 220,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(product!['image_url']),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                   SizedBox(height: 16),
                   Padding(
