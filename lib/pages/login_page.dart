@@ -222,8 +222,8 @@ class _LoginPageState extends State<LoginPage>
             constraints: const BoxConstraints(maxWidth: 400),
             child: FadeTransition(
               opacity: _fadeAnim,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: SlideTransition(
+                position: _slideAnim,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
