@@ -113,6 +113,32 @@ class _PaymentPageState extends State<PaymentPage>
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _fadeAnim = CurvedAnimation(
+      parent: _animController,
+      curve: Curves.easeOut,
+    );
+
+    _slideAnim = Tween<Offset>(
+      begin: const Offset(0, 0.1),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _animController,
+        curve: Curves.easeOut,
+      ),
+    );
+
+    _animController.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
