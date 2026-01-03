@@ -9,11 +9,18 @@ final FlutterLocalNotificationsPlugin notificationsPlugin =
 
 class MySuccess extends StatefulWidget {
   final String order_id;
-  const MySuccess({super.key, required this.order_id});
+  final String firebaseUid;
 
-  @override
+  const MySuccess({
+    super.key,
+    required this.order_id,
+    required this.firebaseUid,
+  });
+
+   @override
   State<MySuccess> createState() => _MySuccessState();
 }
+
 
 class _MySuccessState extends State<MySuccess> {
   @override
@@ -136,7 +143,12 @@ class _MySuccessState extends State<MySuccess> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (_) => const MyRiwayat()),
+                    MaterialPageRoute(
+  builder: (_) => MyRiwayat(
+    firebaseUid: widget.firebaseUid,
+  ),
+)
+
                   );
                 },
                 child: const Text('Lihat Riwayat Pesanan'),

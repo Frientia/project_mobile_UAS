@@ -90,10 +90,16 @@ class _PaymentPageState extends State<PaymentPage> {
 
       if (!mounted) return;
 
-      Navigator.pushReplacement(
+     Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => MySuccess(order_id: orderId)),
+        MaterialPageRoute(
+          builder: (_) => MySuccess(
+            order_id: orderId,
+            firebaseUid: widget.firebaseUid, // 🔥 PENTING
+          ),
+        ),
       );
+
     } catch (e) {
       ScaffoldMessenger.of(
         context,
