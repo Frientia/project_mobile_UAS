@@ -208,6 +208,8 @@ class _RegisterPageState extends State<RegisterPage>
                           controller: namaController,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey.shade50,
                             labelText: 'Nama Lengkap',
                             hintText: 'Masukkan nama Anda',
                             prefixIcon: const Icon(Icons.person_outline),
@@ -224,6 +226,8 @@ class _RegisterPageState extends State<RegisterPage>
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey.shade50,
                             labelText: 'Email',
                             hintText: 'Masukkan Email Anda',
                             prefixIcon: const Icon(Icons.email_outlined),
@@ -240,6 +244,8 @@ class _RegisterPageState extends State<RegisterPage>
                           controller: hpController,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey.shade50,
                             labelText: 'No Handphone',
                             hintText: 'Masukkan nomor HP Anda',
                             prefixIcon: const Icon(Icons.phone_android_outlined),
@@ -256,6 +262,8 @@ class _RegisterPageState extends State<RegisterPage>
                           controller: passController,
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey.shade50,
                             labelText: 'Password',
                             hintText: 'Masukkan password',
                             prefixIcon: const Icon(Icons.lock_outline),
@@ -284,6 +292,8 @@ class _RegisterPageState extends State<RegisterPage>
                           controller: confirmController,
                           obscureText: _obscureConfirmPassword,
                           decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey.shade50,
                             labelText: 'Konfirmasi Password',
                             hintText: 'Ulangi password Anda',
                             prefixIcon: const Icon(Icons.lock_reset_outlined),
