@@ -53,6 +53,14 @@ class _LoginPageState extends State<LoginPage>
     _animController.forward();
   }
 
+  @override
+  void dispose() {
+    _animController.dispose();
+    emailCtrl.dispose();
+    passCtrl.dispose();
+    super.dispose();
+  }
+
 
   Future<void> _loginWithGoogle() async { 
     setState(() { 
