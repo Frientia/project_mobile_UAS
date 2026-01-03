@@ -217,7 +217,9 @@ class _MyProdukState extends State<MyProduk>
             
                         Text(
                           'Deskripsi Event',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         SizedBox(height: 8),
                         Text(
@@ -228,7 +230,9 @@ class _MyProdukState extends State<MyProduk>
             
                         Text(
                           'Pilih Tiket',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         SizedBox(height: 8),
             
@@ -268,7 +272,9 @@ class _MyProdukState extends State<MyProduk>
                         
                         Text(
                           'Pilih Hari',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         SizedBox(height: 8),
             
