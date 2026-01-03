@@ -106,10 +106,10 @@ class _MyProdukState extends State<MyProduk>
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+        child: FadeTransition(
+          opacity: _fadeAnim,
+          child: SlideTransition(
+            position: _slideAnim,
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
