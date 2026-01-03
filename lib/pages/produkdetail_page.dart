@@ -163,7 +163,8 @@ class _MyProdukState extends State<MyProduk>
                                 Expanded(
                                   child: Row(
                                     children: [
-                                      Icon(Icons.location_on, size: 16),
+                                      Icon(Icons.location_on, size: 16, 
+                                      color: Colors.grey[700]),
                                       SizedBox(width: 4),
                                       Text(product!['location']),
                                     ],
@@ -172,7 +173,8 @@ class _MyProdukState extends State<MyProduk>
                                 Expanded(
                                   child: Row(
                                     children: [
-                                      Icon(Icons.access_time, size: 16),
+                                      Icon(Icons.access_time, size: 16,
+                                      color: Colors.grey[700]),
                                       SizedBox(width: 4),
                                       Text(product!['event_time']),
                                     ],
@@ -188,7 +190,8 @@ class _MyProdukState extends State<MyProduk>
                                 Expanded(
                                   child: Row(
                                     children: [
-                                      Icon(Icons.calendar_today, size: 16),
+                                      Icon(Icons.calendar_today, size: 16,
+                                      color: Colors.grey[700]),
                                       SizedBox(width: 4),
                                       Text(product!['event_date']),
                                     ],
@@ -197,7 +200,8 @@ class _MyProdukState extends State<MyProduk>
                                 Expanded(
                                   child: Row(
                                     children: [
-                                      Icon(Icons.music_note, size: 16),
+                                      Icon(Icons.music_note, size: 16,
+                                      color: Colors.grey[700]),
                                       SizedBox(width: 4),
                                       Text(product!['category']),
                                     ],
