@@ -183,19 +183,22 @@ class _RegisterPageState extends State<RegisterPage>
                         ),
                         const SizedBox(height: 20),
                     
-                        Text(
+                       Text(
                           "Register",
-                          style: TextStyle(
-                            fontSize: titleSize,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: const Color.fromARGB(255, 113, 50, 202),
+                              ),
                         ),
                     
                         const SizedBox(height: 8),
                     
                         Text(
                           "Silakan isi data untuk membuat akun",
-                          style: TextStyle(fontSize: subtitleSize),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: Colors.grey),
                         ),
                     
                         const SizedBox(height: 20),
