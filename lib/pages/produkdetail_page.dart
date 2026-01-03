@@ -126,6 +126,19 @@ class _MyProdukState extends State<MyProduk>
                           ),
                         ),
                       ),
+                      Container(
+                        height: 220,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                              Colors.black.withValues(alpha: 0.4),
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 16),
