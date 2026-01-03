@@ -228,10 +228,17 @@ class _LoginPageState extends State<LoginPage>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 60),
-                    Icon(
-                      Icons.lock_outline,
-                      size: 100,
-                      color: const Color.fromARGB(255, 113, 50, 202),
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 113, 50, 202).withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.music_note_outlined,
+                        size: 100,
+                        color: const Color.fromARGB(255, 113, 50, 202),
+                      ),
                     ),
                     SizedBox(height: 20),
                     Text(
