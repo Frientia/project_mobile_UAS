@@ -105,10 +105,10 @@ class _MyRiwayatState extends State<MyRiwayat>
           ? const Center(child: CircularProgressIndicator())
           : orders.isEmpty
           ? const Center(child: Text("Belum ada riwayat pesanan"))
-          : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+          : FadeTransition(
+            opacity: _fadeAnim,
+            child: SlideTransition(
+              position: _slideAnim,
               child: ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: orders.length,
