@@ -100,7 +100,7 @@ class _MyRiwayatState extends State<MyRiwayat>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xfff3eaff),
       appBar: AppBar(
         title: const Text("Riwayat Pesanan"),
         backgroundColor: Colors.white,

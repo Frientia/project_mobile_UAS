@@ -114,6 +114,7 @@ class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xfff3eaff),
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
