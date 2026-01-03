@@ -321,8 +321,8 @@ class _MyProdukState extends State<MyProduk>
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey,
-              blurRadius: 10,
+              color: Colors.black12,
+              blurRadius: 12,
               offset: Offset(0, -2),
             ),
           ],
@@ -347,39 +347,43 @@ class _MyProdukState extends State<MyProduk>
                 ),
               ],
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 113, 50, 202),
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onPressed: () {
-              final firebaseUser = FirebaseAuth.instance.currentUser;
-
-              if (firebaseUser == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Silakan login terlebih dahulu')),
-                );
-                return;
-              }
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => PaymentPage(
-                    productId: product!['id'],
-                    ticketType: selectedTicket,
-                    day: selectedDay!,
-                    price: selectedPrice, 
-                    firebaseUid: firebaseUser.uid,
+            AnimatedScale(
+            scale: 1,
+            duration: const Duration(milliseconds: 150),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 113, 50, 202),
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-              );
-            },
-              child: Text(
-                'Beli Tiket',
-                style: TextStyle(fontSize: 16, color: Colors.white),
+                onPressed: () {
+                final firebaseUser = FirebaseAuth.instance.currentUser;
+
+                if (firebaseUser == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Silakan login terlebih dahulu')),
+                  );
+                  return;
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => PaymentPage(
+                      productId: product!['id'],
+                      ticketType: selectedTicket,
+                      day: selectedDay!,
+                      price: selectedPrice, 
+                      firebaseUid: firebaseUser.uid,
+                    ),
+                  ),
+                );
+              },
+                child: Text(
+                  'Beli Tiket',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
               ),
             ),
           ],
