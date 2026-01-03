@@ -136,6 +136,17 @@ class _RegisterPageState extends State<RegisterPage>
   }
 
   @override
+  void dispose() {
+    _animController.dispose();
+    namaController.dispose();
+    emailController.dispose();
+    hpController.dispose();
+    passController.dispose();
+    confirmController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
