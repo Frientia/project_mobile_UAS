@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyProfilDev extends StatefulWidget {
   const MyProfilDev({super.key});
@@ -112,16 +113,16 @@ class _MyProfilDevState extends State<MyProfilDev>
               BoxShadow(
                 color: _primaryColor.withValues(alpha: 0.35),
                 blurRadius: 20,
-                offset: const Offset(0, 10),
+                offset: Offset(0, 10),
               ),
             ],
           ),
-          child: const CircleAvatar(
+          child: CircleAvatar(
             radius: 56,
             backgroundImage: AssetImage('assets/images/example.png'),
           ),
         ),
-        const SizedBox(height: 18),
+        SizedBox(height: 18),
         Text(
           'Muhamad Yajid Rizky',
           style: theme.textTheme.headlineSmall?.copyWith(
@@ -129,7 +130,7 @@ class _MyProfilDevState extends State<MyProfilDev>
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 6),
+        SizedBox(height: 6),
         Text(
           'NIM 1123150114 • TI-SE 23 M',
           style: theme.textTheme.bodyMedium?.copyWith(
@@ -151,7 +152,7 @@ class _MyProfilDevState extends State<MyProfilDev>
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 26,
-            offset: const Offset(0, 14),
+            offset: Offset(0, 14),
           ),
         ],
       ),
@@ -159,7 +160,7 @@ class _MyProfilDevState extends State<MyProfilDev>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _sectionTitle(Icons.star_rounded, 'Minat & Keahlian'),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
           _chipList([
             'Flutter',
             'Firebase',
@@ -168,8 +169,12 @@ class _MyProfilDevState extends State<MyProfilDev>
             'REST API',
             'Git & GitHub',
           ]),
-          const SizedBox(height: 32),
-          _expandableRole(theme)
+          SizedBox(height: 32),
+          _expandableRole(theme),
+          SizedBox(height: 32),
+          _sectionTitle(Icons.link_rounded, 'Media Sosial'),
+          SizedBox(height: 14),
+          _socialLinks(),
         ],
       ),
     );
@@ -181,10 +186,10 @@ class _MyProfilDevState extends State<MyProfilDev>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _sectionTitle(Icons.work_outline_rounded, 'Peran Dalam Proyek'),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
 
         AnimatedSize(
-          duration: const Duration(milliseconds: 350),
+          duration: Duration(milliseconds: 350),
           curve: Curves.easeInOut,
           child: Text(
             _expanded ? _fullRoleText : _shortRoleText,
@@ -193,7 +198,7 @@ class _MyProfilDevState extends State<MyProfilDev>
           ),
         ),
 
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
 
         GestureDetector(
           onTap: () {
@@ -283,6 +288,34 @@ class _MyProfilDevState extends State<MyProfilDev>
       }).toList(),
     );
   }
+
+  Widget _socialLinks() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      _socialButton(
+        icon: Icons.facebook_rounded,
+        color: const Color(0xFF1877F2),
+        url: 'https://facebook.com/username',
+      ),
+      _socialButton(
+        icon: Icons.camera_alt_rounded,
+        color: const Color(0xFFE1306C),
+        url: 'https://instagram.com/username',
+      ),
+      _socialButton(
+        icon: Icons.code_rounded,
+        color: Colors.black,
+        url: 'https://github.com/username',
+      ),
+      _socialButton(
+        icon: Icons.work_rounded,
+        color: const Color(0xFF0A66C2),
+        url: 'https://linkedin.com/in/username',
+      ),
+    ],
+  );
+}
 
   static const _shortRoleText =
       'Berperan sebagai ketua kelompok serta bertanggung jawab dalam '
