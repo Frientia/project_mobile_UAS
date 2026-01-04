@@ -15,6 +15,10 @@ class _MyProfilDevState extends State<MyProfilDev>
   late final Animation<double> _fade;
   late final Animation<Offset> _slide;
 
+  final GlobalKey _roleKey = GlobalKey();
+
+  bool _expanded = false; 
+
   @override
   void initState() {
     super.initState();
@@ -70,6 +74,7 @@ class _MyProfilDevState extends State<MyProfilDev>
               children: [
                 _profileHeader(theme),
                 SizedBox(height: 24),
+                _infoCard(theme),
               ],
             ),
           ),
@@ -152,8 +157,72 @@ class _MyProfilDevState extends State<MyProfilDev>
             'Git & GitHub',
           ]),
           const SizedBox(height: 32),
+          _expandableRole(theme)
         ],
       ),
+    );
+  }
+
+  Widget _expandableRole(ThemeData theme) {
+    return Column(
+      key: _roleKey,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _sectionTitle(Icons.work_outline_rounded, 'Peran Dalam Proyek'),
+        const SizedBox(height: 12),
+
+        AnimatedSize(
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeInOut,
+          child: Text(
+            'Dalam proyek MyConcert, saya berperan sebagai pengembang aplikasi mobile menggunakan Flutter. Tanggung jawab saya meliputi perancangan antarmuka pengguna (UI) yang responsif dan menarik, integrasi dengan layanan backend seperti Firebase untuk otentikasi dan penyimpanan data, serta Supabase untuk manajemen basis data. Selain itu, saya juga bertanggung jawab dalam mengimplementasikan fitur-fitur utama aplikasi seperti pendaftaran pengguna, penjadwalan konser, dan notifikasi. Saya bekerja sama dengan tim desain untuk memastikan pengalaman pengguna yang optimal dan melakukan pengujian aplikasi untuk memastikan kualitas sebelum peluncuran.',
+            style: theme.textTheme.bodyMedium?.copyWith(height: 1.65),
+            textAlign: TextAlign.justify,
+          ),
+        ),
+
+        const SizedBox(height: 12),
+
+        GestureDetector(
+          onTap: () {
+            setState(() => _expanded = !_expanded);
+
+            if (!_expanded) return;
+
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              final ctx = _roleKey.currentContext;
+              if (ctx != null) {
+                Scrollable.ensureVisible(
+                  ctx,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeOutCubic,
+                );
+              }
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                _expanded ? 'Tutup' : 'Lihat selengkapnya',
+                style: const TextStyle(
+                  color: _primaryColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(width: 4),
+              AnimatedRotation(
+                turns: _expanded ? 0.5 : 0,
+                duration: const Duration(milliseconds: 300),
+                child: const Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: _primaryColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
