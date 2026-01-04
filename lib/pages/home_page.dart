@@ -288,6 +288,31 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// ===============================================================
+  /// EVENT CONTENT
+  /// ===============================================================
+  Widget _buildEventContent() {
+    if (isLoading) {
+      return const Padding(
+        padding: EdgeInsets.all(32),
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final filteredProducts = _selectedCategory == 'All'
+        ? products
+        : products
+            .where((p) => p.category == _selectedCategory)
+            .toList();
+
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 350),
+      child: _isGridView
+          ? _buildGrid(filteredProducts)
+          : _buildHorizontalList(filteredProducts),
+    );
+  }
+
+  /// ===============================================================
   /// EVENT CARD
   /// ===============================================================
   /// ===============================================================
