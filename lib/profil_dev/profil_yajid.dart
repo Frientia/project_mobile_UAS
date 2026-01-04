@@ -50,6 +50,7 @@ class _MyProfilDevState extends State<MyProfilDev>
   
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
@@ -59,22 +60,66 @@ class _MyProfilDevState extends State<MyProfilDev>
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Center(
-        child: FadeTransition(
-          opacity: _fade,
-          child: SlideTransition(
-            position: _slide,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  SizedBox(height: 24),
-                ],
-              ),
+      body: FadeTransition(
+        opacity: _fade,
+        child: SlideTransition(
+          position: _slide,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 24, 20, 36),
+            child: Column(
+              children: [
+                _profileHeader(theme),
+                SizedBox(height: 24),
+              ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _profileHeader(ThemeData theme) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              colors: [
+                _primaryColor,
+                _primaryColor.withValues(alpha: 0.55),
+              ],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: _primaryColor.withValues(alpha: 0.35),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: const CircleAvatar(
+            radius: 56,
+            backgroundImage: AssetImage('assets/images/example.png'),
+          ),
+        ),
+        const SizedBox(height: 18),
+        Text(
+          'Muhamad Yajid Rizky',
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'NIM 1123150114 • TI-SE 23 M',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: Colors.grey[600],
+          ),
+        ),
+      ],
     );
   }
 }
