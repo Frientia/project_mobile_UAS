@@ -9,6 +9,7 @@ class MyProfilDev extends StatefulWidget {
 
 class _MyProfilDevState extends State<MyProfilDev> 
     with SingleTickerProviderStateMixin {
+  static const _primaryColor = Color(0xFF1E3A8A);
 
   late final AnimationController _controller;
   late final Animation<double> _fade;
@@ -50,9 +51,13 @@ class _MyProfilDevState extends State<MyProfilDev>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         title: const Text('Profil Developer'),
         centerTitle: true,
+        backgroundColor: _primaryColor,
+        foregroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Center(
         child: FadeTransition(
