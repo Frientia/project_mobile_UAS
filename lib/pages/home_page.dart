@@ -96,23 +96,23 @@ class _HomePageState extends State<HomePage> {
   /// ===============================================================
   /// FETCH PRODUCTS FROM SUPABASE (FIX ERROR)
   /// ===============================================================
-  Future<void> _loadProducts() async {
+    Future<void> _loadProducts() async {
     try {
-      debugPrint("FETCHING PRODUCTS...");
-
       final response =
           await Supabase.instance.client.from('products').select();
 
-      products = response
-        .map<Product>((e) => Product.fromMap(e))
-        .toList();
+      products =
+          response.map<Product>((e) => Product.fromMap(e)).toList();
 
+      final uniqueCategories = products
+          .map((e) => e.category)
+          .toSet()
+          .toList();
 
-      debugPrint("PRODUCT COUNT: ${products.length}");
-    } catch (e, stacktrace) {
-      debugPrint("ERROR FETCH PRODUCTS: $e");
-      debugPrint(stacktrace.toString());
+      categories = ['All', ...uniqueCategories];
+    } catch (_) {
       products = [];
+      categories = ['All'];
     } finally {
       setState(() {
         isLoading = false;
