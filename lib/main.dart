@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_uas/pages/home_page.dart';
 import 'package:mobile_uas/pages/menu_page.dart';
-import 'package:mobile_uas/profil_dev/profil_yajid.dart';
 import 'package:mobile_uas/screens/splash_screen1.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:mobile_uas/firebase_options.dart';
@@ -27,7 +26,7 @@ class MyProject extends StatelessWidget {
     return MaterialApp(
       title: 'MyConcert',
       debugShowCheckedModeBanner: false,
-      home: MyProfilDev(),
+      home: SplashScreen1(),
       routes: {
         '/home': (_) => HomePage(),
         '/profile': (_) => MyMenu(),
