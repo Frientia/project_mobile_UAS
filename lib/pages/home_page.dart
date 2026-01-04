@@ -184,6 +184,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// ===============================================================
+  /// HERO
+  /// ===============================================================
+  Widget _buildHero() {
+    return AnimatedOpacity(
+      opacity: _animate ? 1 : 0,
+      duration: const Duration(milliseconds: 500),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: const DecorationImage(
+            image: AssetImage("assets/images/example.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// ===============================================================
   /// EVENT CARD
   /// ===============================================================
   /// ===============================================================
