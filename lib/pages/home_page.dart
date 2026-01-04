@@ -137,6 +137,31 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+   PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Color(0xfff3eaff),
+      foregroundColor: Colors.black,
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Hi, $_name",
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 2),
+          const Text(
+            "Find events that match your vibe",
+            style: TextStyle(fontSize: 13, color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
+
   /// ===============================================================
   /// HOME CONTENT
   /// ===============================================================
