@@ -296,24 +296,53 @@ class _MyProfilDevState extends State<MyProfilDev>
       _socialButton(
         icon: Icons.facebook_rounded,
         color: const Color(0xFF1877F2),
-        url: 'https://facebook.com/username',
+        url: 'https://www.facebook.com/Frientia',
       ),
       _socialButton(
         icon: Icons.camera_alt_rounded,
         color: const Color(0xFFE1306C),
-        url: 'https://instagram.com/username',
+        url: 'https://instagram.com/frientia',
       ),
       _socialButton(
         icon: Icons.code_rounded,
         color: Colors.black,
-        url: 'https://github.com/username',
+        url: 'https://github.com/Frientia',
       ),
       _socialButton(
         icon: Icons.work_rounded,
         color: const Color(0xFF0A66C2),
-        url: 'https://linkedin.com/in/username',
+        url: 'https://www.linkedin.com/in/muhamad-yajid-rizky-b5120433a',
       ),
     ],
+  );
+}
+
+Widget _socialButton({
+  required IconData icon,
+  required Color color,
+  required String url,
+}) {
+  return InkWell(
+    borderRadius: BorderRadius.circular(16),
+    onTap: () async {
+      final uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      }
+    },
+    child: Container(
+      width: 54,
+      height: 54,
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Icon(
+        icon,
+        color: color,
+        size: 26,
+      ),
+    ),
   );
 }
 
