@@ -255,6 +255,39 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// ===============================================================
+  /// SECTION HEADER
+  /// ===============================================================
+  Widget _buildSectionHeader() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            "Popular Events",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isGridView = !_isGridView;
+              });
+            },
+            child: Text(
+              _isGridView ? "Collapse" : "See all",
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 113, 50, 202),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// ===============================================================
   /// EVENT CARD
   /// ===============================================================
   /// ===============================================================
