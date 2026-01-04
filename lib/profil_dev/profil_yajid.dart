@@ -175,7 +175,7 @@ class _MyProfilDevState extends State<MyProfilDev>
           duration: const Duration(milliseconds: 350),
           curve: Curves.easeInOut,
           child: Text(
-            'Dalam proyek MyConcert, saya berperan sebagai pengembang aplikasi mobile menggunakan Flutter. Tanggung jawab saya meliputi perancangan antarmuka pengguna (UI) yang responsif dan menarik, integrasi dengan layanan backend seperti Firebase untuk otentikasi dan penyimpanan data, serta Supabase untuk manajemen basis data. Selain itu, saya juga bertanggung jawab dalam mengimplementasikan fitur-fitur utama aplikasi seperti pendaftaran pengguna, penjadwalan konser, dan notifikasi. Saya bekerja sama dengan tim desain untuk memastikan pengalaman pengguna yang optimal dan melakukan pengujian aplikasi untuk memastikan kualitas sebelum peluncuran.',
+            _expanded ? _fullRoleText : _shortRoleText,
             style: theme.textTheme.bodyMedium?.copyWith(height: 1.65),
             textAlign: TextAlign.justify,
           ),
@@ -271,5 +271,23 @@ class _MyProfilDevState extends State<MyProfilDev>
       }).toList(),
     );
   }
+
+  static const _shortRoleText =
+      'Berperan sebagai ketua kelompok serta bertanggung jawab dalam '
+      'perancangan dan pengembangan fitur utama aplikasi.';
+
+  static const _fullRoleText =
+      'Berperan sebagai ketua kelompok dengan tanggung jawab memberikan arahan '
+      'dan masukan teknis kepada anggota tim selama proses pengembangan. '
+      'Selain itu, saya terlibat langsung dalam perancangan dan implementasi '
+      'fitur-fitur utama aplikasi, seperti autentikasi pengguna (login, logout, '
+      'Google Sign-In), pengelolaan data konser, detail konser, serta proses '
+      'pembelian tiket.\n\n'
+      'Saya juga bertanggung jawab dalam integrasi Firebase untuk otentikasi '
+      'pengguna serta melakukan setup Supabase sebagai basis data backend. '
+      'Di sisi antarmuka, saya memastikan desain UI/UX tetap konsisten, '
+      'responsif, dan mudah digunakan. Selain pengembangan, saya turut '
+      'mengawasi proses pengujian aplikasi untuk memastikan kualitas dan '
+      'kestabilan sistem sebelum tahap peluncuran.';
 
 }
