@@ -165,7 +165,23 @@ class _HomePageState extends State<HomePage> {
   /// ===============================================================
   /// HOME CONTENT
   /// ===============================================================
-  
+  Widget _buildHomeUI() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(top: 16, bottom: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHero(),
+          const SizedBox(height: 20),
+          _buildCategories(),
+          const SizedBox(height: 24),
+          _buildSectionHeader(),
+          const SizedBox(height: 12),
+          _buildEventContent(),
+        ],
+      ),
+    );
+  }
 
   /// ===============================================================
   /// EVENT CARD
