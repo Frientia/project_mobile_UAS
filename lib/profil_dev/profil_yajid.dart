@@ -7,7 +7,13 @@ class MyProfilDev extends StatefulWidget {
   State<MyProfilDev> createState() => _MyProfilDevState();
 }
 
-class _MyProfilDevState extends State<MyProfilDev> {
+class _MyProfilDevState extends State<MyProfilDev> 
+    with SingleTickerProviderStateMixin {
+
+  late final AnimationController _controller;
+  late final Animation<double> _fade;
+  late final Animation<Offset> _slide;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +22,11 @@ class _MyProfilDevState extends State<MyProfilDev> {
         centerTitle: true,
       ),
       body: const Center(
-        child: Text('Profile Developer'),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [],
+          ),
+        ),
       ),
     );
   }
