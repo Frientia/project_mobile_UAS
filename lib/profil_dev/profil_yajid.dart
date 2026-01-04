@@ -179,4 +179,28 @@ class _MyProfilDevState extends State<MyProfilDev>
     );
   }
 
+  Widget _chipList(List<String> items) {
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: items.map((item) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          decoration: BoxDecoration(
+            color: _primaryColor.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Text(
+            item,
+            style: const TextStyle(
+              color: _primaryColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
 }
