@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class MyProfilDev extends StatefulWidget {
   const MyProfilDev({super.key});
@@ -15,6 +16,7 @@ class _MyProfilDevState extends State<MyProfilDev>
   late final Animation<double> _fade;
   late final Animation<Offset> _slide;
 
+  final ScrollController _scrollController = ScrollController();
   final GlobalKey _roleKey = GlobalKey();
 
   bool _expanded = false; 
@@ -43,11 +45,20 @@ class _MyProfilDevState extends State<MyProfilDev>
       ),
     );
     _controller.forward();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+              ScrollDirection.forward &&
+          _expanded) {
+        setState(() => _expanded = false);
+      }
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
