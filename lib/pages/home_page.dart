@@ -312,6 +312,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  
+
+  Widget _buildHorizontalList(List<Product> data) {
+    return SizedBox(
+      key: const ValueKey('list'),
+      height: 330,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 14),
+            child: SizedBox(
+              width: 220,
+              child: _eventCard(data[index]),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   /// ===============================================================
   /// EVENT CARD
   /// ===============================================================
