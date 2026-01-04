@@ -127,21 +127,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfff3eaff),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: const Color(0xfff3eaff),
-        foregroundColor: Colors.black,
-        title: Text(
-          "Hi, $_name",
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-      body: 
-      selectedIndex == 0 ? _buildHomeUI() : _dummy(),
+      backgroundColor: Color(0xfff3eaff),
+      appBar: _buildAppBar(),
+      body: _buildHomeUI(),
       bottomNavigationBar: MainBottomNav(
         currentIndex: 0,
         context: context,
