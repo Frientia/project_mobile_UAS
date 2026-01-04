@@ -120,7 +120,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   /// ===============================================================
   /// UI
   /// ===============================================================
@@ -311,8 +310,6 @@ class _HomePageState extends State<HomePage> {
           : _buildHorizontalList(filteredProducts),
     );
   }
-
-  
 
   Widget _buildHorizontalList(List<Product> data) {
     return SizedBox(
