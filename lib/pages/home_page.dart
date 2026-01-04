@@ -17,6 +17,7 @@ class Product {
   final int stockVip;
   final String imageUrl;
   final String eventDate;
+  final String category;
 
   Product({
     required this.id,
@@ -28,6 +29,7 @@ class Product {
     required this.stockVip,
     required this.imageUrl,
     required this.eventDate,
+    required this.category,
   });
 
   factory Product.fromMap(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class Product {
       stockVip: json['stock_vip'],
       imageUrl: json['image_url'] ?? '',
       eventDate: json['event_date'] ?? '-',
+      category: json['category'] ?? 'Other',
     );
   }
 }
