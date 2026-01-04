@@ -80,6 +80,7 @@ class _MyProfilDevState extends State<MyProfilDev>
         child: SlideTransition(
           position: _slide,
           child: SingleChildScrollView(
+            controller: _scrollController,
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 36),
             child: Column(
               children: [
