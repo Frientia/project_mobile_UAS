@@ -335,6 +335,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildGrid(List<Product> data) {
+    return Padding(
+      key: const ValueKey('grid'),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: data.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          childAspectRatio: 0.72,
+        ),
+        itemBuilder: (context, index) {
+          return _eventCard(data[index]);
+        },
+      ),
+    );
+  }
+
   /// ===============================================================
   /// EVENT CARD
   /// ===============================================================
