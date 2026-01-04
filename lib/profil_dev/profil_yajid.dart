@@ -141,9 +141,41 @@ class _MyProfilDevState extends State<MyProfilDev>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          _sectionTitle(Icons.star_rounded, 'Minat & Keahlian'),
+          const SizedBox(height: 14),
+          _chipList([
+            'Flutter',
+            'Firebase',
+            'Supabase',
+            'UI/UX',
+            'REST API',
+            'Git & GitHub',
+          ]),
           const SizedBox(height: 32),
         ],
       ),
+    );
+  }
+
+  Widget _sectionTitle(IconData icon, String title) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(9),
+          decoration: BoxDecoration(
+            color: _primaryColor.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, size: 20, color: _primaryColor),
+        ),
+        const SizedBox(width: 14),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+        ),
+      ],
     );
   }
 
