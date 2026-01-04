@@ -63,7 +63,14 @@ class _HomePageState extends State<HomePage> {
   String _name = "User";
 
   bool isLoading = true;
+  bool _animate = false;
+  bool _isGridView = false;
+
+  String _selectedCategory = 'All';
+
   List<Product> products = [];
+
+  List<String> categories = [];
 
   @override
   void initState() {
