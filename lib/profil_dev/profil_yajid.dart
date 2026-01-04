@@ -21,10 +21,19 @@ class _MyProfilDevState extends State<MyProfilDev>
         title: const Text('Profil Developer'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [],
+      body: Center(
+        child: FadeTransition(
+          opacity: _fade,
+          child: SlideTransition(
+            position: _slide,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 24),
+                ],
+              ),
+            ),
           ),
         ),
       ),
