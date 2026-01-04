@@ -40,6 +40,12 @@ class _MyProfilDevState extends State<MyProfilDev>
     _controller.forward();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   
   @override
   Widget build(BuildContext context) {
