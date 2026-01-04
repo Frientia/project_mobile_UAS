@@ -72,12 +72,16 @@ class _HomePageState extends State<HomePage> {
 
   List<String> categories = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _loadSession();
-    _loadProducts();
-  }
+    @override
+    void initState() {
+      super.initState();
+      _loadSession();
+      _loadProducts();
+
+      Future.delayed(const Duration(milliseconds: 200), () {
+        if (mounted) setState(() => _animate = true);
+      });
+    }
 
   /// ===============================================================
   /// LOAD SESSION
