@@ -72,16 +72,16 @@ class _HomePageState extends State<HomePage> {
 
   List<String> categories = [];
 
-    @override
-    void initState() {
-      super.initState();
-      _loadSession();
-      _loadProducts();
+  @override
+  void initState() {
+    super.initState();
+    _loadSession();
+    _loadProducts();
 
-      Future.delayed(const Duration(milliseconds: 200), () {
-        if (mounted) setState(() => _animate = true);
-      });
-    }
+    Future.delayed(const Duration(milliseconds: 200), () {
+      if (mounted) setState(() => _animate = true);
+    });
+  }
 
   /// ===============================================================
   /// LOAD SESSION
@@ -96,18 +96,13 @@ class _HomePageState extends State<HomePage> {
   /// ===============================================================
   /// FETCH PRODUCTS FROM SUPABASE (FIX ERROR)
   /// ===============================================================
-    Future<void> _loadProducts() async {
+  Future<void> _loadProducts() async {
     try {
-      final response =
-          await Supabase.instance.client.from('products').select();
+      final response = await Supabase.instance.client.from('products').select();
 
-      products =
-          response.map<Product>((e) => Product.fromMap(e)).toList();
+      products = response.map<Product>((e) => Product.fromMap(e)).toList();
 
-      final uniqueCategories = products
-          .map((e) => e.category)
-          .toSet()
-          .toList();
+      final uniqueCategories = products.map((e) => e.category).toSet().toList();
 
       categories = ['All', ...uniqueCategories];
     } catch (_) {
@@ -119,24 +114,18 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
-
-  /// ===============================================================
-  /// UI
-  /// ===============================================================
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff3eaff),
       appBar: _buildAppBar(),
       body: _buildHomeUI(),
-      bottomNavigationBar: MainBottomNav(
-        currentIndex: 0,
-        context: context,
-      ),
+      bottomNavigationBar: MainBottomNav(currentIndex: 0, context: context),
     );
   }
 
-   PreferredSizeWidget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     return AppBar(
       elevation: 0,
       backgroundColor: Color(0xfff3eaff),
@@ -146,10 +135,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             "Hi, $_name",
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 2),
           const Text(
@@ -229,7 +215,9 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: isActive ? Color.fromARGB(255, 113, 50, 202) : Colors.white,
+                color: isActive
+                    ? Color.fromARGB(255, 113, 50, 202)
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(22),
                 boxShadow: [
                   BoxShadow(
@@ -299,9 +287,7 @@ class _HomePageState extends State<HomePage> {
 
     final filteredProducts = _selectedCategory == 'All'
         ? products
-        : products
-            .where((p) => p.category == _selectedCategory)
-            .toList();
+        : products.where((p) => p.category == _selectedCategory).toList();
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 350),
@@ -322,10 +308,7 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 14),
-            child: SizedBox(
-              width: 220,
-              child: _eventCard(data[index]),
-            ),
+            child: SizedBox(width: 220, child: _eventCard(data[index])),
           );
         },
       ),
@@ -362,10 +345,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => MyProduk(
-              productId: product.id,
-              firebaseUid: '',
-            ),
+            builder: (_) => MyProduk(productId: product.id, firebaseUid: ''),
           ),
         );
       },
@@ -393,10 +373,7 @@ class _HomePageState extends State<HomePage> {
             product.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 4),
           Text(
