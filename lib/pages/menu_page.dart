@@ -80,7 +80,7 @@ class _MyMenuState extends State<MyMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: const Color(0xfff3eaff),
       body: LayoutBuilder(
         builder: (context, constraints) {
           double maxWidth = constraints.maxWidth > 1100
@@ -205,12 +205,13 @@ class _MyMenuState extends State<MyMenu> {
 
   Widget _logoutButton(BuildContext context) {
     return ListTile(
+      selectedTileColor: Colors.deepPurple,
       leading: const Icon(Icons.logout, color: Colors.red),
       title: const Text(
         'Logout',
         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
       ),
-      tileColor: Colors.red.withOpacity(0.05),
+      tileColor: Colors.red.withValues(alpha: 0.05),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       onTap: () => _logout(context),
     );
@@ -221,7 +222,7 @@ class _MyMenuState extends State<MyMenu> {
       color: Colors.white,
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
-        BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10),
       ],
     );
   }

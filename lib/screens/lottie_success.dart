@@ -57,7 +57,7 @@ class _MySuccessState extends State<MySuccess> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xfff3eaff),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
