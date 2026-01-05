@@ -2,9 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobile_uas/pages/developer_page.dart';
+import 'package:mobile_uas/pages/home_page.dart';
 import 'package:mobile_uas/pages/login_page.dart';
+import 'package:mobile_uas/pages/profile_page.dart';
+import 'package:mobile_uas/pages/riwayat_pesanan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_uas/widgets/main_bottom_nav.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyMenu extends StatefulWidget {
   const MyMenu({super.key});
@@ -24,14 +28,19 @@ class _MyMenuState extends State<MyMenu> {
     _loadSession();
   }
 
-  /// =============================
-  /// LOAD USERNAME FROM SESSION
-  /// =============================
   Future<void> _loadSession() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _name = prefs.getString('name') ?? "User";
     });
+  }
+
+  Future<void> _openInstagram() async {
+    final Uri url = Uri.parse('https://www.instagram.com/konsertangerangraya/');
+
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw 'Tidak bisa membuka Instagram';
+    }
   }
 
   Future<void> _logout(BuildContext context) async {
@@ -112,14 +121,60 @@ class _MyMenuState extends State<MyMenu> {
                   const SizedBox(height: 32),
 
                   _sectionTitle('Aktivitas Saya'),
-                  _menuItem(Icons.trending_up, 'Riwayat Transaksi'),
-                  _menuItem(Icons.groups, 'Komunitas Saya'),
-                  _menuItem(Icons.dashboard, 'Dashboard'),
+
+                  _menuItem(
+                    Icons.trending_up,
+                    'Riwayat Pembelian',
+                    onTap: () {
+                      final uid = FirebaseAuth.instance.currentUser?.uid;
+
+                      if (uid == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('User belum login')),
+                        );
+                        return;
+                      }
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => MyRiwayat(firebaseUid: uid),
+                        ),
+                      );
+                    },
+                  ),
+
+                  _menuItem(
+                    Icons.groups,
+                    'Komunitas Saya',
+                    onTap: _openInstagram,
+                  ),
+
+                  _menuItem(
+                    Icons.dashboard,
+                    'Dashboard',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const HomePage()),
+                      );
+                    },
+                  ),
 
                   const SizedBox(height: 32),
 
                   _sectionTitle('Pengaturan'),
-                  _menuItem(Icons.settings, 'Pengaturan Akun'),
+                  _menuItem(
+                    Icons.settings,
+                    'Setting',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const MyProfile()),
+                      );
+                    },
+                  ),
+
                   _menuItem(
                     Icons.code,
                     'Developer',
@@ -147,38 +202,44 @@ class _MyMenuState extends State<MyMenu> {
     );
   }
 
-  /// =============================
-  /// PROFILE CARD
-  /// =============================
   Widget _profileCard() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: _cardDecoration(),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: 28,
-            backgroundColor: MyMenu.primaryColor,
-            child: Icon(Icons.person, color: Colors.white),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _name,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Text('Personal', style: TextStyle(color: Colors.grey)),
-              ],
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const MyProfile()),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: _cardDecoration(),
+        child: Row(
+          children: [
+            const CircleAvatar(
+              radius: 28,
+              backgroundColor: MyMenu.primaryColor,
+              child: Icon(Icons.person, color: Colors.white),
             ),
-          ),
-          const Icon(Icons.arrow_forward_ios, size: 16),
-        ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text('Personal', style: TextStyle(color: Colors.grey)),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, size: 16),
+          ],
+        ),
       ),
     );
   }
