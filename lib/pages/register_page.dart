@@ -13,7 +13,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage>
     with SingleTickerProviderStateMixin {
-
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _isLoading = false;
@@ -31,32 +30,22 @@ class _RegisterPageState extends State<RegisterPage>
       duration: const Duration(milliseconds: 600),
     );
 
-    _fadeAnim = CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeOut,
-    );
+    _fadeAnim = CurvedAnimation(parent: _animController, curve: Curves.easeOut);
 
     _slideAnim = Tween<Offset>(
       begin: const Offset(0, 0.1),
       end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _animController,
-        curve: Curves.easeOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: _animController, curve: Curves.easeOut));
 
     _animController.forward();
   }
 
-  // Controller
   final TextEditingController namaController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController hpController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
 
-  // Register ke Firebase
   Future<void> registerUser({
     required String email,
     required String password,
@@ -69,8 +58,6 @@ class _RegisterPageState extends State<RegisterPage>
     );
 
     final firebaseUid = cred.user!.uid;
-
-    //Insert ke Supabase
     final supabase = Supabase.instance.client;
 
     await supabase.from('users').insert({
@@ -171,7 +158,12 @@ class _RegisterPageState extends State<RegisterPage>
                         Container(
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 113, 50, 202).withValues(alpha: 0.1),
+                            color: const Color.fromARGB(
+                              255,
+                              113,
+                              50,
+                              202,
+                            ).withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
@@ -181,28 +173,27 @@ class _RegisterPageState extends State<RegisterPage>
                           ),
                         ),
                         const SizedBox(height: 20),
-                    
-                       Text(
+
+                        Text(
                           "Register",
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          style: Theme.of(context).textTheme.headlineSmall
+                              ?.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: const Color.fromARGB(255, 113, 50, 202),
                               ),
                         ),
-                    
+
                         const SizedBox(height: 8),
-                    
+
                         Text(
                           "Silakan isi data untuk membuat akun",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(color: Colors.grey),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
                         ),
-                    
+
                         const SizedBox(height: 20),
-                    
-                        // Nama Lengkap
+
                         TextField(
                           controller: namaController,
                           keyboardType: TextInputType.name,
@@ -217,10 +208,9 @@ class _RegisterPageState extends State<RegisterPage>
                             ),
                           ),
                         ),
-                    
+
                         const SizedBox(height: 20),
-                    
-                        // Email
+
                         TextField(
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
@@ -235,10 +225,9 @@ class _RegisterPageState extends State<RegisterPage>
                             ),
                           ),
                         ),
-                    
+
                         const SizedBox(height: 20),
-                    
-                        // No HP
+
                         TextField(
                           controller: hpController,
                           keyboardType: TextInputType.phone,
@@ -247,16 +236,17 @@ class _RegisterPageState extends State<RegisterPage>
                             fillColor: Colors.grey.shade50,
                             labelText: 'No Handphone',
                             hintText: 'Masukkan nomor HP Anda',
-                            prefixIcon: const Icon(Icons.phone_android_outlined),
+                            prefixIcon: const Icon(
+                              Icons.phone_android_outlined,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ),
-                    
+
                         const SizedBox(height: 20),
-                    
-                        // Password
+
                         TextField(
                           controller: passController,
                           obscureText: _obscurePassword,
@@ -283,10 +273,9 @@ class _RegisterPageState extends State<RegisterPage>
                             ),
                           ),
                         ),
-                    
+
                         const SizedBox(height: 20),
-                    
-                        // Konfirmasi Password
+
                         TextField(
                           controller: confirmController,
                           obscureText: _obscureConfirmPassword,
@@ -314,9 +303,9 @@ class _RegisterPageState extends State<RegisterPage>
                             ),
                           ),
                         ),
-                    
+
                         const SizedBox(height: 24),
-                    
+
                         Align(
                           alignment: Alignment.centerRight,
                           child: RichText(
@@ -342,7 +331,8 @@ class _RegisterPageState extends State<RegisterPage>
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const LoginPage(),
+                                          builder: (context) =>
+                                              const LoginPage(),
                                         ),
                                       );
                                     },
@@ -351,17 +341,16 @@ class _RegisterPageState extends State<RegisterPage>
                             ),
                           ),
                         ),
-                    
+
                         const SizedBox(height: 20),
-                    
-                        // Tombol Register
+
                         AnimatedScale(
                           scale: _isLoading ? 0.97 : 1,
                           duration: const Duration(milliseconds: 150),
                           child: SizedBox(
-                              width: double.infinity,
-                              height: isTablet ? 55 : 45,
-                              child: ElevatedButton(
+                            width: double.infinity,
+                            height: isTablet ? 55 : 45,
+                            child: ElevatedButton(
                               onPressed: _isLoading ? null : handleRegister,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color.fromARGB(

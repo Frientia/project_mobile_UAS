@@ -35,9 +35,6 @@ class _MyProfileState extends State<MyProfile> {
     super.dispose();
   }
 
-  // ==================================================
-  // LOAD PROFILE FROM SUPABASE (BY FIREBASE UID)
-  // ==================================================
   Future<void> _loadProfile() async {
     final firebaseUid = user?.uid;
     if (firebaseUid == null) {
@@ -72,9 +69,6 @@ class _MyProfileState extends State<MyProfile> {
     setState(() => _loading = false);
   }
 
-  // ==================================================
-  // UPDATE PROFILE (UPDATE DATA LAMA)
-  // ==================================================
   Future<void> _saveProfile() async {
     final firebaseUid = user?.uid;
     if (firebaseUid == null) return;
@@ -84,13 +78,11 @@ class _MyProfileState extends State<MyProfile> {
     final phone = '$_countryCode${_phoneController.text.trim()}';
 
     try {
-      // UPDATE SUPABASE (TANPA updated_at)
       await Supabase.instance.client
           .from('users')
           .update({'name': _nameController.text.trim(), 'phone': phone})
           .eq('firebase_uid', firebaseUid);
 
-      // UPDATE SHARED PREFERENCES
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('name', _nameController.text.trim());
 
@@ -108,9 +100,6 @@ class _MyProfileState extends State<MyProfile> {
     }
   }
 
-  // ==================================================
-  // UI
-  // ==================================================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,9 +156,6 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-  // ==================================================
-  // COMPONENTS
-  // ==================================================
   Widget _profileHeader() {
     return Column(
       children: [
@@ -180,9 +166,7 @@ class _MyProfileState extends State<MyProfile> {
         ),
         const SizedBox(height: 8),
         TextButton(
-          onPressed: () {
-            // upload foto (optional)
-          },
+          onPressed: () {},
           child: const Text(
             'Upload Foto Profil',
             style: TextStyle(color: Colors.red),

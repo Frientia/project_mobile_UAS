@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobile_uas/pages/developer_page.dart';
 import 'package:mobile_uas/pages/login_page.dart';
+import 'package:mobile_uas/pages/riwayat_pesanan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_uas/widgets/main_bottom_nav.dart';
 
@@ -24,9 +25,6 @@ class _MyMenuState extends State<MyMenu> {
     _loadSession();
   }
 
-  /// =============================
-  /// LOAD USERNAME FROM SESSION
-  /// =============================
   Future<void> _loadSession() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -112,7 +110,29 @@ class _MyMenuState extends State<MyMenu> {
                   const SizedBox(height: 32),
 
                   _sectionTitle('Aktivitas Saya'),
-                  _menuItem(Icons.trending_up, 'Riwayat Transaksi'),
+
+                  _menuItem(
+                    Icons.trending_up,
+                    'Riwayat Pembelian',
+                    onTap: () {
+                      final uid = FirebaseAuth.instance.currentUser?.uid;
+
+                      if (uid == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('User belum login')),
+                        );
+                        return;
+                      }
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => MyRiwayat(firebaseUid: uid),
+                        ),
+                      );
+                    },
+                  ),
+
                   _menuItem(Icons.groups, 'Komunitas Saya'),
                   _menuItem(Icons.dashboard, 'Dashboard'),
 
@@ -147,9 +167,6 @@ class _MyMenuState extends State<MyMenu> {
     );
   }
 
-  /// =============================
-  /// PROFILE CARD
-  /// =============================
   Widget _profileCard() {
     return Container(
       padding: const EdgeInsets.all(20),
