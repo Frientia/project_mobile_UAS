@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobile_uas/pages/about_page.dart';
 import 'package:mobile_uas/pages/developer_page.dart';
+import 'package:mobile_uas/pages/home_page.dart';
 import 'package:mobile_uas/pages/login_page.dart';
 import 'package:mobile_uas/pages/profile_page.dart';
 import 'package:mobile_uas/pages/riwayat_pesanan.dart';
@@ -150,7 +151,16 @@ class _MyMenuState extends State<MyMenu> {
                     onTap: _openInstagram,
                   ),
 
-                  _menuItem(Icons.dashboard, 'Dashboard'),
+                  _menuItem(
+                    Icons.dashboard,
+                    'Dashboard',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const HomePage()),
+                      );
+                    },
+                  ),
 
                   const SizedBox(height: 32),
 
@@ -165,6 +175,7 @@ class _MyMenuState extends State<MyMenu> {
                       );
                     },
                   ),
+
                   _menuItem(
                     Icons.code,
                     'Developer',
