@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobile_uas/pages/developer_page.dart';
 import 'package:mobile_uas/pages/login_page.dart';
+import 'package:mobile_uas/pages/profile_page.dart';
 import 'package:mobile_uas/pages/riwayat_pesanan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_uas/widgets/main_bottom_nav.dart';
@@ -139,7 +140,16 @@ class _MyMenuState extends State<MyMenu> {
                   const SizedBox(height: 32),
 
                   _sectionTitle('Pengaturan'),
-                  _menuItem(Icons.settings, 'Pengaturan Akun'),
+                  _menuItem(
+                    Icons.settings,
+                    'Setting',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const MyProfile()),
+                      );
+                    },
+                  ),
                   _menuItem(
                     Icons.code,
                     'Developer',
