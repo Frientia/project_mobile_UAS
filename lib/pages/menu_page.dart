@@ -144,7 +144,12 @@ class _MyMenuState extends State<MyMenu> {
                     },
                   ),
 
-                  _menuItem(Icons.groups, 'Komunitas Saya'),
+                  _menuItem(
+                    Icons.groups,
+                    'Komunitas Saya',
+                    onTap: _openInstagram,
+                  ),
+
                   _menuItem(Icons.dashboard, 'Dashboard'),
 
                   const SizedBox(height: 32),
