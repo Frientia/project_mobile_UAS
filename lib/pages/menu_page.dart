@@ -178,34 +178,43 @@ class _MyMenuState extends State<MyMenu> {
   }
 
   Widget _profileCard() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: _cardDecoration(),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: 28,
-            backgroundColor: MyMenu.primaryColor,
-            child: Icon(Icons.person, color: Colors.white),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _name,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Text('Personal', style: TextStyle(color: Colors.grey)),
-              ],
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const MyProfile()),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: _cardDecoration(),
+        child: Row(
+          children: [
+            const CircleAvatar(
+              radius: 28,
+              backgroundColor: MyMenu.primaryColor,
+              child: Icon(Icons.person, color: Colors.white),
             ),
-          ),
-          const Icon(Icons.arrow_forward_ios, size: 16),
-        ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text('Personal', style: TextStyle(color: Colors.grey)),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, size: 16),
+          ],
+        ),
       ),
     );
   }
