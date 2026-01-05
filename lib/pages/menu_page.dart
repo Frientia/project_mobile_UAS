@@ -8,6 +8,7 @@ import 'package:mobile_uas/pages/profile_page.dart';
 import 'package:mobile_uas/pages/riwayat_pesanan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_uas/widgets/main_bottom_nav.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyMenu extends StatefulWidget {
   const MyMenu({super.key});
@@ -32,6 +33,14 @@ class _MyMenuState extends State<MyMenu> {
     setState(() {
       _name = prefs.getString('name') ?? "User";
     });
+  }
+
+  Future<void> _openInstagram() async {
+    final Uri url = Uri.parse('https://www.instagram.com/konsertangerangraya/');
+
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw 'Tidak bisa membuka Instagram';
+    }
   }
 
   Future<void> _logout(BuildContext context) async {
