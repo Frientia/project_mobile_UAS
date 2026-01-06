@@ -12,7 +12,7 @@ class _MyAboutState extends State<MyAbout> {
   static const Color primaryColor = Color.fromARGB(255, 113, 50, 202);
 
   Future<void> _openRepo() async {
-    final uri = Uri.parse('https://github.com/USERNAME/REPO');
+    final uri = Uri.parse('https://github.com/Frientia/project_mobile_UAS');
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
