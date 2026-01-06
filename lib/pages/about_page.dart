@@ -46,6 +46,20 @@ class _MyAboutState extends State<MyAbout> {
           ],
         ),
       ),
+      const SizedBox(height: 16),
+      const Text(
+        'MyConcert App adalah platform digital yang menghadirkan pengalaman '
+        'pemesanan tiket konser secara modern, cepat, dan terintegrasi dalam '
+        'satu aplikasi. Aplikasi ini dirancang untuk menjawab kebutuhan '
+        'masyarakat terhadap sistem pembelian tiket yang praktis, transparan, '
+        'dan dapat diakses kapan saja serta di mana saja.\n\n'
+        'Dengan antarmuka yang intuitif dan responsif, MyConcert App memudahkan '
+        'pengguna dalam menemukan event, memilih tiket, hingga menyelesaikan '
+        'transaksi secara aman. Selain itu, fitur riwayat pemesanan membantu '
+        'pengguna mengelola tiket secara efisien.',
+        textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 14, height: 1.7, color: Colors.grey),
+      ),
     );
   }
 }
