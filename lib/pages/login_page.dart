@@ -386,7 +386,7 @@ class _LoginPageState extends State<LoginPage>
                         ),
                         style: OutlinedButton.styleFrom(
                           padding: EdgeInsets.symmetric(vertical: 14),
-                          backgroundColor: Colors.grey.shade100,
+                          backgroundColor: Colors.white,
                           side: BorderSide(color: Colors.grey),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
