@@ -20,29 +20,168 @@ class DeveloperDetailPage extends StatelessWidget {
     required this.image,
   });
 
+  static const Color primaryColor = Color.fromARGB(255, 113, 50, 202);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfff3eaff),
-      appBar: AppBar(title: const Text("Developer")),
+      backgroundColor: const Color(0xffFAFAFA),
+      appBar: AppBar(
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        title: const Text(
+          "Developer",
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            CircleAvatar(radius: 60, backgroundImage: AssetImage(image)),
-            const SizedBox(height: 16),
-            Text(name, style: const TextStyle(fontSize: 18)),
-            Text(role),
-            const SizedBox(height: 16),
-            Card(
-              child: ListTile(title: Text("NIM"), subtitle: Text(nim)),
+            /// ===== HEADER PROFIL ALA INSTAGRAM =====
+            Container(
+              padding: const EdgeInsets.all(16),
+              color: Colors.white,
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(60),
+                    child: Image.asset(
+                      image,
+                      height: 90,
+                      width: 90,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        _ProfileStat(title: "Project", value: "4"),
+                        _ProfileStat(title: "Role", value: "UI/UX"),
+                        _ProfileStat(title: "Skill", value: "Design"),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Card(
-              child: ListTile(title: Text("Kelas"), subtitle: Text(kelas)),
+
+            /// ===== BIO =====
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    role,
+                    style: const TextStyle(fontSize: 13, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(interest, style: const TextStyle(fontSize: 13)),
+                ],
+              ),
             ),
+
+            const SizedBox(height: 12),
+
+            /// ===== INFO MAHASISWA =====
+            _infoCard(
+              title: "Informasi Mahasiswa",
+              child: Column(
+                children: [
+                  _row("Nama Lengkap", name),
+                  _row("NIM", nim),
+                  _row("Kelas", kelas),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            /// ===== DESKRIPSI =====
+            _infoCard(
+              title: "Tentang Saya",
+              child: Text(
+                description,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(fontSize: 14),
+              ),
+            ),
+
+            const SizedBox(height: 24),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _infoCard({required String title, required Widget child}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.black12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 12),
+          child,
+        ],
+      ),
+    );
+  }
+
+  Widget _row(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(color: Colors.grey)),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProfileStat extends StatelessWidget {
+  final String title;
+  final String value;
+
+  const _ProfileStat({required this.title, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 4),
+        Text(title, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+      ],
     );
   }
 }
