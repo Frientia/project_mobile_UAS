@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_uas/profil_dev/profil_aji.dart';
+import 'package:mobile_uas/profil_dev/profil_yajid.dart';
 
 class MyDeveloper extends StatefulWidget {
   const MyDeveloper({super.key});
@@ -25,10 +26,17 @@ class _MyDeveloperState extends State<MyDeveloper> {
         child: Column(
           children: [
             _DeveloperCard(
-              name: 'Agra Hafiz',
+              name: 'Muhamad Yajid Rizky',
               role: 'Flutter Developer',
-              image: 'assets/images/developer/people.png',
-              onTap: () {},
+              image: 'assets/images/example.png',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                   builder: (_) => const MyProfilDev(),
+                  ),
+                );
+              },
               isMain: true,
             ),
 
@@ -37,7 +45,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
               children: [
                 Expanded(
                   child: _DeveloperCard(
-                    name: 'Developer 2',
+                    name: 'Agra Alfian Hafiz',
                     role: 'Backend',
                     image: 'assets/images/developer/people.png',
                     onTap: () {},
@@ -46,7 +54,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: _DeveloperCard(
-                    name: 'Developer 3',
+                    name: 'Aditya Aji Pramono',
                     role: 'UI/UX',
                     image: 'assets/images/developer/people.png',
                     onTap: () {
@@ -134,7 +142,7 @@ class _DeveloperCardState extends State<_DeveloperCard> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 12,
                 offset: const Offset(0, 6),
               ),
