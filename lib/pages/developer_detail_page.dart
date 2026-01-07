@@ -7,6 +7,7 @@ class DeveloperDetailPage extends StatelessWidget {
   final String role;
   final String interest;
   final String description;
+  final String image;
 
   const DeveloperDetailPage({
     super.key,
@@ -16,26 +17,21 @@ class DeveloperDetailPage extends StatelessWidget {
     required this.role,
     required this.interest,
     required this.description,
+    required this.image,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Developer")),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            CircleAvatar(radius: 60, backgroundImage: AssetImage(image)),
+            const SizedBox(height: 16),
             Text(name, style: const TextStyle(fontSize: 18)),
             Text(role),
-            const SizedBox(height: 8),
-            Text("NIM: $nim"),
-            Text("Kelas: $kelas"),
-            const SizedBox(height: 12),
-            Text(interest),
-            const SizedBox(height: 12),
-            Text(description),
           ],
         ),
       ),
