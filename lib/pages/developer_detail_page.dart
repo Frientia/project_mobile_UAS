@@ -23,6 +23,7 @@ class DeveloperDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xfff3eaff),
       appBar: AppBar(title: const Text("Developer")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -32,6 +33,13 @@ class DeveloperDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(name, style: const TextStyle(fontSize: 18)),
             Text(role),
+            const SizedBox(height: 16),
+            Card(
+              child: ListTile(title: Text("NIM"), subtitle: Text(nim)),
+            ),
+            Card(
+              child: ListTile(title: Text("Kelas"), subtitle: Text(kelas)),
+            ),
           ],
         ),
       ),
