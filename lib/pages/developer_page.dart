@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'developer_detail_page.dart';
 
 class MyDeveloper extends StatefulWidget {
   const MyDeveloper({super.key});
@@ -48,8 +49,27 @@ class _MyDeveloperState extends State<MyDeveloper> {
                     name: 'Developer 3',
                     role: 'UI/UX',
                     image: 'assets/images/developer/people.png',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const DeveloperDetailPage(
+                            name: 'Aditya Aji Pramono',
+                            nim: '1123150023',
+                            kelas: 'SE 23 SH',
+                            role: 'UI/UX Designer',
+                            interest: 'Tertarik dengan prototyping UI/UX',
+                            description:
+                                'Saya berperan dalam pembuatan splash screen, '
+                                'halaman riwayat pesanan, menu home, serta halaman '
+                                'detail developer pada aplikasi ini.',
+                            image: 'assets/images/developer/k.jpg',
+                          ),
+                        ),
+                      );
+                    },
                   ),
+
                 ),
               ],
             ),
