@@ -20,12 +20,13 @@ class DeveloperDetailPage extends StatelessWidget {
     required this.image,
   });
 
-  static const Color primaryColor = Color.fromARGB(255, 113, 50, 202);
+  static const Color igBackground = Color(0xffFAFAFA);
+  static const Color igGrey = Color(0xff8E8E8E);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFAFAFA),
+      backgroundColor: igBackground,
       appBar: AppBar(
         elevation: 0.5,
         backgroundColor: Colors.white,
@@ -39,7 +40,7 @@ class DeveloperDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /// ===== HEADER PROFIL ALA INSTAGRAM =====
+            /// ===== HEADER =====
             Container(
               padding: const EdgeInsets.all(16),
               color: Colors.white,
@@ -80,24 +81,26 @@ class DeveloperDetailPage extends StatelessWidget {
                   Text(
                     name,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     role,
-                    style: const TextStyle(fontSize: 13, color: Colors.grey),
+                    style: const TextStyle(fontSize: 13, color: igGrey),
                   ),
                   const SizedBox(height: 6),
-                  Text(interest, style: const TextStyle(fontSize: 13)),
+                  Text(
+                    interest,
+                    style: const TextStyle(fontSize: 13, height: 1.4),
+                  ),
                 ],
               ),
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
-            /// ===== INFO MAHASISWA =====
             _infoCard(
               title: "Informasi Mahasiswa",
               child: Column(
@@ -109,15 +112,14 @@ class DeveloperDetailPage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
-            /// ===== DESKRIPSI =====
             _infoCard(
               title: "Tentang Saya",
               child: Text(
                 description,
+                style: const TextStyle(fontSize: 14, height: 1.6),
                 textAlign: TextAlign.justify,
-                style: const TextStyle(fontSize: 14),
               ),
             ),
 
@@ -135,7 +137,7 @@ class DeveloperDetailPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.black12),
+        border: Border.all(color: const Color(0xffDBDBDB)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +159,7 @@ class DeveloperDetailPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: Colors.grey)),
+          Text(label, style: const TextStyle(color: igGrey)),
           Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
         ],
       ),
@@ -180,7 +182,10 @@ class _ProfileStat extends StatelessWidget {
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 4),
-        Text(title, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+        Text(
+          title,
+          style: const TextStyle(fontSize: 12, color: Color(0xff8E8E8E)),
+        ),
       ],
     );
   }
