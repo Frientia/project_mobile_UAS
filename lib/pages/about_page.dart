@@ -28,7 +28,7 @@ class _MyAboutState extends State<MyAbout> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -36,15 +36,13 @@ class _MyAboutState extends State<MyAbout> {
               'MyConcert App',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-
             const SizedBox(height: 6),
-
             const Text(
               'Versi 1.0.0',
               style: TextStyle(fontSize: 13, color: Colors.black),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 30),
 
             Container(
               width: 120,
@@ -69,34 +67,48 @@ class _MyAboutState extends State<MyAbout> {
 
             const SizedBox(height: 24),
 
-            const Text(
-              'MyConcert App merupakan aplikasi pemesanan tiket konser berbasis mobile '
-              'yang dirancang untuk memberikan pengalaman pengguna yang cepat, aman, '
-              'dan terintegrasi. Aplikasi ini memungkinkan pengguna untuk menjelajahi '
-              'berbagai event konser, melakukan pembelian tiket secara digital, serta '
-              'mengelola riwayat transaksi dengan mudah.\n\n'
-              'Dengan mengadopsi teknologi modern dan antarmuka yang intuitif, '
-              'MyConcert App hadir sebagai solusi digital yang menjembatani '
-              'penyelenggara event dan penikmat musik dalam satu platform terpadu.',
-              textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: 14, height: 1.7, color: Colors.grey),
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: const Text(
+                'MyConcert App merupakan aplikasi pemesanan tiket konser berbasis mobile '
+                'yang dirancang untuk memberikan pengalaman pengguna yang cepat, aman, '
+                'dan terintegrasi. Aplikasi ini memungkinkan pengguna untuk menjelajahi '
+                'berbagai event konser, melakukan pembelian tiket secara digital, serta '
+                'mengelola riwayat transaksi dengan mudah.\n\n'
+                'Dengan mengadopsi teknologi modern dan antarmuka yang intuitif, '
+                'MyConcert App hadir sebagai solusi digital yang menjembatani '
+                'penyelenggara event dan penikmat musik dalam satu platform terpadu.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14, height: 1.7, color: Colors.grey),
+              ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 35),
 
             _copyrightInfo(),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 12),
 
             GestureDetector(
               onTap: _openRepo,
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
+                  horizontal: 26,
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: primaryColor.withValues(alpha: 0.1),
+                  color: primaryColor.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: const Text(
@@ -108,8 +120,6 @@ class _MyAboutState extends State<MyAbout> {
                 ),
               ),
             ),
-
-            const SizedBox(height: 20),
           ],
         ),
       ),
