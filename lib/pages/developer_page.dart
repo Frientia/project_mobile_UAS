@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'developer_detail_page.dart';
+import 'package:mobile_uas/profil_dev/profil_aji.dart';
 
 class MyDeveloper extends StatefulWidget {
   const MyDeveloper({super.key});
