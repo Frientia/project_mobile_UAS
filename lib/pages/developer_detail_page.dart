@@ -22,6 +22,7 @@ class DeveloperDetailPage extends StatelessWidget {
 
   static const Color igBackground = Color(0xffFAFAFA);
   static const Color igGrey = Color(0xff8E8E8E);
+  static const Color igBlue = Color(0xff0095F6);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,7 @@ class DeveloperDetailPage extends StatelessWidget {
               ),
             ),
 
-            /// ===== BIO =====
+            /// ===== BIO + FOLLOW =====
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
@@ -94,6 +95,29 @@ class DeveloperDetailPage extends StatelessWidget {
                   Text(
                     interest,
                     style: const TextStyle(fontSize: 13, height: 1.4),
+                  ),
+                  const SizedBox(height: 12),
+
+                  /// FOLLOW BUTTON
+                  SizedBox(
+                    width: double.infinity,
+                    height: 36,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: igBlue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Follow",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
