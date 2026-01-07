@@ -41,7 +41,6 @@ class _MyProfileState extends State<MyProfile> {
     super.dispose();
   }
 
-
   Future<void> _loadProfile() async {
     final firebaseUid = user?.uid;
     if (firebaseUid == null) {
@@ -77,7 +76,6 @@ class _MyProfileState extends State<MyProfile> {
     setState(() => _loading = false);
   }
 
-
   Future<void> _saveProfile() async {
     final firebaseUid = user?.uid;
     if (firebaseUid == null) return;
@@ -111,7 +109,6 @@ class _MyProfileState extends State<MyProfile> {
     }
   }
 
-
   Future<void> _pickAndUploadImage() async {
     final firebaseUid = user?.uid;
     if (firebaseUid == null) return;
@@ -142,7 +139,8 @@ class _MyProfileState extends State<MyProfile> {
             ),
           );
 
-      final publicUrl = supabase.storage.from('avatars').getPublicUrl(fileName);
+      final publicUrl =
+          '${supabase.storage.from('avatars').getPublicUrl(fileName)}?v=${DateTime.now().millisecondsSinceEpoch}';
 
       await supabase
           .from('users')
