@@ -1,4 +1,4 @@
-package com.example.mobile_uas
+package com.frientia.myconcert
 
 import io.flutter.embedding.android.FlutterActivity
 
