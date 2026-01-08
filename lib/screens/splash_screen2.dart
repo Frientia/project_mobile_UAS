@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_uas/screens/splash_lottie.dart';
-import 'package:mobile_uas/screens/splash_screen2.dart';
 import 'package:mobile_uas/screens/splash_screen3.dart';
 
 class SplashScreen2 extends StatelessWidget {
