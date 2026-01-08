@@ -10,6 +10,17 @@ class MyLauncherScreen extends StatefulWidget {
 class _MyLauncherScreenState extends State<MyLauncherScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return PopScope(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Image.asset(
+            'assets/images/logo_global.png',
+            width: 200,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
+    );
   }
 }
