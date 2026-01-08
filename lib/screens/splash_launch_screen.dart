@@ -11,6 +11,7 @@ class _MyLauncherScreenState extends State<MyLauncherScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
+      canPop: false,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Center(
