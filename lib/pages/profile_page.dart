@@ -1,8 +1,9 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -18,7 +19,10 @@ class _MyProfileState extends State<MyProfile> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
+  final ImagePicker _picker = ImagePicker();
+
   String _countryCode = '+62';
+  String? _avatarUrl;
   bool _loading = true;
 
   @override
@@ -52,13 +56,19 @@ class _MyProfileState extends State<MyProfile> {
       if (data != null) {
         _nameController.text = data['name'] ?? '';
         _emailController.text = data['email'] ?? '';
+        _avatarUrl = data['avatar_url'];
 
         final phone = data['phone'] ?? '';
         if (phone.isNotEmpty) {
-          final match = RegExp(r'^(\+\d+)(.*)').firstMatch(phone);
-          if (match != null) {
-            _countryCode = match.group(1)!;
-            _phoneController.text = match.group(2)!;
+          if (phone.startsWith('+62')) {
+            _countryCode = '+62';
+            _phoneController.text = phone.replaceFirst('+62', '');
+          } else if (phone.startsWith('+')) {
+            // fallback aman untuk negara lain
+            _countryCode = phone.substring(0, 3);
+            _phoneController.text = phone.substring(3);
+          } else {
+            _phoneController.text = phone;
           }
         }
       }
@@ -67,6 +77,70 @@ class _MyProfileState extends State<MyProfile> {
     }
 
     setState(() => _loading = false);
+  }
+
+  Future<void> _pickAndUploadImage() async {
+    final firebaseUid = user?.uid;
+    if (firebaseUid == null) return;
+
+    final picked = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 75,
+    );
+
+    if (picked == null) return;
+
+    final bytes = await picked.readAsBytes();
+
+    final extension = picked.path.split('.').last.toLowerCase();
+    final mimeType = switch (extension) {
+      'png' => 'image/png',
+      'jpg' || 'jpeg' => 'image/jpeg',
+      'webp' => 'image/webp',
+      _ => 'image/jpeg',
+    };
+
+    final fileName =
+        '$firebaseUid-${DateTime.now().millisecondsSinceEpoch}.$extension';
+
+    setState(() => _loading = true);
+
+    try {
+      final supabase = Supabase.instance.client;
+
+      await supabase.storage
+          .from('avatars')
+          .uploadBinary(
+            fileName,
+            bytes,
+            fileOptions: FileOptions(contentType: mimeType),
+          );
+
+      final publicUrl = supabase.storage.from('avatars').getPublicUrl(fileName);
+
+      await supabase
+          .from('users')
+          .update({'avatar_url': publicUrl})
+          .eq('firebase_uid', firebaseUid);
+
+      setState(() {
+        _avatarUrl = publicUrl;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Foto profil diperbarui')));
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Gagal upload foto: $e')));
+      }
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
   }
 
   Future<void> _saveProfile() async {
@@ -86,15 +160,17 @@ class _MyProfileState extends State<MyProfile> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('name', _nameController.text.trim());
 
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profil berhasil diperbarui')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profil berhasil diperbarui')),
+        );
+      }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Gagal menyimpan profil: $e')));
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Gagal menyimpan profil: $e')));
+      }
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -123,20 +199,15 @@ class _MyProfileState extends State<MyProfile> {
                 children: [
                   _profileHeader(),
                   const SizedBox(height: 24),
-
                   _inputField('Nama', Icons.person, _nameController),
-
                   _inputField(
                     'Email',
                     Icons.email,
                     _emailController,
                     enabled: false,
                   ),
-
                   _phoneField(),
-
                   const SizedBox(height: 32),
-
                   SizedBox(
                     height: 48,
                     child: ElevatedButton(
@@ -159,14 +230,22 @@ class _MyProfileState extends State<MyProfile> {
   Widget _profileHeader() {
     return Column(
       children: [
-        const CircleAvatar(
-          radius: 42,
-          backgroundColor: Color(0xFF6F32CA),
-          child: Icon(Icons.person, size: 42, color: Colors.white),
+        GestureDetector(
+          onTap: _pickAndUploadImage,
+          child: CircleAvatar(
+            radius: 42,
+            backgroundColor: const Color(0xFF6F32CA),
+            backgroundImage: _avatarUrl != null
+                ? NetworkImage(_avatarUrl!)
+                : null,
+            child: _avatarUrl == null
+                ? const Icon(Icons.person, size: 42, color: Colors.white)
+                : null,
+          ),
         ),
         const SizedBox(height: 8),
         TextButton(
-          onPressed: () {},
+          onPressed: _pickAndUploadImage,
           child: const Text(
             'Upload Foto Profil',
             style: TextStyle(color: Colors.red),

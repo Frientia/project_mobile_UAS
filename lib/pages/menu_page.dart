@@ -7,8 +7,9 @@ import 'package:mobile_uas/pages/home_page.dart';
 import 'package:mobile_uas/pages/login_page.dart';
 import 'package:mobile_uas/pages/profile_page.dart';
 import 'package:mobile_uas/pages/riwayat_pesanan.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_uas/widgets/main_bottom_nav.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyMenu extends StatefulWidget {
@@ -21,19 +22,37 @@ class MyMenu extends StatefulWidget {
 }
 
 class _MyMenuState extends State<MyMenu> {
-  String _name = "User";
+  String _name = 'User';
+  String? _avatarUrl;
 
   @override
   void initState() {
     super.initState();
-    _loadSession();
+    _loadProfile();
   }
 
-  Future<void> _loadSession() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _name = prefs.getString('name') ?? "User";
-    });
+  Future<void> _loadProfile() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    try {
+      final data = await Supabase.instance.client
+          .from('users')
+          .select('name, avatar_url')
+          .eq('firebase_uid', user.uid)
+          .maybeSingle();
+
+      if (!mounted) return;
+
+      if (data != null) {
+        setState(() {
+          _name = data['name'] ?? 'User';
+          _avatarUrl = data['avatar_url'];
+        });
+      }
+    } catch (e) {
+      debugPrint('Load menu profile error: $e');
+    }
   }
 
   Future<void> _openInstagram() async {
@@ -47,9 +66,7 @@ class _MyMenuState extends State<MyMenu> {
   Future<void> _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
-
-      final googleSignIn = GoogleSignIn();
-      await googleSignIn.signOut();
+      await GoogleSignIn().signOut();
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
@@ -60,7 +77,7 @@ class _MyMenuState extends State<MyMenu> {
         context: context,
         builder: (_) => AlertDialog(
           title: const Text('Logout Success'),
-          content: Text('Anda berhasil Logout'),
+          content: const Text('Anda berhasil Logout'),
           actions: [
             TextButton(
               onPressed: () {
@@ -93,7 +110,7 @@ class _MyMenuState extends State<MyMenu> {
       backgroundColor: const Color(0xfff3eaff),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          double maxWidth = constraints.maxWidth > 1100
+          final double maxWidth = constraints.maxWidth > 1100
               ? 1100
               : constraints.maxWidth;
 
@@ -104,7 +121,6 @@ class _MyMenuState extends State<MyMenu> {
               child: ListView(
                 children: [
                   const SizedBox(height: 24),
-
                   const Center(
                     child: Text(
                       'Menu',
@@ -114,15 +130,10 @@ class _MyMenuState extends State<MyMenu> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 24),
-
                   _profileCard(),
-
                   const SizedBox(height: 32),
-
                   _sectionTitle('Aktivitas Saya'),
-
                   _menuItem(
                     Icons.trending_up,
                     'Riwayat Pembelian',
@@ -144,13 +155,11 @@ class _MyMenuState extends State<MyMenu> {
                       );
                     },
                   ),
-
                   _menuItem(
                     Icons.groups,
                     'Komunitas Saya',
                     onTap: _openInstagram,
                   ),
-
                   _menuItem(
                     Icons.dashboard,
                     'Dashboard',
@@ -161,9 +170,7 @@ class _MyMenuState extends State<MyMenu> {
                       );
                     },
                   ),
-
                   const SizedBox(height: 32),
-
                   _sectionTitle('Pengaturan'),
                   _menuItem(
                     Icons.settings,
@@ -175,7 +182,6 @@ class _MyMenuState extends State<MyMenu> {
                       );
                     },
                   ),
-
                   _menuItem(
                     Icons.code,
                     'Developer',
@@ -186,7 +192,6 @@ class _MyMenuState extends State<MyMenu> {
                       );
                     },
                   ),
-
                   _menuItem(
                     Icons.info_outline,
                     'About',
@@ -197,11 +202,8 @@ class _MyMenuState extends State<MyMenu> {
                       );
                     },
                   ),
-
                   const SizedBox(height: 32),
-
                   _logoutButton(context),
-
                   const SizedBox(height: 40),
                 ],
               ),
@@ -220,17 +222,22 @@ class _MyMenuState extends State<MyMenu> {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => const MyProfile()),
-        );
+        ).then((_) => _loadProfile());
       },
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: _cardDecoration(),
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 28,
               backgroundColor: MyMenu.primaryColor,
-              child: Icon(Icons.person, color: Colors.white),
+              backgroundImage: _avatarUrl != null
+                  ? NetworkImage(_avatarUrl!)
+                  : null,
+              child: _avatarUrl == null
+                  ? const Icon(Icons.person, color: Colors.white)
+                  : null,
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -277,7 +284,6 @@ class _MyMenuState extends State<MyMenu> {
 
   Widget _logoutButton(BuildContext context) {
     return ListTile(
-      selectedTileColor: Colors.deepPurple,
       leading: const Icon(Icons.logout, color: Colors.red),
       title: const Text(
         'Logout',
