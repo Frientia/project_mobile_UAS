@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +74,70 @@ class _MyProfileState extends State<MyProfile> {
     setState(() => _loading = false);
   }
 
+  Future<void> _pickAndUploadImage() async {
+    final firebaseUid = user?.uid;
+    if (firebaseUid == null) return;
+
+    final picked = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 75,
+    );
+
+    if (picked == null) return;
+
+    final bytes = await picked.readAsBytes();
+
+    final extension = picked.path.split('.').last.toLowerCase();
+    final mimeType = switch (extension) {
+      'png' => 'image/png',
+      'jpg' || 'jpeg' => 'image/jpeg',
+      'webp' => 'image/webp',
+      _ => 'image/jpeg',
+    };
+
+    final fileName =
+        '$firebaseUid-${DateTime.now().millisecondsSinceEpoch}.$extension';
+
+    setState(() => _loading = true);
+
+    try {
+      final supabase = Supabase.instance.client;
+
+      await supabase.storage
+          .from('avatars')
+          .uploadBinary(
+            fileName,
+            bytes,
+            fileOptions: FileOptions(contentType: mimeType),
+          );
+
+      final publicUrl = supabase.storage.from('avatars').getPublicUrl(fileName);
+
+      await supabase
+          .from('users')
+          .update({'avatar_url': publicUrl})
+          .eq('firebase_uid', firebaseUid);
+
+      setState(() {
+        _avatarUrl = publicUrl;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Foto profil diperbarui')));
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Gagal upload foto: $e')));
+      }
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
   Future<void> _saveProfile() async {
     final firebaseUid = user?.uid;
     if (firebaseUid == null) return;
@@ -103,64 +165,6 @@ class _MyProfileState extends State<MyProfile> {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('Gagal menyimpan profil: $e')));
-      }
-    } finally {
-      if (mounted) setState(() => _loading = false);
-    }
-  }
-
-  Future<void> _pickAndUploadImage() async {
-    final firebaseUid = user?.uid;
-    if (firebaseUid == null) return;
-
-    final picked = await _picker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 75,
-    );
-
-    if (picked == null) return;
-
-    final bytes = await picked.readAsBytes();
-    final fileName = '$firebaseUid.jpg';
-
-    setState(() => _loading = true);
-
-    try {
-      final supabase = Supabase.instance.client;
-
-      await supabase.storage
-          .from('avatars')
-          .uploadBinary(
-            fileName,
-            bytes,
-            fileOptions: const FileOptions(
-              upsert: true,
-              contentType: 'image/jpeg',
-            ),
-          );
-
-      final publicUrl =
-          '${supabase.storage.from('avatars').getPublicUrl(fileName)}?v=${DateTime.now().millisecondsSinceEpoch}';
-
-      await supabase
-          .from('users')
-          .update({'avatar_url': publicUrl})
-          .eq('firebase_uid', firebaseUid);
-
-      setState(() {
-        _avatarUrl = publicUrl;
-      });
-
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Foto profil diperbarui')));
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Gagal upload foto: $e')));
       }
     } finally {
       if (mounted) setState(() => _loading = false);
