@@ -28,7 +28,7 @@ class SplashScreen2 extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 Text(
-                  "Ayo tonton langsung musisi favoritmu",
+                  "Welcome to MyConcert",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -48,17 +48,8 @@ class SplashScreen2 extends StatelessWidget {
                       width: 12,
                       height: 12,
                       decoration: BoxDecoration(
-                        color: Color(0xFFedede9),
+                       color: Color.fromARGB(255, 196, 123, 228),
                         shape: BoxShape.circle,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Container(
-                      width: 12,
-                      height: 12,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color.fromARGB(255, 196, 123, 228),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -68,6 +59,15 @@ class SplashScreen2 extends StatelessWidget {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color.fromARGB(255, 113, 50, 202),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color.fromARGB(255, 196, 123, 228),
                       ),
                     ),
                   ],
@@ -80,7 +80,6 @@ class SplashScreen2 extends StatelessWidget {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Next Pages
                         Navigator.push(
                           context,
                           MaterialPageRoute(
