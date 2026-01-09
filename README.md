@@ -98,8 +98,8 @@ Pastikan Anda sudah menginstall:
 
 1. Clone repository
 ```bash
-git clone https://github.com/yourusername/notes-app.git
-cd notes-app
+git clone https://github.com/Frientia/project_mobile_UAS.git
+cd mobile_uas
 ```
 
 2. Install dependencies
