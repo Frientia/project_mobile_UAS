@@ -215,6 +215,7 @@ class _DeveloperCardState extends State<_DeveloperCard> {
                     onPressed: widget.onTap,
                     child: const Text(
                       'Detail Developer',
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
