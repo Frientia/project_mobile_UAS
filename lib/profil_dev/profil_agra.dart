@@ -137,3 +137,53 @@ Widget _buildAboutMe() {
     ),
   );
 }
+
+Widget _buildSkills() {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: const Color(0xFF173B5F),
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Skills',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 12),
+        SkillBar(
+          skill: 'Flutter',
+          percent: 0.85,
+          icon: Image.asset('assets/icons/flutter.png', width: 20),
+        ),
+        SkillBar(
+          skill: 'Firebase',
+          percent: 0.80,
+          icon: Image.asset('assets/icons/firebase.png', width: 20),
+        ),
+        const SkillBar(
+          skill: 'PHP',
+          percent: 0.70,
+          icon: FaIcon(FontAwesomeIcons.php, size: 20),
+        ),
+        const SkillBar(
+          skill: 'JavaScript',
+          percent: 0.65,
+          icon: FaIcon(FontAwesomeIcons.js, size: 20),
+        ),
+        const SkillBar(
+          skill: 'GitHub',
+          percent: 0.75,
+          icon: FaIcon(FontAwesomeIcons.github, size: 20),
+        ),
+      ],
+    ),
+  );
+}
