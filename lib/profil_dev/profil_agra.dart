@@ -107,3 +107,33 @@ Widget _buildSocialDrawerCard() {
     ),
   );
 }
+
+Widget _buildAboutMe() {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 16),
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: const Color(0xFF173B5F),
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'About Me',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        SizedBox(height: 8),
+        Text(
+          'Android Mobile Developer enthusiast menggunakan Flutter dan Firebase, '
+          'fokus pada clean architecture, scalability, dan UI modern.',
+          style: TextStyle(color: Colors.white70, height: 1.5),
+        ),
+      ],
+    ),
+  );
+}
