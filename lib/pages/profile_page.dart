@@ -64,7 +64,6 @@ class _MyProfileState extends State<MyProfile> {
             _countryCode = '+62';
             _phoneController.text = phone.replaceFirst('+62', '');
           } else if (phone.startsWith('+')) {
-            // fallback aman untuk negara lain
             _countryCode = phone.substring(0, 3);
             _phoneController.text = phone.substring(3);
           } else {
