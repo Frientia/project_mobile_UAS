@@ -45,6 +45,8 @@ dependencies:
   flutter_local_notifications: ^19.5.0
   url_launcher: ^6.3.0
   image_picker: ^1.0.7
+  font_awesome_flutter: ^10.7.0
+
 
 
 
