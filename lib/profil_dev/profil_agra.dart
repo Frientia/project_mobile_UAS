@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AgraProfile extends StatefulWidget {
   const AgraProfile({super.key});
@@ -81,6 +82,27 @@ Widget _buildStats() {
         _StatItem(title: 'Kelas', value: 'TI-3A'),
         _DividerVertical(),
         _StatItem(title: 'NIM', value: '202312345'),
+      ],
+    ),
+  );
+}
+
+Widget _buildSocialDrawerCard() {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+    padding: const EdgeInsets.symmetric(vertical: 16),
+    decoration: BoxDecoration(
+      color: const Color(0xFF173B5F),
+      borderRadius: BorderRadius.circular(18),
+    ),
+    child: const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FaIcon(FontAwesomeIcons.instagram, color: Colors.pink),
+        FaIcon(FontAwesomeIcons.facebook, color: Colors.blue),
+        FaIcon(FontAwesomeIcons.github, color: Colors.white),
+        FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green),
+        FaIcon(FontAwesomeIcons.linkedin, color: Colors.lightBlueAccent),
       ],
     ),
   );
