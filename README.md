@@ -332,7 +332,7 @@ Atau: Reject / Close Pull Request
 |------|------|---------------|
 | **Muhaad Yajid Rizky** | Project Lead & Fullstack Developer | - Authentication system<br>- Firebase integration<br>- API development<br>- Database design<br>- Github Manajement<br>-Supabase integration<br>- Profile screen |
 | **Aditya Aji Pramono** | Full Stack Developer | - Splash Screen<br>- Home screen implementation<br>- Profile screen<br>- Riwayat Pemesanan - Detail Pemesanan |
-| **Agra Alfian Hafiz** | Full Stack Developer | - Splash screen<br>- Register screen<br> - Profile User - Lotie - Menu<br>- Developer Profile List<br>- Profile screen  |
+| **Agra Alfian Hafiz** | Full Stack Developer | - Splash screen<br>- Register screen<br>- Profile User <br>- Lotie <br>- Menu<br>- Developer Profile List<br>- Profile screen  |
 
 
 ## 📄 License
