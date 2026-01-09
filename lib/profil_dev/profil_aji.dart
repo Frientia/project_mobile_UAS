@@ -20,7 +20,6 @@ class DeveloperDetailPage extends StatelessWidget {
     required this.image,
   });
 
-  /// 🎨 WARNA ALA INSTAGRAM
   static const Color igBackground = Color(0xffFAFAFA);
   static const Color igGrey = Color(0xff8E8E8E);
   static const Color igBlue = Color(0xff0095F6);
@@ -43,13 +42,11 @@ class DeveloperDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /// ================= HEADER PROFILE =================
             Container(
               padding: const EdgeInsets.all(16),
               color: Colors.white,
               child: Row(
                 children: [
-                  /// FOTO PROFIL
                   ClipRRect(
                     borderRadius: BorderRadius.circular(60),
                     child: Image.asset(
@@ -62,7 +59,6 @@ class DeveloperDetailPage extends StatelessWidget {
 
                   const SizedBox(width: 20),
 
-                  /// STAT ALA INSTAGRAM
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -77,7 +73,6 @@ class DeveloperDetailPage extends StatelessWidget {
               ),
             ),
 
-            /// ================= BIO + FOLLOW =================
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
@@ -104,7 +99,6 @@ class DeveloperDetailPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  /// FOLLOW BUTTON (DUMMY)
                   SizedBox(
                     width: double.infinity,
                     height: 36,
@@ -131,7 +125,6 @@ class DeveloperDetailPage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            /// ================= INFO MAHASISWA =================
             _infoCard(
               title: "Informasi Mahasiswa",
               child: Column(
@@ -145,7 +138,6 @@ class DeveloperDetailPage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            /// ================= TENTANG SAYA =================
             _infoCard(
               title: "Tentang Saya",
               child: Text(
@@ -157,7 +149,6 @@ class DeveloperDetailPage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            /// ================= KONTRIBUSI =================
             _infoCard(
               title: "Kontribusi dalam Aplikasi",
               child: Column(
@@ -181,7 +172,6 @@ class DeveloperDetailPage extends StatelessWidget {
     );
   }
 
-  /// ================= COMPONENT =================
 
   Widget _infoCard({required String title, required Widget child}) {
     return Container(
@@ -220,7 +210,6 @@ class DeveloperDetailPage extends StatelessWidget {
   }
 }
 
-/// ================= PROFILE STAT =================
 class _ProfileStat extends StatelessWidget {
   final String title;
   final String value;
