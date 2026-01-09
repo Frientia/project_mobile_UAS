@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mobile_uas/pages/developer_page.dart' show MyDeveloper;
 
-class AgraProfile extends StatelessWidget {
+class AgraProfile extends StatefulWidget {
   const AgraProfile({super.key});
+
+  @override
+  State<AgraProfile> createState() => _AgraProfileState();
+}
+
+class _AgraProfileState extends State<AgraProfile> {
+  bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +19,7 @@ class AgraProfile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _buildTopProfile(),
+            _buildTopProfile(context),
             const SizedBox(height: 20),
             _buildSocialDrawerCard(),
             const SizedBox(height: 20),
@@ -25,9 +33,9 @@ class AgraProfile extends StatelessWidget {
     );
   }
 
-  Widget _buildTopProfile() {
+  Widget _buildTopProfile(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 28),
+      padding: const EdgeInsets.fromLTRB(16, 44, 16, 28),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [Color(0xFF1E3C72), Color(0xFF2A5298)],
@@ -41,6 +49,35 @@ class AgraProfile extends StatelessWidget {
       ),
       child: Column(
         children: [
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const MyDeveloper()),
+                  );
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Text(
+                'Profile',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 24),
+
           Row(
             children: [
               const CircleAvatar(
@@ -72,6 +109,7 @@ class AgraProfile extends StatelessWidget {
               ),
             ],
           ),
+
           const SizedBox(height: 22),
           _buildStats(),
         ],
@@ -128,10 +166,10 @@ class AgraProfile extends StatelessWidget {
         color: const Color(0xFF173B5F),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'About Me',
             style: TextStyle(
               fontSize: 16,
@@ -139,12 +177,63 @@ class AgraProfile extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 8),
-          Text(
-            'Saya adalah seorang enthusiast di bidang pemrograman Android '
-            'Mobile menggunakan Flutter dan Firebase. Fokus pada clean code, '
-            'arsitektur aplikasi yang rapi, serta integrasi backend modern.',
-            style: TextStyle(color: Colors.white70, height: 1.5),
+          const SizedBox(height: 8),
+
+          AnimatedCrossFade(
+            duration: const Duration(milliseconds: 250),
+            crossFadeState: _isExpanded
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+            firstChild: const Text(
+              'Android Mobile Developer enthusiast dengan fokus pada '
+              'pengembangan aplikasi menggunakan Flutter dan Firebase. '
+              'Berpengalaman dalam clean code dan arsitektur aplikasi yang rapi.',
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.white70,
+                height: 1.6,
+                fontSize: 13,
+              ),
+            ),
+
+            secondChild: const Text(
+              'Saya merupakan Android Mobile Developer enthusiast yang berfokus '
+              'pada pengembangan aplikasi menggunakan Flutter dan Firebase. '
+              'Saya mengutamakan clean code, arsitektur aplikasi yang terstruktur, '
+              'serta integrasi backend yang modern dan scalable.\n\n'
+              'Pada project ini, saya berperan dalam mendesain dan mengembangkan '
+              'beberapa fitur utama, di antaranya Splash Screen, Register Page, '
+              'Lottie Animation Screen sebelum masuk ke Home, Menu Page, '
+              'serta Menu Profile yang mencakup logika upload foto profil, '
+              'perubahan nama, dan perubahan nomor handphone. '
+              'Selain itu, saya juga terlibat dalam pengembangan Developer Page, '
+              'About Page, serta Profile Page pribadi.',
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                color: Colors.white70,
+                height: 1.6,
+                fontSize: 13,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 6),
+
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isExpanded = !_isExpanded;
+              });
+            },
+            child: Text(
+              _isExpanded ? 'Lihat Lebih Sedikit' : 'Lihat Selengkapnya',
+              style: const TextStyle(
+                color: Colors.lightBlueAccent,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),
