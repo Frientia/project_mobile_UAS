@@ -46,7 +46,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
                   child: _DeveloperCard(
                     name: 'Agra Alfian Hafiz',
                     role: 'Backend',
-                    image: 'assets/images/developer/people.png',
+                    image: 'assets/images/developer/developer2/dev.jpeg',
                     onTap: () {
                       Navigator.push(
                         context,
