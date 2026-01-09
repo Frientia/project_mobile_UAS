@@ -45,7 +45,9 @@ class AgraProfile extends StatelessWidget {
             children: [
               const CircleAvatar(
                 radius: 36,
-                backgroundImage: AssetImage('assets/profile.jpg'),
+                backgroundImage: AssetImage(
+                  'assets/images/developer/developer2/agra.jpeg',
+                ),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -53,7 +55,7 @@ class AgraProfile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Akira',
+                      'Agra Alfian Hafiz',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -62,13 +64,12 @@ class AgraProfile extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      '@saber · Android Mobile Developer',
+                      'Android Mobile Developer',
                       style: TextStyle(fontSize: 13, color: Colors.white70),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.edit, color: Colors.white70),
             ],
           ),
           const SizedBox(height: 22),
@@ -82,17 +83,17 @@ class AgraProfile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.15),
+        color: Colors.white.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(16),
       ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _StatItem(title: 'Total Project', value: '12'),
+          _StatItem(title: 'Total Project', value: '4'),
           _DividerVertical(),
-          _StatItem(title: 'Kelas', value: 'TI-3A'),
+          _StatItem(title: 'Kelas', value: 'TI SE 23 M'),
           _DividerVertical(),
-          _StatItem(title: 'NIM', value: '202312345'),
+          _StatItem(title: 'NIM', value: '1123150025'),
         ],
       ),
     );
@@ -174,12 +175,12 @@ class AgraProfile extends StatelessWidget {
           SkillBar(
             skill: 'Flutter',
             percent: 0.85,
-            icon: Image.asset('assets/icons/flutter.png', width: 20),
+            icon: Image.asset('assets/images/icons/flutter.png', width: 23),
           ),
           SkillBar(
             skill: 'Firebase',
             percent: 0.80,
-            icon: Image.asset('assets/icons/firebase.png', width: 20),
+            icon: Image.asset('assets/images/icons/firebase.png', width: 15),
           ),
           const SkillBar(
             skill: 'PHP',
