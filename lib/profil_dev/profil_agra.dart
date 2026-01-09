@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mobile_uas/pages/developer_page.dart' show MyDeveloper;
+import 'package:mobile_uas/pages/developer_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AgraProfile extends StatefulWidget {
   const AgraProfile({super.key});
@@ -11,6 +12,13 @@ class AgraProfile extends StatefulWidget {
 
 class _AgraProfileState extends State<AgraProfile> {
   bool _isExpanded = false;
+
+  Future<void> _openUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Tidak bisa membuka $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,14 +153,35 @@ class _AgraProfileState extends State<AgraProfile> {
         color: const Color(0xFF173B5F),
         borderRadius: BorderRadius.circular(18),
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          FaIcon(FontAwesomeIcons.instagram, color: Colors.pink),
-          FaIcon(FontAwesomeIcons.facebook, color: Colors.blue),
-          FaIcon(FontAwesomeIcons.github, color: Colors.white),
-          FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green),
-          FaIcon(FontAwesomeIcons.linkedin, color: Colors.lightBlueAccent),
+          InkWell(
+            onTap: () => _openUrl(
+              'https://www.instagram.com/ixaaaaa._.a?igsh=dzdqYnE0c2VpdTls',
+            ),
+            child: const FaIcon(FontAwesomeIcons.instagram, color: Colors.pink),
+          ),
+          InkWell(
+            onTap: () => _openUrl('https://www.facebook.com/share/1C7XLxj5ip/'),
+            child: const FaIcon(FontAwesomeIcons.facebook, color: Colors.blue),
+          ),
+          InkWell(
+            onTap: () => _openUrl('https://github.com/agrahafiz13'),
+            child: const FaIcon(FontAwesomeIcons.github, color: Colors.white),
+          ),
+          InkWell(
+            onTap: () => _openUrl('https://wa.me/628987892216'),
+            child: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green),
+          ),
+          InkWell(
+            onTap: () =>
+                _openUrl('https://www.linkedin.com/in/agra-hafiz-671a67278'),
+            child: const FaIcon(
+              FontAwesomeIcons.linkedin,
+              color: Colors.lightBlueAccent,
+            ),
+          ),
         ],
       ),
     );
@@ -186,10 +215,10 @@ class _AgraProfileState extends State<AgraProfile> {
                 : CrossFadeState.showFirst,
             firstChild: const Text(
               'Android Mobile Developer enthusiast dengan fokus pada '
-              'pengembangan aplikasi menggunakan Flutter dan Firebase. '
-              'Berpengalaman dalam clean code dan arsitektur aplikasi yang rapi.',
+              'pengembangan aplikasi menggunakan Flutter dan Firebase.',
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.justify,
               style: TextStyle(
                 color: Colors.white70,
                 height: 1.6,
