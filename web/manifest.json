@@ -1,6 +1,6 @@
 {
-    "name": "mobile_uas",
-    "short_name": "mobile_uas",
+    "name": "MyConcert",
+    "short_name": "MyConcert",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -46,7 +46,8 @@ dependencies:
   url_launcher: ^6.3.0
   image_picker: ^1.0.7
   font_awesome_flutter: ^10.7.0
-
+  flutter_launcher_icons: ^0.13.1
+  change_app_package_name: ^1.5.0
 
 
 
@@ -68,6 +69,8 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/images/logo_global.png
+    - assets/icon/
     - assets/images/developer/
     - assets/images/developer/developer2/
     - assets/images/icons/
@@ -109,3 +112,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
