@@ -64,3 +64,24 @@ Widget _buildTopProfile() {
     ),
   );
 }
+
+Widget _buildStats() {
+  return Container(
+    margin: const EdgeInsets.only(top: 20),
+    padding: const EdgeInsets.symmetric(vertical: 14),
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(0.15),
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _StatItem(title: 'Total Project', value: '12'),
+        _DividerVertical(),
+        _StatItem(title: 'Kelas', value: 'TI-3A'),
+        _DividerVertical(),
+        _StatItem(title: 'NIM', value: '202312345'),
+      ],
+    ),
+  );
+}
