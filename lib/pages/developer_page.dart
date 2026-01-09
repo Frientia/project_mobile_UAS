@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_uas/profil_dev/profil_agra.dart';
 import 'package:mobile_uas/profil_dev/profil_aji.dart';
 import 'package:mobile_uas/profil_dev/profil_yajid.dart';
 
@@ -32,9 +33,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                   builder: (_) => const MyProfilDev(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const MyProfilDev()),
                 );
               },
               isMain: true,
@@ -47,8 +46,14 @@ class _MyDeveloperState extends State<MyDeveloper> {
                   child: _DeveloperCard(
                     name: 'Agra Alfian Hafiz',
                     role: 'Backend',
-                    image: 'assets/images/developer/people.png',
-                    onTap: () {},
+                    image: 'assets/images/developer/developer2/dev.jpeg',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const AgraProfile()),
+                      );
+                    },
+                    isMain: true,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -77,7 +82,6 @@ class _MyDeveloperState extends State<MyDeveloper> {
                       );
                     },
                   ),
-
                 ),
               ],
             ),
@@ -211,6 +215,7 @@ class _DeveloperCardState extends State<_DeveloperCard> {
                     onPressed: widget.onTap,
                     child: const Text(
                       'Detail Developer',
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
