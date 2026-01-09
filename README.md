@@ -42,7 +42,8 @@ Dengan kombinasi teknologi modern, arsitektur yang terstruktur, dan fokus pada p
 ## Screenshots
 
 <div align="center">
-![splash_global](https://github.com/user-attachments/assets/ba1f0ece-21b3-48eb-9573-f48cf1e1e3a6)
+  <img width="300" height="301" alt="splash_global" src="https://github.com/user-attachments/assets/ba1f0ece-21b3-48eb-9573-f48cf1e1e3a6"/>
+  
 ![registerasi](https://github.com/user-attachments/assets/a30e5029-ae01-46c1-bcb5-0744b0527153)
 ![login](https://github.com/user-attachments/assets/8e84fa7b-9261-4aff-8916-d6b981a91240)
 ![splash3](https://github.com/user-attachments/assets/40589437-9a80-4c8d-adb3-19e8592bcdeb)
@@ -52,6 +53,7 @@ Dengan kombinasi teknologi modern, arsitektur yang terstruktur, dan fokus pada p
 </div>
 
 <div align="center">
+  
 ![homepage](https://github.com/user-attachments/assets/a3deb314-a8ba-4405-b5e2-d2687e3792fa)
 ![detail_produk](https://github.com/user-attachments/assets/c2034b79-86e4-4e2d-b666-71396bed143a)
 ![lootie_success](https://github.com/user-attachments/assets/bb559259-e7c2-424a-a3c4-38becb87be10)
@@ -61,6 +63,7 @@ Dengan kombinasi teknologi modern, arsitektur yang terstruktur, dan fokus pada p
 </div>
 
 <div align="center">
+  
 ![profil_info_update](https://github.com/user-attachments/assets/6f6bfc16-0201-4865-910b-a63edd3da739)
 ![profil_aji](https://github.com/user-attachments/assets/fd571ce7-09df-4892-9049-de4262357e2f)
 ![profil_agraa](https://github.com/user-attachments/assets/5437a4cb-d306-4e88-a76e-56e2197b21b6)
