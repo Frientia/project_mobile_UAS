@@ -28,15 +28,15 @@ class _MyDeveloperState extends State<MyDeveloper> {
           children: [
             _DeveloperCard(
               name: 'Muhamad Yajid Rizky',
-              role: 'Flutter Developer',
-              image: 'assets/images/example.png',
+              role: 'Flutter Developer & Project Lead',
+              image: 'assets/images/developer/asa.jpeg',
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const MyProfilDev()),
                 );
               },
-              isMain: true,
+              isMain: false,
             ),
 
             const SizedBox(height: 20),
@@ -45,23 +45,23 @@ class _MyDeveloperState extends State<MyDeveloper> {
                 Expanded(
                   child: _DeveloperCard(
                     name: 'Agra Alfian Hafiz',
-                    role: 'Backend',
-                    image: 'assets/images/developer/developer2/dev.jpeg',
+                    role: 'FLutter Developer',
+                    image: 'assets/images/developer/asa.jpeg',
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (_) => const AgraProfile()),
                       );
                     },
-                    isMain: true,
+                    isMain: false,
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: _DeveloperCard(
                     name: 'Aditya Aji Pramono',
-                    role: 'UI/UX',
-                    image: 'assets/images/developer/people.png',
+                    role: 'Flutter Developer',
+                    image: 'assets/images/developer/asa.jpeg',
                     onTap: () {
                       Navigator.push(
                         context,
@@ -70,7 +70,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
                             name: 'Aditya Aji Pramono',
                             nim: '1123150023',
                             kelas: 'SE 23 SH',
-                            role: 'UI/UX Designer',
+                            role: 'Flutter Developer & GitHub Constributor',
                             interest: 'Tertarik dengan prototyping UI/UX',
                             description:
                                 'Saya berperan dalam pembuatan splash screen, '
@@ -214,7 +214,7 @@ class _DeveloperCardState extends State<_DeveloperCard> {
                     ),
                     onPressed: widget.onTap,
                     child: const Text(
-                      'Detail Developer',
+                      'Detail',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
