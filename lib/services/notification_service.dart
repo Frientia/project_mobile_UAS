@@ -9,7 +9,12 @@ class NotificationService {
   static Future<void> init() async {
     await _fcm.requestPermission(alert: true, badge: true, sound: true);
 
-    const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final token = await _fcm.getToken();
+    debugPrint('FCM TOKEN: $token');
+
+    const androidInit = AndroidInitializationSettings(
+      '@mipmap/ic_notification',
+    );
     await _local.initialize(const InitializationSettings(android: androidInit));
 
     const channel = AndroidNotificationChannel(
@@ -41,7 +46,7 @@ class NotificationService {
           'High Importance Notifications',
           importance: Importance.high,
           priority: Priority.high,
-          icon: 'ic_notification',
+          icon: '@drawable/ic_notification',
         ),
       ),
     );
