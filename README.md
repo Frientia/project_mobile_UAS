@@ -103,10 +103,10 @@ Alternative link: **[Google Drive Demo]()**
 
 ## Download APK
 
-Download versi terbaru aplikasi Notes App:
+Download versi terbaru aplikasi MyConcert App:
 
 ### Latest Release v1.0.0
-- [**Download APK (57.3 MB)**]()
+- [**Download APK (56.0 MB)**](https://github.com/Frientia/project_mobile_UAS/releases/download/v1.0.0/app-release.apk)
 
 
 **Minimum Requirements:**
