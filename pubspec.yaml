@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   firebase_core: ^4.2.1
   firebase_auth: ^6.1.2
+  firebase_messaging: ^16.1.0
   flutter_dotenv: ^6.0.0
   supabase_flutter: ^2.12.0
   shared_preferences: ^2.5.4
