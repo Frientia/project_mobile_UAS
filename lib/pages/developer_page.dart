@@ -29,7 +29,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
             _DeveloperCard(
               name: 'Muhamad Yajid Rizky',
               role: 'Flutter Developer & Project Lead',
-              image: 'assets/images/developer/asa.jpeg',
+              image: 'assets/images/developer/robin.png',
               onTap: () {
                 Navigator.push(
                   context,
@@ -46,7 +46,7 @@ class _MyDeveloperState extends State<MyDeveloper> {
                   child: _DeveloperCard(
                     name: 'Agra Alfian Hafiz',
                     role: 'FLutter Developer',
-                    image: 'assets/images/developer/asa.jpeg',
+                    image: 'assets/images/developer/developer2/chisa.jpeg',
                     onTap: () {
                       Navigator.push(
                         context,
