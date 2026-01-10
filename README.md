@@ -41,35 +41,57 @@ Dengan kombinasi teknologi modern, arsitektur yang terstruktur, dan fokus pada p
 
 ## Screenshots
 
+### Screen Awal Aplikasi
+
 <div align="center">
-  <img width="300" height="301" alt="splash_global" src="https://github.com/user-attachments/assets/ba1f0ece-21b3-48eb-9573-f48cf1e1e3a6" width="200"/>
-![registerasi](https://github.com/user-attachments/assets/a30e5029-ae01-46c1-bcb5-0744b0527153)
-![login](https://github.com/user-attachments/assets/8e84fa7b-9261-4aff-8916-d6b981a91240)
-![splash3](https://github.com/user-attachments/assets/40589437-9a80-4c8d-adb3-19e8592bcdeb)
-![splash2](https://github.com/user-attachments/assets/668a603d-1f98-4c3d-ab34-766f9edef1e9)
-![splash1](https://github.com/user-attachments/assets/a12dae56-c45e-4f99-832d-846a9725cac9)
-![splash_lottie](https://github.com/user-attachments/assets/f1c61575-b9d7-4e31-aade-c1bfd8f54516)
+  <img src="https://github.com/user-attachments/assets/ba1f0ece-21b3-48eb-9573-f48cf1e1e3a6" width="200"/>
+  <img src="https://github.com/user-attachments/assets/a12dae56-c45e-4f99-832d-846a9725cac9" width="200"/>
+  <img src="https://github.com/user-attachments/assets/668a603d-1f98-4c3d-ab34-766f9edef1e9" width="200"/>
 </div>
 
 <div align="center">
-![homepage](https://github.com/user-attachments/assets/a3deb314-a8ba-4405-b5e2-d2687e3792fa)
-![detail_produk](https://github.com/user-attachments/assets/c2034b79-86e4-4e2d-b666-71396bed143a)
-![lootie_success](https://github.com/user-attachments/assets/bb559259-e7c2-424a-a3c4-38becb87be10)
-![pembayaran](https://github.com/user-attachments/assets/3f76f11f-f3b1-46d5-82ac-84870f225f5a)
-![riwayat](https://github.com/user-attachments/assets/1991b854-6950-4125-ba0f-1a50cbec22d4)
-![detail_riwayat](https://github.com/user-attachments/assets/6ec1dc89-84e3-468c-8b34-95b92413a8a0)
+  <img src="https://github.com/user-attachments/assets/40589437-9a80-4c8d-adb3-19e8592bcdeb" width="200"/>
+  <img src="https://github.com/user-attachments/assets/f1c61575-b9d7-4e31-aade-c1bfd8f54516" width="200"/>
 </div>
 
 <div align="center">
-![profil_info_update](https://github.com/user-attachments/assets/6f6bfc16-0201-4865-910b-a63edd3da739)
-![profil_aji](https://github.com/user-attachments/assets/fd571ce7-09df-4892-9049-de4262357e2f)
-![profil_agraa](https://github.com/user-attachments/assets/5437a4cb-d306-4e88-a76e-56e2197b21b6)
-![menu_page](https://github.com/user-attachments/assets/a536fa17-c061-4609-8367-b1d3a9d31113)
-![dev_list](https://github.com/user-attachments/assets/afb8cd54-f150-4d1a-ba8a-84dd3b2cf313)
-![about](https://github.com/user-attachments/assets/2a411c5c-090d-4f0d-8dc4-d21a4a52f424)
-![splash_global](https://github.com/user-attachments/assets/af0c216b-a91a-4139-8cab-e256e1eb944c)
-![profil_yajid](https://github.com/user-attachments/assets/58abff69-f60b-46bc-abb2-b11612b58627)
+  <img src="https://github.com/user-attachments/assets/a30e5029-ae01-46c1-bcb5-0744b0527153" width="200"/>
+  <img src="https://github.com/user-attachments/assets/8e84fa7b-9261-4aff-8916-d6b981a91240" width="200"/>
 </div>
+
+### Halaman Utama Aplikasi
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/a3deb314-a8ba-4405-b5e2-d2687e3792fa" width="200"/>
+  <img src="https://github.com/user-attachments/assets/c2034b79-86e4-4e2d-b666-71396bed143a" width="200"/>
+  <img src="https://github.com/user-attachments/assets/a536fa17-c061-4609-8367-b1d3a9d31113" width="200"/>
+</div>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/3f76f11f-f3b1-46d5-82ac-84870f225f5a" width="200"/>
+  <img src="https://github.com/user-attachments/assets/bb559259-e7c2-424a-a3c4-38becb87be10" width="200"/>
+</div>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/1991b854-6950-4125-ba0f-1a50cbec22d4" width="200"/>
+  <img src="https://github.com/user-attachments/assets/6ec1dc89-84e3-468c-8b34-95b92413a8a0" width="200"/>
+</div>
+
+### Profile Developer
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/6f6bfc16-0201-4865-910b-a63edd3da739" width="200"/>
+  <img src="https://github.com/user-attachments/assets/fd571ce7-09df-4892-9049-de4262357e2f" width="200"/>
+  <img src="https://github.com/user-attachments/assets/5437a4cb-d306-4e88-a76e-56e2197b21b6" width="200"/>
+</div>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/58abff69-f60b-46bc-abb2-b11612b58627" width="200"/>
+  <img src="https://github.com/user-attachments/assets/afb8cd54-f150-4d1a-ba8a-84dd3b2cf313" width="200"/>
+  <img src="https://github.com/user-attachments/assets/2a411c5c-090d-4f0d-8dc4-d21a4a52f424" width="200"/>
+</div>
+
+
 
 ## Demo Video
 
@@ -265,6 +287,7 @@ CREATE TABLE public.users (
 );
 
 ```
+<img width="628" height="260" alt="mobileuas drawio (1)" src="https://github.com/user-attachments/assets/1f4f4823-6925-41e4-84c1-4cfd3cb57200" />
 
 
 ## 📝 API Documentation
@@ -273,7 +296,6 @@ CREATE TABLE public.users (
 - `POST /api/auth/register` - Register user baru
 - `POST /api/auth/login` - Login user
 - `POST /api/auth/logout` - Logout user
-- `GET /api/auth/verify` - Verify token
 
 Berikut **versi Development Workflow yang sudah ditambahkan penjelasan peran Admin / Project Lead**, rapi, konsisten, dan siap langsung Anda tempel ke README atau laporan proyek.
 
