@@ -42,6 +42,7 @@ class NotificationService {
           'High Importance Notifications',
           importance: Importance.high,
           priority: Priority.high,
+          icon: 'ic_notification',
         ),
       ),
     );
