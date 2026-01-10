@@ -370,5 +370,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
   <p>Made with by Mafia Sawit Team</p>
-  <p>© 2026 Notes App. All rights reserved.</p>
+  <p>© 2026 MyConcert App. All rights reserved.</p>
 </div>
