@@ -28,12 +28,29 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  country_picker: ^2.0.26
   flutter:
     sdk: flutter
+  lottie: ^3.3.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  firebase_core: ^4.2.1
+  firebase_auth: ^6.1.2
+  firebase_messaging: ^16.1.0
+  flutter_dotenv: ^6.0.0
+  supabase_flutter: ^2.12.0
+  shared_preferences: ^2.5.4
+  google_sign_in: ^6.2.1
+  flutter_local_notifications: ^19.5.0
+  url_launcher: ^6.3.0
+  image_picker: ^1.0.7
+  font_awesome_flutter: ^10.7.0
+  flutter_launcher_icons: ^0.13.1
+  change_app_package_name: ^1.5.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +68,15 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/images/
+    - assets/images/logo_global.png
+    - assets/icon/
+    - assets/images/developer/
+    - assets/images/developer/developer2/
+    - assets/images/icons/
+    - assets/animations/
+    - .env
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -87,3 +113,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
