@@ -106,7 +106,7 @@ Alternative link: **[Google Drive Demo]()**
 Download versi terbaru aplikasi Notes App:
 
 ### Latest Release v1.0.0
-- [**Download APK (57.3 MB)**]()
+- [**Download APK (57.3 MB)**](https://github.com/Frientia/project_mobile_UAS/releases/download/v1.0.0/app-release.apk)
 
 
 **Minimum Requirements:**
