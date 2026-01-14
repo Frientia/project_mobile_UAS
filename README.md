@@ -97,7 +97,7 @@ Dengan kombinasi teknologi modern, arsitektur yang terstruktur, dan fokus pada p
 
 Lihat video demo aplikasi kami untuk melihat semua fitur dalam aksi!
 
-**[Watch Full Demo on YouTube]()**
+**[Watch Full Demo on YouTube](https://youtu.be/dp-8cqOmqiQ)**
 
 Alternative link: **[Google Drive Demo]()**
 
@@ -368,9 +368,9 @@ Atau: Reject / Close Pull Request
 
 | Name | Role | Contributions |
 |------|------|---------------|
-| **Muhaad Yajid Rizky** | Project Lead & Fullstack Developer | - Authentication system<br>- Firebase integration<br>- API development<br>- Database design<br>- Github Manajement<br>-Supabase integration<br>- Profile screen |
-| **Aditya Aji Pramono** | Full Stack Developer | - Splash Screen<br>- Home screen implementation<br>- Profile screen<br>- Riwayat Pemesanan - Detail Pemesanan |
-| **Agra Alfian Hafiz** | Full Stack Developer | - Splash screen<br>- Register screen<br>- Profile User <br>- Lotie <br>- Menu<br>- Developer Profile List<br>- Profile screen  |
+| **Muhaad Yajid Rizky**<br>**1123150114** | Project Lead & Fullstack Developer | - Authentication system<br>- Firebase integration<br>- API development<br>- Database design<br>- Github Manajement<br>-Supabase integration<br>- Profile screen |
+| **Aditya Aji Pramono**<br>**1123150023** | Full Stack Developer | - Splash Screen<br>- Home screen implementation<br>- Profile screen<br>- Riwayat Pemesanan - Detail Pemesanan |
+| **Agra Alfian Hafiz**<br>**1123150025**  | Full Stack Developer | - Splash screen<br>- Register screen<br>- Profile User <br>- Lotie <br>- Menu<br>- Developer Profile List<br>- Profile screen  |
 
 
 ## 📄 License

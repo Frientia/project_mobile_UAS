@@ -3,6 +3,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_uas/firebase_options.dart';
+import 'package:mobile_uas/pages/home_page.dart';
+import 'package:mobile_uas/pages/menu_page.dart';
 import 'package:mobile_uas/services/notification_service.dart';
 import 'package:mobile_uas/screens/splash_launch_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -49,6 +51,10 @@ class MyProject extends StatelessWidget {
       title: 'MyConcert',
       debugShowCheckedModeBanner: false,
       home: MyLauncherScreen(),
+      routes: {
+        '/home': (_) => HomePage(), 
+        '/profile': (_) => MyMenu()
+      },
     );
   }
 }
